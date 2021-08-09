@@ -99,12 +99,6 @@
                   </tr>
                   </thead>
                   <tbody>
-                  
-                   
-                   
-
-                   
-                    
                     @foreach($calls as $call)
 
                   
@@ -169,14 +163,6 @@
                            }
                            
                          }
-                          
-
-                        
-                        
-
-                          
-                         
-                          
                         }
                       @endphp
                     @endforeach
