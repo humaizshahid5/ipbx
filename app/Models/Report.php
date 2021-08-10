@@ -12,5 +12,10 @@ class Report extends Model
     protected $fillable = [
         'email',
         'period',
+        'range',
+        'type',
+        'send_date',
+        'download_status'
+
     ];
 }

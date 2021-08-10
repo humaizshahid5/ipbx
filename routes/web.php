@@ -30,7 +30,9 @@ Route::get('/search_calls', [App\Http\Controllers\CallsController::class, 'searc
 Route::post('/add_report', [App\Http\Controllers\ReportController::class, 'store'])->name('add_report');
 Route::get('/del_price/{user_id}/del', [App\Http\Controllers\PricingController::class, 'destroy']);
 Route::get('/del_report/{user_id}/del', [App\Http\Controllers\ReportController::class, 'destroy']);
-Route::get('/pdf', [App\Http\Controllers\ReportController::class, 'createPDF'])->name('pdf');
+Route::get('/pdf', [App\Http\Controllers\ReportController::class, 'report'])->name('pdf');
+Route::get('/sendnow', [App\Http\Controllers\ReportController::class, 'sendnow'])->name('sendnow');
+
 
 
 

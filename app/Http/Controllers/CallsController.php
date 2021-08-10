@@ -59,7 +59,7 @@ class CallsController extends Controller
             $query->where('calltype', '=', $filters['type']);
         }
         if ($filters['duration']) {
-            $query->where('duration', '=', $filters['duration']);
+            $query->where('duration', '>=', $filters['duration']);
         }
     })->get();
 

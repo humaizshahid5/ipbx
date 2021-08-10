@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\Report; 
 use  Illuminate\Validation;
 use Illuminate\Support\Facades\DB;
 use  Illuminate\Database\Query;
-use App\Http\Controllers\CallsController;
-use PDF;
+use Swift_SendmailTransport;
+use Swift_SmtpTransport;
+
+
 
 class ReportController extends Controller
 {
@@ -25,13 +28,22 @@ class ReportController extends Controller
         $this->validate($request, [
             'email' => ['required'],
             'period' => ['required'],
+            'range' => ['required'],
+            'type' => ['required'],
+
             
 
         ]);
-
+       $senddate = Date('y:m:d', strtotime('+10 days'));
         $reports = Report::create([
             'email' => $request->email,
             'period' => $request->period,
+            'range' => $request->range,
+            'type' => $request->type,
+            'send_date' => $senddate,
+            'download_status' => "0",
+
+
             
 
         ]);
@@ -43,17 +55,37 @@ class ReportController extends Controller
         DB::table('reports')->where('id', $del)->delete();
         return back();
     }
+    public function report(){
 
-    public function createPDF() {
-        // retreive all records from db
-        $calls =   DB::table('cdr')->take('10')->get();
-        $rates =   DB::table('pricings')->take('10')->get();
-  
-        // share data to view
+        $calls =   DB::table('cdr')->take('100')->orderBY('cdr_id', 'ASC')->get();
+        $rates =   DB::table('pricings')->get();
+        return view("generate",  [
+            'calls' => $calls,
+            'rates' => $rates
+           
+        ]);
+    }
+
+    public function sendnow(){
+        $host = "mail.humaizshahid.com";
+        $port = "143";
+        $username = "support@humaizshahid.com";
+        $password = "humaiz5900";
         
-        $pdf = PDF::loadView("calls", compact('calls','rates'));
+        $transport = (new Swift_SmtpTransport("mail.humaizshahid.com", "143"))
+        ->setUsername("support@humaizshahid.com")
+        ->setPassword("humaiz5900");
+
+    $mailer    = new Swift_Mailer($transport);
+
+    $message   = (new Swift_Message("Test"))
+        ->setFrom("support@humaizshahid.com", "Test")
+        ->setTo("humaiz.work@gmail.com")
+        ->setBody("Hello");
+
+
+    return $mailer->send($message);
+    }
+
   
-        // download PDF file with download method
-        return $pdf->download('pdf_file.pdf');
-      }
 }

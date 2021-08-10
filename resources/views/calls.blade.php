@@ -95,13 +95,10 @@
                     <th>Price Name</th>
                     <th>Rate</th>
                     <th>Cost</th>
-                    
                   </tr>
                   </thead>
                   <tbody>
                     @foreach($calls as $call)
-
-                  
                     <?php $inc =  $loop->iteration ?> 
                   <tr>
                     <td>{{ $inc }}</td>
@@ -111,14 +108,12 @@
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->duration }}</td>
                     <td>
-                      @php $c_rate =0; @endphp
+                      @php $c_rate =0;  $p_name = ""; @endphp
                     @foreach($rates as $rate)
                       @php
                         $c_count =0;
                         $price_data = $rate->destination;
                         $call_data = $call->destination;
-                        $p_name = "";
-
                         $p_values = array();
                         $c_values = array();
                         $p_num = array();
@@ -137,31 +132,25 @@
                               $c_values[] = $i." | ".$call_data[$i]. "<br>";
                           }
                           $num = count($p_num);
-                         
                           $m_count= 0;
                           for($i = 0; $i < $num; $i++){
-                        
                           $p_val = $p_num[$i];
                           if($p_values[$i] == $c_values[$p_val]){
                              $m_count = $m_count+1;
                           $status = 1;
-                         
                           }
                           else{
                            $status = 0;
                            break;
                           }
-
                           }
                          if($status == 1){
-                         
                            if($m_count > $c_count)
                            {
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
                             $p_name = $rate->name;
                            }
-                           
                          }
                         }
                       @endphp
@@ -169,15 +158,10 @@
                     @php echo $p_name; @endphp
                     </td>
                     <td>@php echo $c_rate; @endphp</td>
-                    <td>@php  $minutes = floor($call->duration/60); echo $c_rate*$minutes; @endphp</td>
+                    <td>@php  $minutes = $call->duration/60; echo number_format(floatval($c_rate*$minutes), 2, '.', ''); @endphp</td>
                   </tr>
-                    
-                    @endforeach
-                   
-                    
-
-                  </tbody>
-                 
+                    @endforeach                   
+                  </tbody>                
                 </table>
               </div>
               <!-- /.card-body -->
@@ -191,5 +175,4 @@
       <!-- /.container-fluid -->
     </section>
 </div>
-
-    @endsection
+@endsection

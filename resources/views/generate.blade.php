@@ -1,5 +1,3 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,134 +71,146 @@ $(document).ready(function() {
 
 	table.buttons().container()
 		.appendTo( '#example_wrapper .col-md-6:eq(0)' );
+        window.location.replace("/dashboard");
 } );
-
-
-
 	</script>
 </head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    <div id="app">
-        
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-     
-    </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-   
+<script type="text/javascript">
+$(function(){
+    $('.buttons-pdf').trigger('click');
+    document.getElementsByTagName ('html') [0] .remove ();
 
-      <!-- Messages Dropdown Menu -->
-    
-      <!-- Notifications Dropdown Menu -->
- 
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"  href="{{ route('logout') }}">
-        Welcome, {{ auth()->user()->name }}
-          <i class="fas fa-lock"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="height:auto;">
-    <!-- Brand Logo -->
-    <a href="{{ route('dashboard') }}" class="brand-link">
-      
-     <center><span class="brand-text font-weight-light text-center ">Control Panel</span></center>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-     
-      <!-- SidebarSearch Form -->
-      
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="{{ route('dashboard') }}" class="nav-link {{ (request()->is('dashboard','/')) ? 'active' : '' }}">
-              <i class="nav-icon fas fa-home"></i>
-              <p>
-                Dashboard
-               
-              </p>
-            </a>
+});
+</script>
+<input id="close_window" type="button" class="btn btn-success"
+                   style="font-weight: bold;display: inline;"
+                   value="Close">
+                   <script>
+   $('#close_window').on('click', function(){
+      window.opener = self;
+      window.close();
+   });
+</script>
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <br>
            
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('calls') }}" class="nav-link {{ (request()->is('calls')) ? 'active' : '' }}">
-              <i class="nav-icon fas fa-phone-alt"></i>
-              <p>
-                Calls Record
-                
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('pricing') }}" class="nav-link {{ (request()->is('pricing')) ? 'active' : '' }}">
-              <i class="nav-icon fas fa-dollar-sign"></i>
-              <p>
-                Prcing
-                
-              </p>
-            </a>
-          </li>
-          @if(auth()->user()->role == '1')
-          <li class="nav-item">
-            <a href="{{ route('users') }}" class="nav-link {{ (request()->is('users')) ? 'active' : '' }}">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                User Mangment
-              </p>
-            </a>
-          </li>
-          @endif
-          <li class="nav-item">
-            <a href="{{ route('report') }}" class="nav-link {{ (request()->is('report')) ? 'active' : '' }}">
-              <i class="nav-icon fas fa-file"></i>
-              <p>
-                Reporting
-                
-              </p>
-            </a>
-          </li>
-
-       
-
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
 
 
-        <main>
-            @yield('content')
-        </main>
-        <footer class="main-footer text-center">
-    <strong>Developed by HumAiz Shahid</strong>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Calls</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example" class="table table-bordered table-striped" style="width:100%;">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Type</th>
+                    <th>Duration</th>
+                    <th>Price Name</th>
+                    <th>Rate</th>
+                    <th>Cost</th>
+                    
+                  </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($calls as $call)
 
-  </footer>
-    </div>
+                  
+                    <?php $inc =  $loop->iteration ?> 
+                  <tr>
+                    <td>{{ $inc }}</td>
+                    <td>{{ $call->calldate }}</td>
+                    <td>{{ $call->source }}</td>
+                    <td>{{ $call->destination }}</td>
+                    <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
+                    <td>{{ $call->duration }}</td>
+                    <td>
+                      @php $c_rate =0; @endphp
+                    @foreach($rates as $rate)
+                      @php
+                        $c_count =0;
+                        $price_data = $rate->destination;
+                        $call_data = $call->destination;
+                        $p_name = "";
+
+                        $p_values = array();
+                        $c_values = array();
+                        $p_num = array();
+                        $status = 0;
+                        if(preg_match("/[a-z]/i", $call_data)){
+                           break;
+                        }
+                        if(strlen($price_data) == strlen($call_data) && $call->calltype == $rate->type){
+                        for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
+                            if(is_numeric($price_data[$i])){
+                                     $p_values[] =$i." | ".$price_data[$i]."<br>";
+                                    $p_num[] = $i;
+                            }
+                          }
+                          for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
+                              $c_values[] = $i." | ".$call_data[$i]. "<br>";
+                          }
+                          $num = count($p_num);
+                         
+                          $m_count= 0;
+                          for($i = 0; $i < $num; $i++){
+                        
+                          $p_val = $p_num[$i];
+                          if($p_values[$i] == $c_values[$p_val]){
+                             $m_count = $m_count+1;
+                          $status = 1;
+                         
+                          }
+                          else{
+                           $status = 0;
+                           break;
+                          }
+
+                          }
+                         if($status == 1){
+                         
+                           if($m_count > $c_count)
+                           {
+                            $c_count = $m_count;
+                            $c_rate = $rate->rate;
+                            $p_name = $rate->name;
+                           }
+                           
+                         }
+                        }
+                      @endphp
+                    @endforeach
+                    @php echo $p_name; @endphp
+                    </td>
+                    <td>@php echo $c_rate; @endphp</td>
+                    <td>@php  $minutes = floor($call->duration/60); echo $c_rate*$minutes; @endphp</td>
+                  </tr>
+                    
+                    @endforeach
+                   
+                    
+
+                  </tbody>
+                 
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
 </div>
-    <script src="{{ asset('js/adminlte.min.js') }}"></script>
-
-</body>
-</html>

@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-lg-6 col-xs-12">
                             <label>Rate</label>
-                            <input type="number" class="form-control" name="rate" />
+                            <input type="number" class="form-control" name="rate" step="0.1" />
                         </div>
                         <div class="col-lg-6 col-xs-12">
                             <label>Type</label>
