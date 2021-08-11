@@ -3,10 +3,66 @@
 
 
 @section('content')
+
+@foreach($calls_total as $call)
+@php $c_rate =0;  $p_name = ""; $t_duration = 0; $t_cost=0; @endphp
+                    @foreach($rates as $rate)
+                      @php
+                        $c_count =0;
+                        $price_data = $rate->destination;
+                        $call_data = $call->destination;
+                        $p_values = array();
+                        $c_values = array();
+                        $p_num = array();
+                        $status = 0;
+                        if(preg_match("/[a-z]/i", $call_data)){
+                           break;
+                        }
+                        if(strlen($price_data) == strlen($call_data) && $call->calltype == $rate->type){
+                        for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
+                            if(is_numeric($price_data[$i])){
+                                     $p_values[] =$i." | ".$price_data[$i]."<br>";
+                                    $p_num[] = $i;
+                            }
+                          }
+                          for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
+                              $c_values[] = $i." | ".$call_data[$i]. "<br>";
+                          }
+                          $num = count($p_num);
+                         
+                          $m_count= 0;
+                          for($i = 0; $i < $num; $i++){
+                          $p_val = $p_num[$i];
+                          if($p_values[$i] == $c_values[$p_val]){
+                          $m_count = $m_count+1;
+                          $status = 1;
+                          }
+                          else{
+                           $status = 0;
+                           break;
+                          }
+
+                          }
+                         if($status == 1){
+                         
+                           if($m_count > $c_count)
+                           {
+                            $c_count = $m_count;
+                            $c_rate = $rate->rate;
+                            $p_name = $rate->name;
+                           
+                           }
+                           
+                         }
+                         $t_duration = $t_duration+$call->duration;
+                            $t_cost = $t_cost+$rate->rate;
+                        }
+                      @endphp
+                    @endforeach
+                    
+@endforeach
+
 <script type="text/javascript" class="init">
-	
-
-
     $(document).ready(function() {
         var table = $('#usertable').DataTable( {
             lengthChange: false,
@@ -80,14 +136,14 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>{{ $users_count }}</h3>
+                        <h3>@php  $minutes = $t_duration/60; echo number_format(floatval($t_cost*$minutes), 2, '.', ''); @endphp </h3>
 
-                        <p>User</p>
+                        <p>Total Cost</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                    <i class="fas fa-dollar-sign"></i>
                     </div>
-                    <a href="{{ route('users') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('calls') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -127,7 +183,7 @@
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->duration }}</td>
                     <td>
-                      @php $c_rate =0;  $p_name = ""; @endphp
+                    @php $c_rate =0;  $p_name = ""; @endphp
                     @foreach($rates as $rate)
                       @php
                         $c_count =0;
@@ -180,7 +236,7 @@
                     @php echo $p_name; @endphp
                     </td>
                     <td>@php echo $c_rate; @endphp</td>
-                    <td>@php  $minutes = $call->duration/60; echo number_format(floatval($c_rate*$minutes), 2, '.', ''); @endphp</td>
+                    <td>@php  $minutes = $call->duration/60; echo number_format(floatval($c_rate*$minutes), 4, '.', ''); @endphp</td>
                   </tr>
                     @endforeach
                   </tbody>
