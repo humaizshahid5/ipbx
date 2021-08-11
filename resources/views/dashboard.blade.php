@@ -3,9 +3,9 @@
 
 
 @section('content')
-
-@foreach($calls_total as $call)
 @php $c_rate =0;  $p_name = ""; $t_duration = 0; $t_cost=0; @endphp
+@foreach($calls_total as $call)
+
                     @foreach($rates as $rate)
                       @php
                         $c_count =0;
@@ -49,13 +49,16 @@
                            {
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
+                            $t_duration = $call->duration/60;
+                            $t_cost = $t_cost+$t_duration*$rate->rate;
                             $p_name = $rate->name;
+                            
                            
                            }
+                         
                            
                          }
-                         $t_duration = $t_duration+$call->duration;
-                            $t_cost = $t_cost+$rate->rate;
+                      
                         }
                       @endphp
                     @endforeach
@@ -136,7 +139,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>@php  $minutes = $t_duration/60; echo number_format(floatval($t_cost*$minutes), 2, '.', ''); @endphp </h3>
+                        <h3>@php   echo number_format(floatval($t_cost), 3, '.', ''); @endphp </h3>
 
                         <p>Total Cost</p>
                     </div>
