@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-
 <div class="content-wrapper">
 <section class="content">
       <div class="container-fluid">
@@ -29,8 +27,6 @@
                         To
                       </label>
                       <input type="date" class="form-control @error('todate') is-invalid @enderror" name="todate" />
-                     
-                       
                     </div>
                     <div class="col-md-6">
                       <label>
@@ -61,22 +57,14 @@
                       </label>
                       <input type="number" class="form-control" name="duration" />
                     </div>
-                    
-                    
-                    
-                    
-                  
                   <div class="col-lg-12 col-sm-12">
                               <br>
                               <button type="submit" class="btn btn-primary btn-block">Search</button>
                           </div>
                   </div>
-             
               </form>
               </div>
               </div>
-
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Calls</h3>

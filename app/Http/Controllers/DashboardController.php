@@ -15,7 +15,9 @@ class DashboardController extends Controller
         $calls_count =   DB::table('cdr')->count();
         $calls_today =   DB::table('cdr')->where('calldate', 'like', date("Y-m-d")."%")->count();
         $users_count =   DB::table('users')->count();
-        $calls =   DB::table('cdr')->take('100')->orderBY('cdr_id', 'DESC')->get();
+        $calls =   DB::table('cdr')->take('100')->where('calltype', '=', '3')->Where('duration', '>=', '1' )->orderBY('cdr_id', 'ASC1,')->get();
+        $calls_total =   DB::table('cdr')->where('calltype', '=', '3')->get();
+
         $rates =   DB::table('pricings')->get();
        
         return view('dashboard', [
@@ -23,6 +25,7 @@ class DashboardController extends Controller
             'calls_today' => $calls_today,
             'users_count' => $users_count,
             'calls' => $calls,
+            'calls_total' => $calls_total,
             'rates' => $rates
         ]);
     }
