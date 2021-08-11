@@ -90,7 +90,7 @@
                     <?php $inc =  $loop->iteration ?> 
                   <tr>
                     <td>{{ $inc }}</td>
-                    <td>{{ $call->calldate }}</td>
+                    <td>{{ date('M j, Y g:i a',strtotime($call->calldate)) }}</td>
                     <td>{{ $call->source }}</td>
                     <td>{{ $call->destination }}</td>
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
