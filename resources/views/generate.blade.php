@@ -71,7 +71,7 @@ $(document).ready(function() {
 
 	table.buttons().container()
 		.appendTo( '#example_wrapper .col-md-6:eq(0)' );
-        window.location.replace("/dashboard");
+    
 } );
 	</script>
 </head>
@@ -86,12 +86,6 @@ $(function(){
 <input id="close_window" type="button" class="btn btn-success"
                    style="font-weight: bold;display: inline;"
                    value="Close">
-                   <script>
-   $('#close_window').on('click', function(){
-      window.opener = self;
-      window.close();
-   });
-</script>
 <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -122,6 +116,7 @@ $(function(){
                   </tr>
                   </thead>
                   <tbody>
+                    @php $p_name = 0;@endphp
                     @foreach($calls as $call)
 
                   

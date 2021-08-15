@@ -68,8 +68,8 @@
 <script type="text/javascript" class="init">
     $(document).ready(function() {
         var table = $('#usertable').DataTable( {
-            lengthChange: false,
-            "pageLength": 70
+            lengthChange: true,
+            "pageLength": 100
            
         } );
     

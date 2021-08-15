@@ -12,10 +12,12 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $start_date = Date('y-m-d', strtotime('-30 days'));
+        $end_date = Date('y-m-d');
         $calls_count =   DB::table('cdr')->count();
         $calls_today =   DB::table('cdr')->where('calldate', 'like', date("Y-m-d")."%")->count();
         $users_count =   DB::table('users')->count();
-        $calls =   DB::table('cdr')->where('calltype', '=', '3')->Where('duration', '>=', '1' )->orderBY('cdr_id', 'ASC')->get();
+        $calls =   DB::table('cdr')->where('calltype', '=', '3')->Where('duration', '>=', '1' )->whereBetween('calldate', [$start_date, $end_date])->orderBY('calldate', 'DESC')->get();
         $calls_total =   DB::table('cdr')->where('calltype', '=', '3')->get();
 
         $rates =   DB::table('pricings')->get();

@@ -10,7 +10,9 @@ class CallsController extends Controller
 {
     public function index()
     {
-        $calls =   DB::table('cdr')->take('100')->orderBY('cdr_id', 'ASC')->get();
+        $start_date = Date('y-m-d', strtotime('-30 days'));
+        $end_date = Date('y-m-d');
+        $calls =   DB::table('cdr')->where('calltype', '=', '3')->Where('duration', '>=', '1' )->whereBetween('calldate', [$start_date, $end_date])->orderBY('calldate', 'DESC')->get();
         $rates =   DB::table('pricings')->get();
         return view("calls",  [
             'calls' => $calls,

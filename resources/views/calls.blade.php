@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="content-wrapper">
 <section class="content">
       <div class="container-fluid">
@@ -96,7 +97,7 @@
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->duration }}</td>
                     <td>
-                      @php $c_rate =0;  $p_name = ""; @endphp
+                      @php $c_rate =0;  $p_name = ""; $t_duration = 0; $t_cost=0; @endphp
                     @foreach($rates as $rate)
                       @php
                         $c_count =0;

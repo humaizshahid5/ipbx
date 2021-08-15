@@ -10,10 +10,11 @@
           <div class="col-sm-6">
             <h1>Reporting</h1>
           </div>
-          <div class="col-sm-6">
-           
-          </div>
+          
         </div>
+       
+
+       
       </div><!-- /.container-fluid -->
     </section>
 
@@ -94,7 +95,7 @@
                     <td>{{ $report->period }}</td> 
                     <td>@if($report->type == '1') Local @elseif($report->type == '2') Incoming @elseif($report->type == '3') Outgoing @endif</td>
                     <td>@if($report->range == '1') 15 Days @elseif($report->range == '2') Last 30 Days @elseif($report->range == '3') Last Month @endif</td>
-                    <td><a href="{{ route('sendnow') }}"><button class="btn btn-info btn-block"><i class="fas fa-envelope"></i></button></a></td>
+                    <td><a href="/sendnow/{{$report->id}}/send"><button class="btn btn-info btn-block"><i class="fas fa-envelope"></i></button></a></td>
                     <td><a href="/del_report/{{$report->id}}/del"><button class="btn btn-danger btn-block"><i class="fas fa-trash"></i></button></a></td>
 
                   </tr>

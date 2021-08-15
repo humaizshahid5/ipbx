@@ -8,9 +8,7 @@ use App\Models\Report;
 use  Illuminate\Validation;
 use Illuminate\Support\Facades\DB;
 use  Illuminate\Database\Query;
-use Swift_SendmailTransport;
-use Swift_SmtpTransport;
-
+use Mail;
 
 
 class ReportController extends Controller
@@ -21,6 +19,7 @@ class ReportController extends Controller
         return view("report",  [
             'reports' => $reports
            
+    
         ]);
        
     }
@@ -34,7 +33,7 @@ class ReportController extends Controller
             
 
         ]);
-       $senddate = Date('y:m:d', strtotime('+10 days'));
+       $senddate = Date('y:m:d', strtotime('+'.$request->period.' days'));
         $reports = Report::create([
             'email' => $request->email,
             'period' => $request->period,
@@ -55,9 +54,62 @@ class ReportController extends Controller
         DB::table('reports')->where('id', $del)->delete();
         return back();
     }
-    public function report(){
+    public function auto_report(){
 
-        $calls =   DB::table('cdr')->take('100')->orderBY('cdr_id', 'ASC')->get();
+        $users_data = DB::table('reports')->where('send_date' , '=' ,  Date('y-m-d'))->get();
+        foreach($users_data as $user_data)
+        {
+            DB::table('reports')
+            ->where('id', $user_data->id)
+            ->update(['download_status' => '1' , 'send_date' => Date('y-m-d', strtotime('+'.$user_data->period.' days')) ]);
+            $details = [
+                'id' => $user_data->id,
+                'to' => $user_data->email,
+                'from' => 'support@humaizshahid.com',
+                'subject' => 'Report',
+                'title' => 'Call Report',
+                "body"  => 'Hello'
+            ];
+    
+            \Mail::to($user_data->email)->send(new \App\Mail\Mail($details));
+    
+            if (Mail::failures()) {
+                dd("Failure");
+
+            }
+            
+            dd("Success");
+        }
+       
+    }
+    public function report($id, Request $request){
+        $users_data = DB::table('reports')->where('id', $id)->where('download_status' , '=' , '1')->get();
+        DB::table('reports')
+        ->where('id', $id)
+        ->update(['download_status' => '0']);
+        foreach($users_data as $user_data)
+      {
+          if($user_data->download_status == '1')
+          {
+              if($user_data->range == '1')
+              {
+               
+                 $start_date = Date('y-m-d', strtotime('-15 days'));
+                 $end_date = Date('y-m-d');
+              }
+              elseif($user_data->range == '2')
+              {
+                 $start_date = Date('y-m-d', strtotime('-30 days'));
+                 $end_date = Date('y-m-d');
+
+              }
+              else{
+                 $start_date = Date('y-m-d', strtotime("first day of previous month"));
+                 $end_date = Date('y-m-d', strtotime("last day of previous month"));
+
+              }
+
+        $calls =   DB::table('cdr')->where('calltype', '=' , $user_data->type)->where('duration', '>=' , '1')->whereBetween('calldate', [$start_date, $end_date])->orderBY('cdr_id', 'ASC')->get();
         $rates =   DB::table('pricings')->get();
         return view("generate",  [
             'calls' => $calls,
@@ -65,27 +117,35 @@ class ReportController extends Controller
            
         ]);
     }
-
-    public function sendnow(){
-        $host = "mail.humaizshahid.com";
-        $port = "143";
-        $username = "support@humaizshahid.com";
-        $password = "humaiz5900";
-        
-        $transport = (new Swift_SmtpTransport("mail.humaizshahid.com", "143"))
-        ->setUsername("support@humaizshahid.com")
-        ->setPassword("humaiz5900");
-
-    $mailer    = new Swift_Mailer($transport);
-
-    $message   = (new Swift_Message("Test"))
-        ->setFrom("support@humaizshahid.com", "Test")
-        ->setTo("humaiz.work@gmail.com")
-        ->setBody("Hello");
-
-
-    return $mailer->send($message);
+    }
     }
 
-  
+    public function sendnow($send, Request $request){
+        DB::table('reports')
+              ->where('id', $send)
+              ->update(['download_status' => '1']);
+
+      $users_data = DB::table('reports')->where('id', $send)->get();
+      foreach($users_data as $user_data)
+      {
+
+
+        $details = [
+            'id' => $user_data->id,
+            'to' => $user_data->email,
+            'from' => 'support@humaizshahid.com',
+            'subject' => 'Test',
+            'title' => 'Test Email',
+            "body"  => 'Hello'
+        ];
+
+        \Mail::to($user_data->email)->send(new \App\Mail\Mail($details));
+
+        if (Mail::failures()) {
+            dd("Email was not send");
+        }
+        return back();
+    }
+
+    }
 }

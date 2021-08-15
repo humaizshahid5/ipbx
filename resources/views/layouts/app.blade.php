@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', '') }}</title>
+    <title>Abratel Tecnologia</title>
 
     <!-- Scripts -->
   
@@ -52,9 +52,11 @@
 
 $(document).ready(function() {
 	var table = $('#example').DataTable( {
-		lengthChange: false,
+		lengthChange: true,
+    "pageLength": 100,
 		buttons: [ {
                 id: 'pdf',
+                
                 extend: 'pdfHtml5',
                 text: 'PDF',
                 customize: function ( doc ) {
@@ -70,6 +72,7 @@ $(document).ready(function() {
             },'copy', 'excel', 'colvis' ]
     
 	} );
+
 
 	table.buttons().container()
 		.appendTo( '#example_wrapper .col-md-6:eq(0)' );
