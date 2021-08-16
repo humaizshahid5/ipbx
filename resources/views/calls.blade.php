@@ -91,7 +91,7 @@
                     @foreach($calls as $call)
                     @php
                     $c_cost = 0;
-                     $t_duration = $t_duration+$call->duration;
+                     $t_duration = $t_duration+$call->billsec;
                     @endphp
                     <?php $inc =  $loop->iteration ?> 
                   <tr>
@@ -100,7 +100,7 @@
                     <td>{{ $call->source }}</td>
                     <td>{{ $call->destination }}</td>
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
-                    <td>{{ $call->duration }}</td>
+                    <td>{{ $call->billsec }}</td>
                     <td>
                       @php $c_rate =0;  $p_name = ""; @endphp
                     @foreach($rates as $rate)
@@ -145,7 +145,7 @@
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
                             $p_name = $rate->name;
-                            $sec = $call->duration/60;
+                            $sec = $call->billsec/60;
                            
                            
                            }
@@ -158,7 +158,7 @@
                     </td>
                     <td>@php echo $c_rate; @endphp</td>
                     <td>@php  
-                      $minutes = $call->duration/60; 
+                      $minutes = $call->billsec/60; 
                      echo $c_cost=  number_format(floatval($c_rate*$minutes), 2, '.', '');
                       $t_cost = $t_cost+$c_cost;
                       @endphp</td>
