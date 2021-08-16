@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content') 
 
 <div class="content-wrapper">
 <section class="content">
@@ -72,7 +72,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example" class="table table-bordered table-striped" style="width:100%;">
+              <table id="example" class="table table-bordered table-striped" style="width:100%;">
                   <thead>
                   <tr>
                     <th>#</th>
@@ -86,20 +86,26 @@
                     <th>Cost</th>
                   </tr>
                   </thead>
-                  <tbody>
+                   <tbody>
+                    @php  $t_duration = 0; $t_cost=0; $sec = 0; @endphp
                     @foreach($calls as $call)
+                    @php
+                    $c_cost = 0;
+                     $t_duration = $t_duration+$call->duration;
+                    @endphp
                     <?php $inc =  $loop->iteration ?> 
                   <tr>
                     <td>{{ $inc }}</td>
-                    <td>{{ date('M j, Y g:i a',strtotime($call->calldate)) }}</td>
+                    <td>{{ date('M j, Y g:i a', strtotime('-1 hours', strtotime($call->calldate))) }} </td>
                     <td>{{ $call->source }}</td>
                     <td>{{ $call->destination }}</td>
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->duration }}</td>
                     <td>
-                      @php $c_rate =0;  $p_name = ""; $t_duration = 0; $t_cost=0; @endphp
+                      @php $c_rate =0;  $p_name = ""; @endphp
                     @foreach($rates as $rate)
                       @php
+                     
                         $c_count =0;
                         $price_data = $rate->destination;
                         $call_data = $call->destination;
@@ -139,19 +145,42 @@
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
                             $p_name = $rate->name;
+                            $sec = $call->duration/60;
+                           
+                           
                            }
                          }
+                       
                         }
                       @endphp
                     @endforeach
                     @php echo $p_name; @endphp
                     </td>
                     <td>@php echo $c_rate; @endphp</td>
-                    <td>@php  $minutes = $call->duration/60; echo number_format(floatval($c_rate*$minutes), 2, '.', ''); @endphp</td>
+                    <td>@php  
+                      $minutes = $call->duration/60; 
+                     echo $c_cost=  number_format(floatval($c_rate*$minutes), 2, '.', '');
+                      $t_cost = $t_cost+$c_cost;
+                      @endphp</td>
                   </tr>
-                    @endforeach                   
-                  </tbody>                
+                    @endforeach                  
+                  </tbody>  
+                  <tfoot>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total Duration</td>
+                        <td>@php echo $t_duration; @endphp</td>
+                        <td></td>
+                        <td>Totals</td>
+                        <td>@php echo $t_cost; @endphp</td>
+                      </tr>
+                    </tfoot>             
                 </table>
+              </div>
+
               </div>
               <!-- /.card-body -->
             </div>
@@ -164,4 +193,6 @@
       <!-- /.container-fluid -->
     </section>
 </div>
+
 @endsection
+

@@ -95,12 +95,12 @@ class ReportController extends Controller
               {
                
                  $start_date = Date('y-m-d', strtotime('-15 days'));
-                 $end_date = Date('y-m-d');
+                 $end_date = Date('y-m-d', strtotime('+1 days'));
               }
               elseif($user_data->range == '2')
               {
-                 $start_date = Date('y-m-d', strtotime('-30 days'));
-                 $end_date = Date('y-m-d');
+                $start_date = Date('y-m-d', strtotime('-30 days'));
+                $end_date = Date('y-m-d', strtotime('+1 days'));
 
               }
               else{
@@ -109,7 +109,7 @@ class ReportController extends Controller
 
               }
 
-        $calls =   DB::table('cdr')->where('calltype', '=' , $user_data->type)->where('duration', '>=' , '1')->whereBetween('calldate', [$start_date, $end_date])->orderBY('cdr_id', 'ASC')->get();
+        $calls =   DB::table('cdr')->where('calltype', '=' , $user_data->type)->where('duration', '>=' , '1')->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();
         $rates =   DB::table('pricings')->get();
         return view("generate",  [
             'calls' => $calls,

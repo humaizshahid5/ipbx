@@ -11,7 +11,7 @@ class CallsController extends Controller
     public function index()
     {
         $start_date = Date('y-m-d', strtotime('-30 days'));
-        $end_date = Date('y-m-d');
+        $end_date = Date('y-m-d', strtotime('+1 days'));
         $calls =   DB::table('cdr')->where('calltype', '=', '3')->Where('duration', '>=', '1' )->whereBetween('calldate', [$start_date, $end_date])->orderBY('calldate', 'DESC')->get();
         $rates =   DB::table('pricings')->get();
         return view("calls",  [
@@ -25,13 +25,7 @@ class CallsController extends Controller
     public function search(Request $request)
     {
       
-        if((!empty($request->fromdate) && is_null($request->todate)) || (!empty($request->todate) && is_null($request->fromdate))){
-            $this->validate($request, [
-                'todate' => 'required',
-                'fromdate' => 'required'                
-            ]);
-          
-        }
+
        
         
      $filters = [
@@ -39,18 +33,36 @@ class CallsController extends Controller
         'destination'    => $request->destination,
         'type'    => $request->type,
         'duration'    => $request->duration,
-        'from'    => $request->fromdate,
-        'to'    => $request->todate,
+        'from'    => Date($request->fromdate),
+        'to'    => Date($request->todate),
+
+        
 
 
 
 
     ];
- 
+
+    
+
+  
+
   $calls = DB::table('cdr')->where(function ($query) use ($filters) {
-        if ($filters['from']) {
-                $query->whereBetween('calldate', [$filters['from'], $filters['to']]);
-        }
+    if((!empty($request->fromdate) && is_null($request->todate)) || (!empty($request->todate) && is_null($request->fromdate))){
+        $this->validate($request, [
+            'todate' => 'required',
+            'fromdate' => 'required'                
+        ]);
+       
+      
+}
+if ($filters['from']) {
+    $query->whereDate('calldate', '>=', $filters['from'])
+    ->whereDate('calldate', '<=', $filters['to']);
+}
+    
+       
+  
         if ($filters['source']) {
             $query->where('source', '=', $filters['source']);
         }
@@ -63,7 +75,7 @@ class CallsController extends Controller
         if ($filters['duration']) {
             $query->where('duration', '>=', $filters['duration']);
         }
-    })->get();
+    })->orderby('calldate' , 'DESC')->get();
 
         $rates =   DB::table('pricings')->get();
 
