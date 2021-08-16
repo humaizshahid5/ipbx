@@ -49,8 +49,8 @@
                            {
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
-                            $t_duration = $call->duration/60;
-                            $t_cost = $t_cost+$t_duration*$rate->rate;
+                            $t_duration = $call->billsec/60;
+                            $t_cost = $t_cost+$billsec*$rate->rate;
                             $p_name = $rate->name;
                             
                            
@@ -161,7 +161,7 @@
                  </div>
            
                 <div class="card-body">
-                <table id="usertable" class="table table-bordered table-striped" style="width:100%;">
+                <table id="example" class="table table-bordered table-striped" style="width:100%;">
                   <thead>
                   <tr>
                     <th>#</th>
@@ -180,7 +180,7 @@
                     @foreach($calls as $call)
                     @php
                     $c_cost = 0;
-                     $t_duration = $t_duration+$call->duration;
+                     $t_duration = $t_duration+$call->billsec;
                     @endphp
                     <?php $inc =  $loop->iteration ?> 
                   <tr>
@@ -189,7 +189,7 @@
                     <td>{{ $call->source }}</td>
                     <td>{{ $call->destination }}</td>
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
-                    <td>{{ $call->duration }}</td>
+                    <td>{{ $call->billsec }}</td>
                     <td>
                       @php $c_rate =0;  $p_name = ""; @endphp
                     @foreach($rates as $rate)
@@ -234,7 +234,7 @@
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
                             $p_name = $rate->name;
-                            $sec = $call->duration/60;
+                            $sec = $call->billsec/60;
                            
                            
                            }
@@ -247,11 +247,10 @@
                     </td>
                     <td>@php echo $c_rate; @endphp</td>
                     <td>@php  
-                      $minutes = $call->duration/60; 
-                     echo  $c_cost=  number_format(floatval($c_rate*$minutes), 2, '.', '');
+                      $minutes = $call->billsec/60; 
+                     echo $c_cost=  number_format(floatval($c_rate*$minutes), 2, '.', '');
                       $t_cost = $t_cost+$c_cost;
-                      @endphp
-                      </td>
+                      @endphp</td>
                   </tr>
                     @endforeach                  
                   </tbody>  
@@ -269,6 +268,7 @@
                       </tr>
                     </tfoot>             
                 </table>
+              </div>
               </div>
                 </div>
             </div>

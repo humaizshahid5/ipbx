@@ -106,7 +106,7 @@ class ReportController extends Controller
 
               }
 
-        $calls =   DB::table('cdr')->where('calltype', '=' , $user_data->type)->where('duration', '>=' , '1')->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();
+        $calls =   DB::table('cdr')->where('calltype', '=' , $user_data->type)->where('billsec', '>=' , '1')->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();
         $rates =   DB::table('pricings')->get();
         return view("generate",  [
             'calls' => $calls,

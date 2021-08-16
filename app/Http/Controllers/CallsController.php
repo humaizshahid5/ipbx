@@ -12,7 +12,7 @@ class CallsController extends Controller
     {
         $start_date = Date('y-m-d', strtotime('-30 days'));
         $end_date = Date('y-m-d', strtotime('+1 days'));
-        $calls =   DB::table('cdr')->where('calltype', '=', '3')->Where('duration', '>=', '1' )->whereBetween('calldate', [$start_date, $end_date])->orderBY('calldate', 'DESC')->get();
+        $calls =   DB::table('cdr')->where('calltype', '=', '3')->Where('billsec', '>=', '1' )->whereBetween('calldate', [$start_date, $end_date])->orderBY('calldate', 'DESC')->get();
         $rates =   DB::table('pricings')->get();
         return view("calls",  [
             'calls' => $calls,
@@ -73,7 +73,7 @@ if ($filters['from']) {
             $query->where('calltype', '=', $filters['type']);
         }
         if ($filters['duration']) {
-            $query->where('duration', '>=', $filters['duration']);
+            $query->where('duration', '>=', $filters['billsec']);
         }
     })->orderby('calldate' , 'DESC')->get();
 
