@@ -84,28 +84,25 @@ class ReportController extends Controller
     }
     public function report($id, Request $request){
         $users_data = DB::table('reports')->where('id', $id)->where('download_status' , '=' , '1')->get();
-        DB::table('reports')
-        ->where('id', $id)
-        ->update(['download_status' => '0']);
+      
         foreach($users_data as $user_data)
       {
-          if($user_data->download_status == '1')
-          {
-              if($user_data->range == '1')
+        
+              if($user_data->range == 1)
               {
                
-                 $start_date = Date('y-m-d', strtotime('-15 days'));
+                 $start_date = Date('Y-m-d', strtotime('-14 days'));
                  $end_date = Date('y-m-d', strtotime('+1 days'));
               }
               elseif($user_data->range == '2')
               {
-                $start_date = Date('y-m-d', strtotime('-30 days'));
-                $end_date = Date('y-m-d', strtotime('+1 days'));
+                $start_date = Date('Y-m-d', strtotime('-30 days'));
+                $end_date = Date('Y-m-d', strtotime('+1 days'));
 
               }
               else{
-                 $start_date = Date('y-m-d', strtotime("first day of previous month"));
-                 $end_date = Date('y-m-d', strtotime("last day of previous month"));
+                $start_date = Date('Y-m-d', strtotime("first day of previous month"));
+                $end_date = Date('Y-m-d', strtotime("last day of previous month"));
 
               }
 
@@ -116,7 +113,7 @@ class ReportController extends Controller
             'rates' => $rates
            
         ]);
-    }
+    
     }
     }
 

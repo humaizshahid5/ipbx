@@ -46,7 +46,7 @@
                 <form action="{{ route('add_pricing') }}" method="post">
                     @csrf
                     <div class="row">
-                    <div class="col-lg-6 col-xs-12">
+                    <div class="col-lg-12 col-xs-12">
                             <label>Name</label>
                             <input type="text" class="form-control" name="name" />
                         </div>
@@ -59,11 +59,10 @@
                             <label>Rate</label>
                             <input type="number" class="form-control" name="rate" step="0.01" />
                         </div>
-                        <div class="col-lg-6 col-xs-12">
+                        <div class="col-lg-6 col-xs-12" style="display:none;">
                             <label>Type</label>
                             <select class="form-control" name="type">
-                                <option value="1">Local</option>
-                                <option value="2">Incoming</option>
+                              
                                 <option value="3">Outgoing</option>
                             </select>
                         </div>
