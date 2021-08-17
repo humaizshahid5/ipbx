@@ -72,7 +72,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <table id="example" class="table table-bordered table-striped" style="width:100%;">
+              <table id="example" class="table table-bordered compact table-striped" style="width:100%;">
                   <thead>
                   <tr>
                     <th style="display:none;">#</th>

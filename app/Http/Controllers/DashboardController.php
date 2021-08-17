@@ -14,8 +14,8 @@ class DashboardController extends Controller
     {
         $start_date = Date('y-m-d', strtotime('-30 days'));
         $end_date = Date('y-m-d', strtotime('+1 days'));
-        $calls_count =   DB::table('cdr')->count();
-        $calls_today =   DB::table('cdr')->where('calldate', 'like', date("Y-m-d")."%")->count();
+        $calls_count =   DB::table('cdr')->where('calltype', '=', '3')->Where('billsec', '>=', '1' )->wherebetween('calldate', [$start_date,$end_date])->count();
+        $calls_today =   DB::table('cdr')->where('calltype', '=', '3')->where('calldate', 'like', date("Y-m-d")."%")->count();
         $users_count =   DB::table('users')->count();
         $calls =   DB::table('cdr')->where('calltype', '=', '3')->Where('billsec', '>=', '1' )->wherebetween('calldate', [$start_date,$end_date])->orderBY('calldate', 'DESC')->get();
         $calls_total =   DB::table('cdr')->where('calltype', '=', '3')->Where('billsec', '>=', '1' )->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();

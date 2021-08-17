@@ -56,7 +56,7 @@ $(document).ready(function() {
                 extend: 'pdfHtml5',
                 orientation: 'horizental',
                 pageSize: 'Letter',
-                footer : true,
+                footer : true,          
                 exportOptions: {
                     columns: [ 1,2,3,4,5,6,7,8 ]
                 }
