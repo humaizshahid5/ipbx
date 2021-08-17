@@ -50,7 +50,7 @@
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
                             $t_duration = $call->billsec/60;
-                            $t_cost = $t_cost+$billsec*$rate->rate;
+                            $t_cost = $t_cost+($t_duration*$rate->rate);
                             $p_name = $rate->name;
                             
                            
@@ -164,7 +164,7 @@
                 <table id="example" class="table table-bordered table-striped" style="width:100%;">
                   <thead>
                   <tr>
-                  
+                    <th>#</th>
                     <th>Date</th>
                     <th>Source</th>
                     <th>Destination</th>
@@ -184,7 +184,7 @@
                     @endphp
                     <?php $inc =  $loop->iteration ?> 
                   <tr>
-                   
+                    <td>{{ $inc }}</td>
                     <td>{{ date('M j, Y g:i a', strtotime('-1 hours', strtotime($call->calldate))) }} </td>
                     <td>{{ $call->source }}</td>
                     <td>{{ $call->destination }}</td>
