@@ -58,7 +58,7 @@ $(document).ready(function() {
                 pageSize: 'Letter',
                 footer : true,
                 exportOptions: {
-                    columns: [ ':hidden',1,2,3,4,5,6,7,7,8, ]
+                    columns: [1,2,3,4,5,6,7,7,8 ]
                 }
             },
             { extend: 'excelHtml5', footer: true },
@@ -67,6 +67,7 @@ $(document).ready(function() {
             'colvis'
 
         ]
+      
        
     
 	} );
@@ -105,7 +106,7 @@ $(function(){
               <table id="example" class="table table-bordered table-striped" style="width:100%;">
                   <thead>
                   <tr>
-                    <th>#</th>
+                    <th style="display:none;">#</th>
                     <th>Date</th>
                     <th>Source</th>
                     <th>Destination</th>
@@ -125,7 +126,7 @@ $(function(){
                     @endphp
                     <?php $inc =  $loop->iteration ?> 
                   <tr>
-                    <td>{{ $inc }}</td>
+                    <td style="display:none;">{{ $inc }}</td>
                     <td>{{ date('M j, Y g:i a', strtotime('-1 hours', strtotime($call->calldate))) }} </td>
                     <td>{{ $call->source }}</td>
                     <td>{{ $call->destination }}</td>
@@ -197,15 +198,17 @@ $(function(){
                   </tbody>  
                   <tfoot>
                       <tr>
+                      
                       <td></td>
-                        <td>Total Calls</td>
+                        <td> &nbsp;Total Calls</td>
                         <td>{{ $inc }}</td>
                         <td></td>
+
                         <td>Total Duration</td>
                         <td>@php echo $t_duration; @endphp</td>
                         <td></td>
-                        <td>Totals</td>
-                        <td>@php echo number_format(floatval($t_cost), 2, '.', ''); @endphp</td>
+                        <td>Totals Cost</td>
+                        <td>R$ @php echo number_format(floatval($t_cost), 2, '.', ''); @endphp</td>
                       </tr>
                     </tfoot>             
                 </table>

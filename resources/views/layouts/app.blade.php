@@ -58,7 +58,7 @@ $(document).ready(function() {
                 pageSize: 'Letter',
                 footer : true,
                 exportOptions: {
-                    columns: [ ':hidden',1,2,3,4,5,6,7,7,8, ]
+                    columns: [ 1,2,3,4,5,6,7,8 ]
                 }
             },
             { extend: 'excelHtml5', footer: true },
@@ -67,7 +67,7 @@ $(document).ready(function() {
             'colvis'
 
         ]
-    
+        
     
 	} );
 	table.buttons().container()
