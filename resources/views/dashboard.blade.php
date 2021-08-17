@@ -139,7 +139,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>@php   echo number_format(floatval($t_cost), 2, '.', ''); @endphp </h3>
+                        <h3>R$ @php   echo number_format(floatval($t_cost), 2, '.', ''); @endphp </h3>
 
                         <p>Total Cost</p>
                     </div>
@@ -264,7 +264,7 @@
                         <td>@php echo $t_duration; @endphp</td>
                         <td></td>
                         <td>Totals</td>
-                        <td>@php echo number_format(floatval($t_cost), 2, '.', ''); @endphp</td>
+                        <td>R$ @php echo number_format(floatval($t_cost), 2, '.', ''); @endphp</td>
 
                       </tr>
                     </tfoot>             
