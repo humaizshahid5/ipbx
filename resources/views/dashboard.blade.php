@@ -164,7 +164,7 @@
                 <table id="example" class="table table-bordered table-striped" style="width:100%;">
                   <thead>
                   <tr>
-                    <th>#</th>
+                  
                     <th>Date</th>
                     <th>Source</th>
                     <th>Destination</th>
@@ -184,7 +184,7 @@
                     @endphp
                     <?php $inc =  $loop->iteration ?> 
                   <tr>
-                    <td>{{ $inc }}</td>
+                   
                     <td>{{ date('M j, Y g:i a', strtotime('-1 hours', strtotime($call->calldate))) }} </td>
                     <td>{{ $call->source }}</td>
                     <td>{{ $call->destination }}</td>
@@ -264,7 +264,8 @@
                         <td>@php echo $t_duration; @endphp</td>
                         <td></td>
                         <td>Totals</td>
-                        <td>@php echo $t_cost; @endphp</td>
+                        <td>@php echo number_format(floatval($t_cost), 2, '.', ''); @endphp</td>
+
                       </tr>
                     </tfoot>             
                 </table>

@@ -175,7 +175,7 @@
                         <td>@php echo $t_duration; @endphp</td>
                         <td></td>
                         <td>Totals</td>
-                        <td>@php echo $t_cost; @endphp</td>
+                        <td>@php echo number_format(floatval($t_cost), 2, '.', ''); @endphp</td>
                       </tr>
                     </tfoot>             
                 </table>
