@@ -55,8 +55,11 @@ $(document).ready(function() {
       {
                 extend: 'pdfHtml5',
                 orientation: 'horizental',
-                pageSize: 'A4',
-                footer : true
+                pageSize: 'Letter',
+                footer : true,
+                exportOptions: {
+                    columns: [ ':hidden',1,2,3,4,5,6,7,7,8, ]
+                }
             },
             { extend: 'excelHtml5', footer: true },
             { extend: 'csvHtml5', footer: true },
