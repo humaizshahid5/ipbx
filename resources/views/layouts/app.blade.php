@@ -55,7 +55,7 @@ $(document).ready(function() {
       {
                 extend: 'pdfHtml5',
                 orientation: 'horizental',
-                pageSize: 'A4',
+                pageSize: 'Letter',
                 footer : true
             },
             { extend: 'excelHtml5', footer: true },
