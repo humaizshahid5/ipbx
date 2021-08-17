@@ -66,14 +66,8 @@ $(document).ready(function() {
             { extend: 'pdfHtml5', footer: true },
             'colvis'
 
-        ],
-        "columnDefs": [
-           
-           {
-               "targets": [ 0 ],
-               "visible": false
-           }
-       ]
+        ]
+       
     
 	} );
 
