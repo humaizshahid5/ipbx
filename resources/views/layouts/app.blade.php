@@ -66,6 +66,13 @@ $(document).ready(function() {
            
             'colvis'
 
+        ],
+        "columnDefs": [
+           
+            {
+                "targets": [ 0 ],
+                "visible": false
+            }
         ]
 
     

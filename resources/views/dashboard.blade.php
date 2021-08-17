@@ -256,8 +256,8 @@
                   </tbody>  
                   <tfoot>
                       <tr>
-                        <td></td>
-                        <td></td>
+                        <td>Total Calls</td>
+                        <td>{{ $inc }}</td>
                         <td></td>
                         <td></td>
                         <td>Total Duration</td>

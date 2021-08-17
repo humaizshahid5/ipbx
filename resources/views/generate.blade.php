@@ -66,7 +66,14 @@ $(document).ready(function() {
             { extend: 'pdfHtml5', footer: true },
             'colvis'
 
-        ]
+        ],
+        "columnDefs": [
+           
+           {
+               "targets": [ 0 ],
+               "visible": false
+           }
+       ]
     
 	} );
 
@@ -196,9 +203,9 @@ $(function(){
                   </tbody>  
                   <tfoot>
                       <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                      <td></td>
+                        <td>Total Calls</td>
+                        <td>{{ $inc }}</td>
                         <td></td>
                         <td>Total Duration</td>
                         <td>@php echo $t_duration; @endphp</td>
