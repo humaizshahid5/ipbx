@@ -52,10 +52,17 @@ $(document).ready(function() {
 		lengthChange: true,
     "pageLength": 100,
     buttons: [
-            { extend: 'copyHtml5', footer: true },
+      {
+                extend: 'pdfHtml5',
+                orientation: 'horizental',
+                pageSize: 'A4',
+                footer : true
+            },
             { extend: 'excelHtml5', footer: true },
             { extend: 'csvHtml5', footer: true },
-            { extend: 'pdfHtml5', footer: true }
+            { extend: 'pdfHtml5', footer: true },
+            'colvis'
+
         ]
     
 	} );
