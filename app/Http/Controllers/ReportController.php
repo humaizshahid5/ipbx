@@ -65,7 +65,7 @@ class ReportController extends Controller
             $details = [
                 'id' => $user_data->id,
                 'to' => $user_data->email,
-                'from' => 'support@humaizshahid.com',
+                'from' => env("MAIL_USERNAME", "somedefaultvalue"),
                 'subject' => 'Report',
                 'title' => 'Call Report',
                 "body"  => 'Hello'
@@ -130,7 +130,7 @@ class ReportController extends Controller
         $details = [
             'id' => $user_data->id,
             'to' => $user_data->email,
-            'from' => 'support@humaizshahid.com',
+            'from' => env("MAIL_USERNAME", "somedefaultvalue"),
             'subject' => 'Test',
             'title' => 'Test Email',
             "body"  => 'Hello'

@@ -103,7 +103,8 @@ $(function(){
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <table id="example" class="table table-bordered table-striped" style="width:100%;">
+
+<table id="example" class="table table-bordered compact table-striped" style="width:100%;">
                   <thead>
                   <tr>
                     <th style="display:none;">#</th>
@@ -118,15 +119,15 @@ $(function(){
                   </tr>
                   </thead>
                    <tbody>
-                    @php  $t_duration = 0; $t_cost=0; $sec = 0; @endphp
+                    @php $number_count=0; $t_duration = 0; $t_cost=0; $sec = 0; @endphp
                     @foreach($calls as $call)
                     @php
                     $c_cost = 0;
                      $t_duration = $t_duration+$call->billsec;
                     @endphp
-                    <?php $inc =  $loop->iteration ?> 
+                
                   <tr>
-                    <td style="display:none;">{{ $inc }}</td>
+                    <td style="display:none;">@php $number_count=$number_count+1; @endphp</td>
                     <td>{{ date('M j,Y H:i', strtotime('-1 hours', strtotime($call->calldate))) }} </td>
                     <td>{{ $call->source }}</td>
                     <td>{{ $call->destination }}</td>
@@ -198,11 +199,10 @@ $(function(){
                   </tbody>  
                   <tfoot>
                       <tr>
-                      
                       <td></td>
                         <td> &nbsp;Total Calls</td>
-                        <td>{{ $inc }}</td>
-                        
+                        <td>@php echo $number_count; @endphp</td>
+
 
                         <td>Total Duration</td>
                         <td>@php echo $t_duration; @endphp</td>
@@ -212,6 +212,7 @@ $(function(){
                       </tr>
                     </tfoot>             
                 </table>
+             
               </div>
           
               </div>

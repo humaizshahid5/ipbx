@@ -28,7 +28,7 @@ class Mail extends Mailable
      */
     public function build()
     {
-        return $this->from('support@humaizshahid.com')
+        return $this->from(env("MAIL_USERNAME", "somedefaultvalue"))
         ->view('email');
         
     }
