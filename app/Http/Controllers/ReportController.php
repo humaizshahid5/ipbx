@@ -79,7 +79,7 @@ class ReportController extends Controller
 
             }
             
-            dd("Success");
+            print("Success");
         }
        
     }
