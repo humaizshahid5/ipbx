@@ -55,7 +55,7 @@ class ReportController extends Controller
         return back();
     }
     public function auto_report(){
-      dd(env("MAIL_USERNAME"));
+     
         $users_data = DB::table('reports')->where('send_date' , '=' ,  Date('Y-m-d'))->get();
         foreach($users_data as $user_data)
         {
@@ -65,7 +65,7 @@ class ReportController extends Controller
             $details = [
                 'id' => $user_data->id,
                 'to' => $user_data->email,
-                'from' => env("MAIL_USERNAME"),
+                'from' => 'ulissesteste@cpadrao.com.br',
                 'subject' => 'Report',
                 'title' => 'Call Report',
                 "body"  => 'Hello'
