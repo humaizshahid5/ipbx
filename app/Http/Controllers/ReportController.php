@@ -39,8 +39,7 @@ class ReportController extends Controller
             'period' => $request->period,
             'range' => $request->range,
             'type' => $request->type,
-            'send_date' => $senddate,
-            'download_status' => "0",
+          
 
 
             
@@ -55,13 +54,11 @@ class ReportController extends Controller
         return back();
     }
     public function auto_report(){
-      print( Date('Y-m-d'));
-        $users_data = DB::table('reports')->where('send_date' , '=' ,  Date('Y-m-d'))->get();
+      print( Date('d'));
+        $users_data = DB::table('reports')->where('period' , '=' ,  Date('d'))->get();
         foreach($users_data as $user_data)
         {
-            DB::table('reports')
-            ->where('id', $user_data->id)
-            ->update(['download_status' => '1' , 'send_date' => Date('y-m-d', strtotime('+'.$user_data->period.' days')) ]);
+          
             $details = [
                 'id' => $user_data->id,
                 'to' => $user_data->email,
@@ -84,7 +81,7 @@ class ReportController extends Controller
        
     }
     public function report($id, Request $request){
-        $users_data = DB::table('reports')->where('id', $id)->where('download_status' , '=' , '1')->get();
+        $users_data = DB::table('reports')->where('id', $id)->get();
       
         foreach($users_data as $user_data)
       {
@@ -120,9 +117,7 @@ class ReportController extends Controller
 
     public function sendnow($send, Request $request){
        
-        DB::table('reports')
-              ->where('id', $send)
-              ->update(['download_status' => '1']);
+     
 
       $users_data = DB::table('reports')->where('id', $send)->get();
       foreach($users_data as $user_data)

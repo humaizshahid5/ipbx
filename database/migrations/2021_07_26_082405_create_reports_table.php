@@ -19,8 +19,7 @@ class CreateReportsTable extends Migration
             $table->string('period');
             $table->string('range');
             $table->string('type');
-            $table->date('send_date');
-            $table->integer('download_status');
+         
             $table->timestamps();
         });
     }

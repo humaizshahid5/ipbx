@@ -14,8 +14,7 @@ class Report extends Model
         'period',
         'range',
         'type',
-        'send_date',
-        'download_status'
+      
 
     ];
 }
