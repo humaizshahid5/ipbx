@@ -56,7 +56,7 @@ class ReportController extends Controller
     }
     public function auto_report(){
       print("Hii");
-        $users_data = DB::table('reports')->where('send_date' , '=' ,  Date('y-m-d'))->get();
+        $users_data = DB::table('reports')->where('send_date' , '=' ,  Date('Y-m-d'))->get();
         foreach($users_data as $user_data)
         {
             DB::table('reports')
