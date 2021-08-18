@@ -54,8 +54,8 @@ class ReportController extends Controller
         return back();
     }
     public function auto_report(){
-      print( Date('d'));
-        $users_data = DB::table('reports')->where('period' , '=' ,  Date('d'))->get();
+      print( Date('j'));
+        $users_data = DB::table('reports')->where('period' , '=' ,  Date('j'))->get();
         foreach($users_data as $user_data)
         {
           
@@ -89,13 +89,13 @@ class ReportController extends Controller
               if($user_data->range == 1)
               {
                
-                 $start_date = Date('Y-m-d', strtotime('-14 days'));
-                 $end_date = Date('y-m-d', strtotime('+1 days'));
+                 $start_date = Date('Y-m-d', strtotime('-16 days'));
+                 $end_date = Date('y-m-d', strtotime('-1 days'));
               }
               elseif($user_data->range == '2')
               {
-                $start_date = Date('Y-m-d', strtotime('-30 days'));
-                $end_date = Date('Y-m-d', strtotime('+1 days'));
+                $start_date = Date('Y-m-d', strtotime('-31 days'));
+                $end_date = Date('Y-m-d', strtotime('-1 days'));
 
               }
               else{
