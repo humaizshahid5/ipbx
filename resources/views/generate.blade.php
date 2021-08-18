@@ -60,11 +60,8 @@ $(document).ready(function() {
                 exportOptions: {
                     columns: [1,2,3,4,5,6,7,7,8 ]
                 }
-            },
-            { extend: 'excelHtml5', footer: true },
-            { extend: 'csvHtml5', footer: true },
-            { extend: 'pdfHtml5', footer: true },
-            'colvis'
+            }
+           
 
         ]
       
