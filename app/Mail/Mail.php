@@ -30,7 +30,7 @@ class Mail extends Mailable
     {
         return $this
     ->from($address = env("MAIL_USERNAME"), $name = env("MAIL_FROM_NAME"))
-    ->subject('Report')
+    ->subject(env("MAIL_FROM_Subject"))
     ->view('email');
 
       
