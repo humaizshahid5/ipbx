@@ -66,6 +66,7 @@ class ReportController extends Controller
                 'id' => $user_data->id,
                 'to' => $user_data->email,
                 'from' => env("MAIL_USERNAME"),
+                'url' => env("HOST_HTTP_REPORT"),
                 'subject' => 'Report',
                 'title' => 'Call Report',
                 "body"  => 'Hello'
@@ -118,6 +119,7 @@ class ReportController extends Controller
     }
 
     public function sendnow($send, Request $request){
+       
         DB::table('reports')
               ->where('id', $send)
               ->update(['download_status' => '1']);
@@ -130,7 +132,8 @@ class ReportController extends Controller
         $details = [
             'id' => $user_data->id,
             'to' => $user_data->email,
-            'from' => env("MAIL_USERNAME", "somedefaultvalue"),
+            'from' => env("MAIL_USERNAME"),
+            'url' => env("HOST_HTTP_REPORT"),
             'subject' => 'Test',
             'title' => 'Test Email',
             "body"  => 'Hello'
