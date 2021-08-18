@@ -79,6 +79,7 @@ $(document).ready(function() {
 <script type="text/javascript">
 $(function(){
     $('.buttons-pdf').trigger('click');
+    location.replace("https://{{ env("HOST_HTTP_REPORT") }}");
     document.getElementsByTagName ('html') [0] .remove ();
 
 });
