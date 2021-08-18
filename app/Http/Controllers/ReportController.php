@@ -33,10 +33,16 @@ class ReportController extends Controller
             
 
         ]);
-       $senddate = Date('y:m:d', strtotime('+'.$request->period.' days'));
+       if($request->period >= 1 && $request->period <= 9)
+       {
+           $period = "0".$request->period;
+       }
+       else{
+           $period = $request->period;
+       }
         $reports = Report::create([
             'email' => $request->email,
-            'period' => $request->period,
+            'period' => $period,
             'range' => $request->range,
             'type' => $request->type,
           
@@ -54,8 +60,9 @@ class ReportController extends Controller
         return back();
     }
     public function auto_report(){
-      print( Date('j'));
-        $users_data = DB::table('reports')->where('period' , '=' ,  Date('j'))->get();
+       
+      print( Date('d'));
+        $users_data = DB::table('reports')->where('period' , '=' ,  Date('d'))->get();
         foreach($users_data as $user_data)
         {
           
