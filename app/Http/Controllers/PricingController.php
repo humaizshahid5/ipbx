@@ -15,7 +15,7 @@ class PricingController extends Controller
      */
     public function index()
     {
-        $pricing = Pricing::Paginate(10);
+        $pricing = Pricing::get();
         return view("pricing",  [
             'pricing' => $pricing
            
