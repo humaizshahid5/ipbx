@@ -71,7 +71,7 @@
                 <h3 class="card-title">Calls</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">          
+              <div class="card-body">  
               <table id="example" class="table table-bordered compact table-striped" style="width:100%;">
                   <thead>
                   <tr>
@@ -177,7 +177,8 @@
                       </tr>
                     </tfoot>             
                 </table>      
-              </div>
+                Latest Build 1  
+           
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
