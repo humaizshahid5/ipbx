@@ -101,8 +101,7 @@ $(function(){
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-
-<table id="example" class="table table-bordered compact table-striped" style="width:100%;">
+              <table id="example" class="table table-bordered compact table-striped" style="width:100%;">
                   <thead>
                   <tr>
                     <th style="display:none;">#</th>
@@ -132,11 +131,10 @@ $(function(){
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->billsec }}</td>
                     <td>
-                      @php $c_rate =0;  $p_name = ""; @endphp
+                    @php $c_rate =0;  $p_name = ""; $m_count= 0; $c_count = 0; @endphp
                     @foreach($rates as $rate)
                       @php
-                     
-                        $c_count =0;
+                        $m_count= 0;
                         $price_data = $rate->destination;
                         $call_data = $call->destination;
                         $p_values = array();
@@ -157,27 +155,25 @@ $(function(){
                               $c_values[] = $i." | ".$call_data[$i]. "<br>";
                           }
                           $num = count($p_num);
-                          $m_count= 0;
                           for($i = 0; $i < $num; $i++){
                           $p_val = $p_num[$i];
-                          if($p_values[$i] == $c_values[$p_val]){
-                             $m_count = $m_count+1;
-                          $status = 1;
+                            if($p_values[$i] == $c_values[$p_val]){
+                              $m_count = $m_count+1;
+                              $status = 1;
+                            }
+                            else{
+                            $status = 0;
+                            break;
+                            }
                           }
-                          else{
-                           $status = 0;
-                           break;
-                          }
-                          }
+                        
                          if($status == 1){
                            if($m_count > $c_count)
                            {
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
                             $p_name = $rate->name;
-                            $sec = $call->billsec/60;
-                           
-                           
+                            $sec = $call->billsec/60;                      
                            }
                          }
                        
@@ -210,6 +206,7 @@ $(function(){
                       </tr>
                     </tfoot>             
                 </table>
+
              
               </div>
           
