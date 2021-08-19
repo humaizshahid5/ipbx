@@ -72,7 +72,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">          
-                <table id="example" class="table table-bordered compact table-striped" style="width:100%;">
+              <table id="example" class="table table-bordered compact table-striped" style="width:100%;">
                   <thead>
                   <tr>
                     <th style="display:none;">#</th>
@@ -176,7 +176,7 @@
                         <td>R$ @php echo number_format(floatval($t_cost), 2, '.', ''); @endphp</td>
                       </tr>
                     </tfoot>             
-                </table>            
+                </table>      
               </div>
               <!-- /.card-body -->
             </div>
