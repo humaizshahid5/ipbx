@@ -54,7 +54,7 @@
                        
                         <div class="col-lg-6 col-xs-12">
                             <label>Destination</label>
-                            <input type="number" class="form-control" name="destination" />
+                            <input type="text" class="form-control" name="destination" />
                         </div>
                         <div class="col-lg-6 col-xs-12">
                             <label>Rate</label>
