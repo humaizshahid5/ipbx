@@ -71,10 +71,8 @@ class ReportController extends Controller
                 'to' => $user_data->email,
                 'from' => env("MAIL_USERNAME"),
                 'url' => env("HOST_HTTP_REPORT"),
-                'subject' => 'Report',
                 'type' => $user_data->type,
                 'range' => $user_data->range,
-                'title' => 'Call Report',
                 "body"  => 'Hello'
             ];
     
