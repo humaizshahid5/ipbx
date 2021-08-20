@@ -107,5 +107,5 @@
                       </tr>
                     </tfoot>             
                 </table>
-                Latest Build 1.2
+                Latest Build 1.3
              
