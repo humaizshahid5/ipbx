@@ -79,14 +79,12 @@ $(document).ready(function() {
 <script type="text/javascript">
 $(function(){
     $('.buttons-pdf').trigger('click');
-    location.replace("https://{{ env("HOST_HTTP_REPORT") }}");
+    
     document.getElementsByTagName ('html') [0] .remove ();
 
 });
 </script>
-<input id="close_window" type="button" class="btn btn-success"
-                   style="font-weight: bold;display: inline;"
-                   value="Close">
+<input id="close_window" type="button" class="btn btn-success" style="font-weight: bold;display: inline;" value="Close">
 <section class="content">
       <div class="container-fluid">
         <div class="row">

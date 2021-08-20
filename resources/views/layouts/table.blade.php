@@ -29,11 +29,11 @@
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->billsec }}</td>
                     <td>
-                      @php $c_rate =0;  $p_name = ""; @endphp
+                      @php $c_rate =0;  $p_name = ""; $c_count =0; @endphp
                     @foreach($rates as $rate)
                       @php
                      
-                        $c_count =0;
+                        
                         $price_data = $rate->destination;
                         $call_data = $call->destination;
                         $p_values = array();
@@ -107,5 +107,5 @@
                       </tr>
                     </tfoot>             
                 </table>
-                Latest Build 1.1
+                Latest Build 1.2
              
