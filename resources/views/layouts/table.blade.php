@@ -1,4 +1,4 @@
-@extends('layouts.table')
+
 <table id="example" class="table table-bordered compact table-striped" style="width:100%;">
                   <thead>
                   <tr>
@@ -107,4 +107,5 @@
                       </tr>
                     </tfoot>             
                 </table>
+                Latest Build 1.1
              
