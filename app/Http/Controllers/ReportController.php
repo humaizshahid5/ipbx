@@ -15,7 +15,7 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $reports = Report::Paginate(10);
+        $reports = Report::get();
         return view("report",  [
             'reports' => $reports
            

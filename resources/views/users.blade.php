@@ -7,7 +7,8 @@
 
     $(document).ready(function() {
         var table = $('#usertable').DataTable( {
-            lengthChange: false,
+            lengthChange: true,
+            "pageLength": 100
            
         } );
     

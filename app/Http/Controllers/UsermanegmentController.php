@@ -18,7 +18,7 @@ class UsermanegmentController extends Controller
         return redirect()->route('dashboard');
         }
         else{
-        $users = User::Paginate(10);
+        $users = User::get();
         return view("users",  [
             'users' => $users
            

@@ -1,7 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+<script type="text/javascript" class="init">
+	
 
+
+    $(document).ready(function() {
+        var table = $('#usertable').DataTable( {
+            lengthChange: true,
+            "pageLength": 100
+           
+        } );
+    
+        table.buttons().container()
+            .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+    } );
+    
+    
+    
+        </script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
