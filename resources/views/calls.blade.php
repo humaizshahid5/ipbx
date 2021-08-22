@@ -46,10 +46,14 @@
                         Call Type
                       </label>
                       <select class="form-control" name="type">
-                                <option value="">Select One</option>
-                                <option value="1">Local</option>
-                                <option value="2">Incoming</option>
-                                <option value="3">Outgoing</option>
+
+                             
+                              <option value="">Select One</option>
+                              <option {{ app('request')->input("type") == '1' ? 'selected' : '' }}  value="1">Local</option>
+                              <option {{ app('request')->input("type") == '2' ? 'selected' : '' }}  value="2">Incoming</option>
+                              <option {{ app('request')->input("type") == '3' ? 'selected' : '' }}  value="3">Outgoing</option>
+
+                              
                             </select>
                     </div>
                     <div class="col-md-6">
