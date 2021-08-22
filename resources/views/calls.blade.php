@@ -20,26 +20,26 @@
                       <label>
                         From
                       </label>
-                      <input type="date" class="form-control @error('fromdate') is-invalid @enderror" name="fromdate"  />
+                      <input type="date" class="form-control @error('fromdate') is-invalid @enderror" name="fromdate"  value="{{ app('request')->input('fromdate') }}" />
                     </div>
                     <div class="col-md-6">
                       
                       <label>
                         To
                       </label>
-                      <input type="date" class="form-control @error('todate') is-invalid @enderror" name="todate" />
+                      <input type="date" class="form-control @error('todate') is-invalid @enderror" name="todate" value="{{ app('request')->input('todate') }}" />
                     </div>
                     <div class="col-md-6">
                       <label>
                         Source
                       </label>
-                      <input type="number" class="form-control" name="source" />
+                      <input type="number" class="form-control" name="source" value="{{ app('request')->input('source') }}" />
                     </div>
                     <div class="col-md-6">
                       <label>
                         Destination
                       </label>
-                      <input type="text" class="form-control" name="destination" />
+                      <input type="text" class="form-control" name="destination" value="{{ app('request')->input('destination') }}" />
                     </div>
                     <div class="col-md-6">
                       <label>
@@ -56,7 +56,7 @@
                       <label>
                         Duration
                       </label>
-                      <input type="number" class="form-control" name="duration" />
+                      <input type="number" class="form-control" name="duration" value="{{ app('request')->input('duration') }}" />
                     </div>
                   <div class="col-lg-12 col-sm-12">
                               <br>

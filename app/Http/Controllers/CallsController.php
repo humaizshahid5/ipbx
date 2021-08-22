@@ -73,7 +73,7 @@ if ($filters['from']) {
             $query->where('calltype', '=', $filters['type']);
         }
         if ($filters['duration']) {
-            $query->where('duration', '>=', $filters['billsec']);
+            $query->where('billsec', '>=', $filters['duration']);
         }
     })->orderby('calldate' , 'DESC')->get();
 
