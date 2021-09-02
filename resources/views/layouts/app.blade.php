@@ -241,7 +241,7 @@ $(document).ready(function() {
         </main>
        
         <footer class="main-footer text-center">
-    <strong>Developed by HumAiz Shahid</strong>
+    <strong>Developed by HumAiz Shahid &nbsp;(Latest Build 1.4)</strong>
 
   </footer>
     </div>
