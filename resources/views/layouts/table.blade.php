@@ -18,7 +18,8 @@
                     @foreach($calls as $call)
                     @php
                     $c_cost = 0;
-                    $t_cost = 0;
+                    $free = false;
+                    
                      $t_duration = $t_duration+$call->billsec;
                     @endphp
                 
@@ -78,15 +79,17 @@
                               {
                                 if($call->billsec <=	$rate->grace)
                                 {
-                                $p_name = $rate->name;
-                                $t_cost = "Free";
+                                  $c_rate = $rate->rate;
+                                  $p_name = $rate->name;
+                                  $free = true;
                                 }
                               else{
                                 $c_count = $m_count;
                                 $c_rate = $rate->rate;
                                 $p_name = $rate->name;
                                 $sec = $call->billsec/60;
-                                $t_cost = round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+                                $c_cost = round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+                                $t_cost = $t_cost+$c_cost;
                               }
                               
                               }
@@ -99,7 +102,12 @@
                     </td>
                     <td>@php echo $c_rate; @endphp</td>
                     <td>@php  
-                     echo $t_cost;
+                      if($free == true){
+                        echo "Free";
+                      }
+                      else{
+                     echo $c_cost;
+                      }
                       @endphp</td>
                   </tr>
                     @endforeach                  
