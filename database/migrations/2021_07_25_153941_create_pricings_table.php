@@ -18,6 +18,9 @@ class CreatePricingsTable extends Migration
             $table->string('name');
             $table->string('sdn');
             $table->string('rate');
+            $table->integer('grace');
+            $table->integer('minimal');
+            $table->integer('fraction');
             $table->string('type');
             $table->timestamps();
         });

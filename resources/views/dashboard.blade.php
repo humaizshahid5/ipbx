@@ -194,7 +194,7 @@
                      
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title">Last 30 Calls </h3>
+                    <h3 class="card-title">Last 30 Days Calls </h3>
                  </div>
                 <div class="card-body">
                 <canvas id="myChart1"></canvas>

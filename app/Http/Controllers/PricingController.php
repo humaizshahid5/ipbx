@@ -45,6 +45,10 @@ class PricingController extends Controller
             'sdn' => ['required'],
             'rate' => ['required'],
             'type' => ['required'],
+            'grace' => ['required'],
+            'minimal' => ['required'],
+            'fraction' => ['required'],
+
 
         ]);
    
@@ -54,6 +58,10 @@ class PricingController extends Controller
             'sdn' => $request->sdn,
             'rate' => $request->rate,
             'type' => $request->type,
+            'grace' => $request->grace,
+            'minimal' => $request->minimal,
+            'fraction' => $request->fraction,
+
 
         ]);
 

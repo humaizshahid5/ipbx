@@ -43,6 +43,7 @@ class LoginController extends Controller
     }
     public function __construct()
     {
+        Session::flush();
         $check =  DB::table('activation')->where('url', '=', url('/'))->Where('status', '=', '1' )->count();
         if ($check == 0) {
             session(['activation_status' => false]);

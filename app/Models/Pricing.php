@@ -14,7 +14,11 @@ class Pricing extends Model
         'name',
         'sdn',
         'rate',
-        'type'
+        'type',
+        'grace',
+        'minimal',
+        'fraction'
+
     ];
 
    
