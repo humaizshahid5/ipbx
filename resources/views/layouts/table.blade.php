@@ -30,57 +30,63 @@
                     <td>{{ $call->billsec }}</td>
                     <td>
                       @php $c_rate =0;  $p_name = ""; $c_count =0; @endphp
-                    @foreach($rates as $rate)
-                      @php
-                     
-                        
-                        $price_data = $rate->destination;
-                        $call_data = $call->destination;
-                        $p_values = array();
-                        $c_values = array();
-                        $p_num = array();
-                        $status = 0;
-                        if(preg_match("/[a-z]/i", $call_data)){
-                           break;
-                        }
-                        if(strlen($price_data) == strlen($call_data) && $call->calltype == $rate->type){
-                        for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
-                            if(is_numeric($price_data[$i])){
-                                     $p_values[] =$i." | ".$price_data[$i]."<br>";
-                                    $p_num[] = $i;
-                            }
-                          }
-                          for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
-                              $c_values[] = $i." | ".$call_data[$i]. "<br>";
-                          }
-                          $num = count($p_num);
-                          $m_count= 0;
-                          for($i = 0; $i < $num; $i++){
-                          $p_val = $p_num[$i];
-                          if($p_values[$i] == $c_values[$p_val]){
-                             $m_count = $m_count+1;
-                          $status = 1;
+                        @foreach($rates as $rate)
+                          @php
+                          if($rate->type == '2'){
+                            $price_data = $rate->sdn;
+                            $call_data = $call->source;
                           }
                           else{
-                           $status = 0;
-                           break;
+                            $price_data = $rate->sdn;
+                            $call_data = $call->destination;
+                            
                           }
-                          }
-                         if($status == 1){
-                           if($m_count > $c_count)
-                           {
-                            $c_count = $m_count;
-                            $c_rate = $rate->rate;
-                            $p_name = $rate->name;
-                            $sec = $call->billsec/60;
                            
-                           
-                           }
-                         }
-                       
-                        }
-                      @endphp
-                    @endforeach
+                            $p_values = array();
+                            $c_values = array();
+                            $p_num = array();
+                            $status = 0;
+                            if(preg_match("/[a-z]/i", $call_data)){
+                              break;
+                            }
+                            if(strlen($price_data) == strlen($call_data) && $call->calltype == $rate->type){
+                            for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
+                                if(is_numeric($price_data[$i])){
+                                        $p_values[] =$i." | ".$price_data[$i]."<br>";
+                                        $p_num[] = $i;
+                                }
+                              }
+                              for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
+                                  $c_values[] = $i." | ".$call_data[$i]. "<br>";
+                              }
+                              $num = count($p_num);
+                              $m_count= 0;
+                              for($i = 0; $i < $num; $i++){
+                              $p_val = $p_num[$i];
+                              if($p_values[$i] == $c_values[$p_val]){
+                                $m_count = $m_count+1;
+                              $status = 1;
+                              }
+                              else{
+                              $status = 0;
+                              break;
+                              }
+                              }
+                            if($status == 1){
+                              if($m_count > $c_count)
+                              {
+                                $c_count = $m_count;
+                                $c_rate = $rate->rate;
+                                $p_name = $rate->name;
+                                $sec = $call->billsec/60;
+                              
+                              
+                              }
+                            }
+                          
+                            }
+                          @endphp
+                      @endforeach
                     @php echo $p_name; @endphp
                     </td>
                     <td>@php echo $c_rate; @endphp</td>

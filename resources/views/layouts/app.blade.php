@@ -43,6 +43,9 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('plugins/chart.js/chart.js') }}"></script>
+
+    
 
 
 	<script type="text/javascript" class="init">
@@ -108,10 +111,16 @@ $(document).ready(function() {
       <!-- Messages Dropdown Menu -->
     
       <!-- Notifications Dropdown Menu -->
- 
+      @if(session()->get('activation_status') == false)
+      <li class="nav-item">
+        <a class="nav-link btn btn-md btn-danger"  href="{{ route('activation') }}" role="button" style="color:white;">
+        <i class="fas fa-lock"></i> Activation Required 
+        </a>
+      </li>
+      @endif
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
+         <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
       <li class="nav-item">
@@ -151,6 +160,11 @@ $(document).ready(function() {
             </a>
            
           </li>
+          @if(session()->get('activation_status') == false)
+
+        
+          @else
+        
           <li class="nav-item">
             <a href="{{ route('calls') }}" class="nav-link {{ (request()->is('calls')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-phone-alt"></i>
@@ -187,6 +201,28 @@ $(document).ready(function() {
                 
               </p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Settings
+                <i class="fas fa-angle-left right"></i>
+                
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('api')}}" class="nav-link">
+                  <i class="fas fa-link nav-icon"></i>
+                  <p>API</p>
+                </a>
+              </li>
+              @endif
+             
+             
+           
+            </ul>
           </li>
 
        

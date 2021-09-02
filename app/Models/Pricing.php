@@ -12,7 +12,7 @@ class Pricing extends Model
 
     protected $fillable = [
         'name',
-        'destination',
+        'sdn',
         'rate',
         'type'
     ];

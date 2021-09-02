@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePricingsTable extends Migration
+class CreateActivationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePricingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pricings', function (Blueprint $table) {
+        Schema::create('activation', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('sdn');
-            $table->string('rate');
-            $table->string('type');
+            $table->string('url');
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreatePricingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pricings');
+        Schema::dropIfExists('activation');
     }
 }

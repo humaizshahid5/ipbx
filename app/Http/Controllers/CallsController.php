@@ -75,7 +75,7 @@ if ($filters['from']) {
         if ($filters['duration']) {
             $query->where('billsec', '>=', $filters['duration']);
         }
-    })->orderby('calldate' , 'DESC')->get();
+    })->Where('billsec', '>=', '1' )->orderby('calldate' , 'DESC')->get();
 
         $rates =   DB::table('pricings')->get();
 

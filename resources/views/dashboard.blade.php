@@ -8,9 +8,16 @@
 
                     @foreach($rates as $rate)
                       @php
+                      if($rate->type == '2'){
+                            $price_data = $rate->sdn;
+                            $call_data = $call->source;
+                          }
+                          else{
+                            $price_data = $rate->sdn;
+                            $call_data = $call->destination;
+                            
+                          }
                         $c_count =0;
-                        $price_data = $rate->destination;
-                        $call_data = $call->destination;
                         $p_values = array();
                         $c_values = array();
                         $p_num = array();
@@ -109,12 +116,12 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{ $calls_today }}</h3>
+                        <h3>@php echo date("h:i:s A"); @endphp</h3>
 
-                        <p>Calls Today</p>
+                        <p>Current Time</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-phone"></i>
+                        <i class="fas fa-clock"></i>
                     </div>
                     <a href="{{ route('calls') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -150,12 +157,76 @@
                     </div>
                 </div>
             </div>
-            <!-- right col -->
-            </div>
-            <!-- /.row (main row) -->
+            <div class="row">
+                <div class="col-lg-6 col-6">
+                    
+                 
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title">Latest Calls</h3>
+                    <h3 class="card-title">Daily Calls </h3>
+                 </div>
+                <div class="card-body">
+                <canvas id="myChart"></canvas>
+                        <script>
+                        var ctx = document.getElementById("myChart").getContext('2d');
+                        var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ["Outgoing Calls", "Incoming Calls", "Local"],
+                            datasets: [{
+                            backgroundColor: [
+                                "#2ecc71",
+                                "#3498db",
+                                "#95a5a6"
+                                
+                            ],
+                            data: [{{ $outgoing_count }}, {{ $incoming_count }}, {{ $local_count }}]
+                            }]
+                        }
+                        });
+                        </script>
+                </div>
+            </div>
+                   
+                </div>
+        
+                <div class="col-lg-6 col-6">
+                     
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Last 30 Calls </h3>
+                 </div>
+                <div class="card-body">
+                <canvas id="myChart1"></canvas>
+                        <script>
+                        var ctx = document.getElementById("myChart1").getContext('2d');
+                        var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ["Outgoing Calls", "Incoming Calls", "Local"],
+                            datasets: [{
+                            backgroundColor: [
+                                "#2ecc71",
+                                "#3498db",
+                                "#95a5a6"
+                                
+                            ],
+                            data: [{{ $m_outgoing_count }}, {{ $m_incoming_count }}, {{ $m_local_count }}]
+                            }]
+                        }
+                        });
+                        </script>
+                </div>
+            </div>
+                   
+                </div>
+           
+               
+            </div>
+         
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Latest Calls </h3>
                  </div>
                 <div class="card-body">
                   @include("layouts.table")

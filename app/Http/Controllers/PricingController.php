@@ -42,7 +42,7 @@ class PricingController extends Controller
     {
         $this->validate($request, [
             'name' => ['required'],
-            'destination' => ['required'],
+            'sdn' => ['required'],
             'rate' => ['required'],
             'type' => ['required'],
 
@@ -51,7 +51,7 @@ class PricingController extends Controller
 
         $pricing = Pricing::create([
             'name' => $request->name,
-            'destination' => $request->destination,
+            'sdn' => $request->sdn,
             'rate' => $request->rate,
             'type' => $request->type,
 

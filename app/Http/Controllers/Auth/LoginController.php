@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 use Auth;
+use Session;
+use DB;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -36,14 +38,22 @@ class LoginController extends Controller
      */
     public function username()
     {
+        
         return 'username';
     }
     public function __construct()
     {
+        $check =  DB::table('activation')->where('url', '=', url('/'))->Where('status', '=', '1' )->count();
+        if ($check == 0) {
+            session(['activation_status' => false]);
+        }
+       
         $this->middleware('guest')->except('logout');
     }
     public function logout() {
+        Session::flush();
         Auth::logout();
         return redirect('/');
       }
+      
 }
