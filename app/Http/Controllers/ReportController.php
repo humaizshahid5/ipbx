@@ -124,14 +124,10 @@ class ReportController extends Controller
             }
            
             if ($filters['duration'] == null) {
-                
-                $query->where('billsec', '>=', '1');
-            }
-            else{
                 $query->where('billsec', '>=', $filters['duration']);
             }
 
-            })->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();;
+            })->Where('billsec', '>=', '1' )->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();;
 
         $rates =   DB::table('pricings')->get();
         return view("generate",  [
