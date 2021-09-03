@@ -88,7 +88,7 @@
                                 $c_rate = $rate->rate;
                                 $p_name = $rate->name;
                                 $sec = $call->billsec/60;
-                                $c_cost = round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+                                $c_cost = round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
                                 $t_cost = $t_cost+$c_cost;
                               }
                               
