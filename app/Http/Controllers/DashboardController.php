@@ -10,9 +10,18 @@ use Illuminate\Support\Facades\DB;
 class DashboardController extends Controller
 {
    
-
+   
     public function index()
     {
+        $check =  DB::table('activation')->where('url', '=', url('/'))->Where('status', '=', '1' )->count();
+        if ($check == 0 ) {
+           
+            session(['activation_status' => false]);
+        }
+        else{
+            session(['activation_status' => true]);
+        }
+
 
         $current_month = Date('Y-m-d', strtotime("first day of this month"));
         $current_date = Date('Y-m-d');

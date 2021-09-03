@@ -161,10 +161,11 @@ $(document).ready(function() {
             </a>
            
           </li>
-          @if(session()->get('activation_status') == false)
+         
+          @if(session()->get('activation_status') == true)
 
         
-          @else
+       
         
           <li class="nav-item">
             <a href="{{ route('calls') }}" class="nav-link {{ (request()->is('calls')) ? 'active' : '' }}">

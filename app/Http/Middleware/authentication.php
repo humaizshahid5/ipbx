@@ -20,7 +20,7 @@ class authentication
         if ($check == 0 ) {
             return  redirect('dashboard');
         }
-         
+        session(['activation_status' => true]);
         return $next($request);
     }
 }
