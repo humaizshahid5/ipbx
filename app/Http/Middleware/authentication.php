@@ -3,10 +3,9 @@
 namespace App\Http\Middleware;
 use DB;
 use Closure;
+use Illuminate\Http\Request;
 
-
-
-class AuthenticationIsValid extends Middleware
+class authentication
 {
     /**
      * Handle an incoming request.
