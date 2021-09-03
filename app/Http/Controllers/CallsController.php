@@ -72,10 +72,14 @@ if ($filters['from']) {
         if ($filters['type']) {
             $query->where('calltype', '=', $filters['type']);
         }
-        if ($filters['duration']) {
+        if ($filters['duration'] == null) {
+                
+            $query->where('billsec', '>=', '1');
+        }
+        else{
             $query->where('billsec', '>=', $filters['duration']);
         }
-    })->Where('billsec', '>=', '1' )->orderby('calldate' , 'DESC')->get();
+         })->orderby('calldate' , 'DESC')->get();
 
         $rates =   DB::table('pricings')->get();
 
@@ -84,6 +88,6 @@ if ($filters['from']) {
             'rates' => $rates
            
         ]);
-    }
+        }
 }
    
