@@ -19,7 +19,7 @@ class AuthenticationIsValid extends Middleware
     {
         $check =  DB::table('activation')->where('url', '=', url('/'))->Where('status', '=', '1' )->count();
         if ($check == 0 ) {
-            return  redirect('dashboared');
+            return  redirect('dashboard');
         }
          
         return $next($request);
