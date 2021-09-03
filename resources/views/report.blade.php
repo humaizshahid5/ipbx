@@ -48,7 +48,7 @@
                 <form action="{{ route('add_report') }}" method="post">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-6 col-xs-12">
+                        <div class="col-lg-12 col-xs-12">
                             <label>Email to</label>
                             <input type="email" class="form-control" name="email" required />
                         </div>
@@ -73,6 +73,19 @@
                                 <option value="3">Outgoing</option>
                             </select>
                         </div>
+                        <div class="col-lg-6 col-xs-12">
+                            <label>Source</label>
+                            <input type="number" class="form-control" name="source"  />
+                        </div>
+                        <div class="col-lg-6 col-xs-12">
+                            <label>Destination</label>
+                            <input type="number" class="form-control" name="destination"  />
+                        </div>
+                        <div class="col-lg-6 col-xs-12">
+                            <label>Duration</label>
+                            <input type="number" class="form-control" name="duration"  />
+                        </div>
+                        
                      
                     
                         <div class="col-lg-12 col-sm-12">
@@ -99,6 +112,9 @@
                     <th>Period</th>
                     <th>Range</th>
                     <th>Data Type</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Duration</th>
                     <th>Send Now</th>
                     <th>Delete</th>
                   </tr>
@@ -112,6 +128,9 @@
                     <td>{{ $report->period }}</td> 
                     <td>@if($report->type == '1') Local @elseif($report->type == '2') Incoming @elseif($report->type == '3') Outgoing @endif</td>
                     <td>@if($report->range == '1') 15 Days @elseif($report->range == '2') Last 30 Days @elseif($report->range == '3') Last Month @endif</td>
+                    <td>{{ $report->source }}</td> 
+                    <td>{{ $report->destination }}</td> 
+                    <td>{{ $report->duration }}</td> 
                     <td><a href="/sendnow/{{$report->id}}/send"><button class="btn btn-info btn-block"><i class="fas fa-envelope"></i></button></a></td>
                     <td><a href="/del_report/{{$report->id}}/del"><button class="btn btn-danger btn-block"><i class="fas fa-trash"></i></button></a></td>
 

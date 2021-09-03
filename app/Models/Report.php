@@ -14,7 +14,8 @@ class Report extends Model
         'period',
         'range',
         'type',
-      
-
+        'source',
+        'destination',
+        'duration'
     ];
 }

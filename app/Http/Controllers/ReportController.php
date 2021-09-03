@@ -29,8 +29,7 @@ class ReportController extends Controller
             'period' => ['required'],
             'range' => ['required'],
             'type' => ['required'],
-
-            
+          
 
         ]);
        if($request->period >= 1 && $request->period <= 9)
@@ -45,11 +44,9 @@ class ReportController extends Controller
             'period' => $period,
             'range' => $request->range,
             'type' => $request->type,
-          
-
-
-            
-
+            'source' => $request->source,
+            'destination' => $request->destination,
+            'duration' => $request->duration
         ]);
 
         return back();
@@ -111,7 +108,31 @@ class ReportController extends Controller
 
               }
 
-        $calls =   DB::table('cdr')->where('calltype', '=' , $user_data->type)->where('billsec', '>=' , '1')->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();
+        
+            $filters = [
+                'source' => $user_data->source,
+                'destination'    => $user_data->destination,
+                'duration'    => $user_data->duration
+            ];
+         
+            $calls = DB::table('cdr')->where(function ($query) use ($filters) {
+              if ($filters['source']) {
+                $query->where('source', '=', $filters['source']);
+            }
+             if ($filters['destination']) {
+                $query->where('destination', '=', $filters['destination']);
+            }
+           
+            if ($filters['duration'] == null) {
+                
+                $query->where('billsec', '>=', '1');
+            }
+            else{
+                $query->where('billsec', '>=', $filters['duration']);
+            }
+
+            })->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();;
+
         $rates =   DB::table('pricings')->get();
         return view("generate",  [
             'calls' => $calls,

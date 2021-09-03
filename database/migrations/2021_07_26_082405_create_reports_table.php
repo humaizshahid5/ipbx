@@ -16,9 +16,13 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->string('period');
-            $table->string('range');
-            $table->string('type');
+            $table->integer('period');
+            $table->integer('range');
+            $table->integer('type');
+            $table->string('source')->nullable();
+            $table->string('destination')->nullable();
+            $table->integer('duration')->nullable();
+
          
             $table->timestamps();
         });
