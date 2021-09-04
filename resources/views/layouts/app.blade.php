@@ -197,6 +197,17 @@ $(document).ready(function() {
             </a>
           </li>
           @endif
+          @if(auth()->user()->role == '1')
+          <li class="nav-item">
+            <a href="{{ route('users') }}" class="nav-link {{ (request()->is('users')) ? 'active' : '' }}">
+              <i class="nav-icon fas fa-address-book"></i>
+              <p>
+                Phone Book
+              </p>
+            </a>
+          </li>
+          @endif
+          @if(auth()->user()->role == '1')
           <li class="nav-item">
             <a href="{{ route('report') }}" class="nav-link {{ (request()->is('report')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-file"></i>
@@ -206,6 +217,8 @@ $(document).ready(function() {
               </p>
             </a>
           </li>
+          @endif
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>

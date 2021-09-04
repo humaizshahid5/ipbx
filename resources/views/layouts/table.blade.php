@@ -84,18 +84,23 @@
                                   $free = true;
                                 }
                               else{
-                                $c_count = $m_count;
-                                $c_rate = $rate->rate;
-                                $p_name = $rate->name;
-                                $sec = $call->billsec/60;
-                                $c_cost = round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
-                                $t_cost = $t_cost+$c_cost;
+                                if($rate->rate == 0){
+                                  $c_cost = 0;
+                                  $p_name = $rate->name;
+                                }
+                                else{
+                                  $c_count = $m_count;
+                                  $c_rate = $rate->rate;
+                                  $p_name = $rate->name;
+                                
+                                  $c_cost = round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+                                  $t_cost = $t_cost+$c_cost;
+                                }
                               }
                               
-                              }
                             }
-                          
                             }
+                          }
                           @endphp
                       @endforeach
                     @php echo $p_name; @endphp

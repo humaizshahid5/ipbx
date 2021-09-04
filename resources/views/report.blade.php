@@ -114,8 +114,8 @@
                     <th>#</th>
                     <th>Email</th>
                     <th>Period</th>
-                    <th>Range</th>
                     <th>Data Type</th>
+                    <th>Range</th>               
                     <th>Source</th>
                     <th>Destination</th>
                     <th>Duration</th>

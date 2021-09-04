@@ -6,11 +6,13 @@ Your report filter:<br>
 
 @endif<br>
 <b>Data Type:</b>
-@if($details['type'] == '1') Local 
-@elseif($details['type'] == '2') Incoming 
-@elseif($details['type'] == '3') Outgoing
-@elseif($details['type'] == '4') All 
-@endif <br>
+@foreach(unserialize($details['type']) as $type)
+@if($type == '1') Local ,
+@elseif($type == '2') Incoming ,
+@elseif($type == '3') Outgoing ,
+@endif
+@endforeach
+<br>
 <b>Source</b>: {{ $details['source'] }}<br>
 <b>Destination</b>: {{ $details['destination'] }}<br>
 <b>Duration</b>: {{ $details['duration'] }}<br>

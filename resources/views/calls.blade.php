@@ -46,7 +46,7 @@
                         Call Type
                       </label>
                      
-                      <select  id="choices-multiple-remove-button" name="type[]" multiple  >
+                      <select   id="choices-multiple-remove-button" name="type[]" multiple  >
                               @if(app('request')->input("type"))
                              
                                   <option  @foreach(app('request')->input("type") as $type1) {{ $type1 == '1' ? 'selected' : '' }} @endforeach  value="1">Local</option>
