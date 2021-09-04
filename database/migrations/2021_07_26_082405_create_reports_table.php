@@ -18,7 +18,7 @@ class CreateReportsTable extends Migration
             $table->string('email');
             $table->integer('period');
             $table->integer('range');
-            $table->integer('type');
+            $table->string('type');
             $table->string('source')->nullable();
             $table->string('destination')->nullable();
             $table->integer('duration')->nullable();
