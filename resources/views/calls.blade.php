@@ -45,16 +45,27 @@
                       <label>
                         Call Type
                       </label>
-                      <select class="form-control" name="type">
+                     
+                      <select id="choices-multiple-remove-button" name="type[]" multiple required>
+                              @if(app('request')->input("type"))
+                             
+                                  <option  @foreach(app('request')->input("type") as $type1) {{ $type1 == '1' ? 'selected' : '' }} @endforeach  value="1">Local</option>
+                                  <option  @foreach(app('request')->input("type") as $type2) {{ $type2 == '2' ? 'selected' : '' }} @endforeach value="2">Incoming</option>
+                                  <option  @foreach(app('request')->input("type") as $type3) {{ $type3 == '3' ? 'selected' : '' }} @endforeach  value="3">Outgoing</option>
+                                  @else
+                                  <option value="1">Local</option>
+                                  <option value="2">Incoming</option>
+                                  <option value="3">Outgoing</option>
+
+                                  @endif
+                        </select>
 
                              
-                              <option value="">Select One</option>
-                              <option {{ app('request')->input("type") == '1' ? 'selected' : '' }}  value="1">Local</option>
-                              <option {{ app('request')->input("type") == '2' ? 'selected' : '' }}  value="2">Incoming</option>
-                              <option {{ app('request')->input("type") == '3' ? 'selected' : '' }}  value="3">Outgoing</option>
+                             
+
 
                               
-                            </select>
+                           
                     </div>
                     <div class="col-md-6">
                       <label>

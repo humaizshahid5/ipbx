@@ -32,6 +32,7 @@ class ReportController extends Controller
           
 
         ]);
+    
        if($request->period >= 1 && $request->period <= 9)
        {
            $period = "0".$request->period;
@@ -43,7 +44,7 @@ class ReportController extends Controller
             'email' => $request->email,
             'period' => $period,
             'range' => $request->range,
-            'type' => $request->type,
+            'type' => serialize($request->type),
             'source' => $request->source,
             'destination' => $request->destination,
             'duration' => $request->duration
@@ -70,6 +71,9 @@ class ReportController extends Controller
                 'url' => env("HOST_HTTP_REPORT"),
                 'type' => $user_data->type,
                 'range' => $user_data->range,
+                'source' => $user_data->source,
+                'destination' => $user_data->destination,
+                'duration' => $user_data->duration,
                 "body"  => 'Hello'
             ];
     
@@ -112,7 +116,9 @@ class ReportController extends Controller
             $filters = [
                 'source' => $user_data->source,
                 'destination'    => $user_data->destination,
-                'duration'    => $user_data->duration
+                'duration'    => $user_data->duration,
+                'type'    => $user_data->type,
+
             ];
          
             $calls = DB::table('cdr')->where(function ($query) use ($filters) {
@@ -123,10 +129,13 @@ class ReportController extends Controller
                 $query->where('destination', '=', $filters['destination']);
             }
            
-            if ($filters['duration'] == null) {
+            if ($filters['duration']){
                 $query->where('billsec', '>=', $filters['duration']);
             }
-
+           
+                $query->whereIN('calltype' , unserialize($filters['type']));
+            
+ 
             })->Where('billsec', '>=', '1' )->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();;
 
         $rates =   DB::table('pricings')->get();
@@ -155,6 +164,10 @@ class ReportController extends Controller
             'url' => env("HOST_HTTP_REPORT"),
             'type' => $user_data->type,
             'range' => $user_data->range,
+            'source' => $user_data->source,
+            'destination' => $user_data->destination,
+            'duration' => $user_data->duration,
+
             "body"  => 'Hello'
         ];
 

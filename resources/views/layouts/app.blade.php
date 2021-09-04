@@ -26,12 +26,13 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
 
     <script src="{{ asset('js/adminlte.js') }}"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('js/chart.js') }}"></script>
-    
+    <script src="{{ asset('js/mutiple_select.js') }}"></script>
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
@@ -243,7 +244,7 @@ $(document).ready(function() {
         </main>
        
         <footer class="main-footer text-center">
-    <strong>Developed by HumAiz Shahid &nbsp;(Latest Build 1.4)</strong>
+    <strong>Developed by HumAiz Shahid &nbsp;(Latest Build 1.5)</strong>
 
   </footer>
     </div>
@@ -256,7 +257,26 @@ $(document).ready(function() {
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
     
   
+    <script>
+  $(document).ready(function(){
 
+var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+removeItemButton: true,
+maxItemCount:3,
+searchResultLimit:5,
+renderChoiceLimit:5
+});
+
+
+});
+
+
+
+
+
+
+
+    </script>
 
 </body>
 </html>

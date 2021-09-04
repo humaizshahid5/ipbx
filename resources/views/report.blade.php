@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <script type="text/javascript" class="init">
 	
 
@@ -19,6 +20,9 @@
     
     
         </script>
+        <style>
+          
+        </style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -67,11 +71,11 @@
                         </div>
                         <div class="col-lg-6 col-xs-12">
                             <label>Data Type</label>
-                            <select class="form-control" name="type">
-                                <option value="1">Local</option>
-                                <option value="2">Incoming</option>
-                                <option value="3">Outgoing</option>
-                            </select>
+                          <select id="choices-multiple-remove-button" name="type[]" multiple>
+                            <option value="1" >Local</option>
+                            <option value="2">Incoming</option>
+                            <option value="3">Outgoing</option>               
+                        </select>
                         </div>
                         <div class="col-lg-6 col-xs-12">
                             <label>Source</label>
@@ -126,9 +130,14 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $report->email }}</td>
                     <td>{{ $report->period }}</td> 
-                    <td>@if($report->type == '1') Local @elseif($report->type == '2') Incoming @elseif($report->type == '3') Outgoing @endif</td>
+                    <td>
+                   
+                    @foreach(unserialize($report->type) as $type)
+                    @if($type == '1') Local , @elseif($type == '2')  Incoming , @elseif($type == '3')  Outgoing , @endif
+                    @endforeach
+                  </td>
                     <td>@if($report->range == '1') 15 Days @elseif($report->range == '2') Last 30 Days @elseif($report->range == '3') Last Month @endif</td>
-                    <td>{{ $report->source }}</td> 
+                    <td> {{ $report->source }}</td> 
                     <td>{{ $report->destination }}</td> 
                     <td>{{ $report->duration }}</td> 
                     <td><a href="/sendnow/{{$report->id}}/send"><button class="btn btn-info btn-block"><i class="fas fa-envelope"></i></button></a></td>
@@ -156,4 +165,5 @@
     </section>
     <!-- /.content -->
   </div>
+ 
   @endsection

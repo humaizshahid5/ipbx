@@ -70,7 +70,8 @@ if ($filters['from']) {
             $query->where('destination', '=', $filters['destination']);
         }
         if ($filters['type']) {
-            $query->where('calltype', '=', $filters['type']);
+           
+            $query->whereIN('calltype' , $filters['type']);
         }
         if ($filters['duration']) {
             $query->where('billsec', '>=', $filters['duration']);
