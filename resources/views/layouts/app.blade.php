@@ -199,7 +199,7 @@ $(document).ready(function() {
           @endif
           @if(auth()->user()->role == '1')
           <li class="nav-item">
-            <a href="{{ route('users') }}" class="nav-link {{ (request()->is('users')) ? 'active' : '' }}">
+            <a href="{{ route('phonebook') }}" class="nav-link {{ (request()->is('phonebook')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-address-book"></i>
               <p>
                 Phone Book

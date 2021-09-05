@@ -24,6 +24,7 @@ Route::get('/calls', [App\Http\Controllers\CallsController::class, 'index'])->mi
 Route::get('/users', [App\Http\Controllers\UsermanegmentController::class, 'index'])->middleware(['auth', 'authentication'])->name('users');
 Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->middleware(['auth', 'authentication'])->name('api');
 Route::get('/report', [App\Http\Controllers\ReportController::class, 'index'])->middleware(['auth', 'authentication'])->name('report');
+Route::get('/phonebook', [App\Http\Controllers\PhonebookController::class, 'index'])->middleware(['auth', 'authentication'])->name('phonebook');
 Route::get('/pricing', [App\Http\Controllers\PricingController::class, 'index'])->middleware(['auth' ,'authentication'])->name('pricing');
 Route::get('/del_user/{user_id}/del', [App\Http\Controllers\UsermanegmentController::class, 'del']);
 Route::get('/del_api/{api_id}/del', [App\Http\Controllers\ApiController::class, 'del']);

@@ -92,8 +92,8 @@
                                   $c_count = $m_count;
                                   $c_rate = $rate->rate;
                                   $p_name = $rate->name;
-                                
-                                  $c_cost = round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+                                 
+                                  $c_cost =round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
                                   $t_cost = $t_cost+$c_cost;
                                 }
                               }
@@ -111,7 +111,7 @@
                         echo "Free";
                       }
                       else{
-                     echo $c_cost;
+                     echo str_replace('.', ',', $c_cost);
                       }
                       @endphp</td>
                   </tr>
@@ -128,7 +128,7 @@
                         <td>@php echo $t_duration; @endphp</td>
                         <td></td>
                         <td>Totals Cost</td>
-                        <td>R$ @php echo number_format(floatval($t_cost), 2, '.', ''); @endphp</td>
+                        <td>R$ @php echo str_replace('.', ',', number_format(floatval($t_cost), 2, '.', '')); @endphp</td>
                       </tr>
                     </tfoot>             
                 </table>
