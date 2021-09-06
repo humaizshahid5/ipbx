@@ -28,12 +28,14 @@ Route::get('/phonebook', [App\Http\Controllers\PhonebookController::class, 'inde
 Route::get('/pricing', [App\Http\Controllers\PricingController::class, 'index'])->middleware(['auth' ,'authentication'])->name('pricing');
 Route::get('/del_user/{user_id}/del', [App\Http\Controllers\UsermanegmentController::class, 'del']);
 Route::get('/del_api/{api_id}/del', [App\Http\Controllers\ApiController::class, 'del']);
+Route::get('/del_phonebook/{phonebook_id}/del', [App\Http\Controllers\PhonebookController::class, 'del']);
 Route::post('/create_user', [App\Http\Controllers\UsermanegmentController::class, 'create'])->name('create_user');
 Route::post('/create_api', [App\Http\Controllers\ApiController::class, 'create'])->name('create_api');
 Route::post('/add_pricing', [App\Http\Controllers\PricingController::class, 'store'])->name('add_pricing');
 Route::post('/system_activate', [App\Http\Controllers\ActivationController::class, 'activate'])->name('system_activate');
 Route::get('/search_calls', [App\Http\Controllers\CallsController::class, 'search'])->name('search_calls');
 Route::post('/add_report', [App\Http\Controllers\ReportController::class, 'store'])->name('add_report');
+Route::post('/add_number', [App\Http\Controllers\PhonebookController::class, 'store'])->name('add_number');
 Route::get('/del_price/{user_id}/del', [App\Http\Controllers\PricingController::class, 'destroy']);
 Route::get('/del_report/{user_id}/del', [App\Http\Controllers\ReportController::class, 'destroy']);
 Route::get('/pdf/{user_id}/id', [App\Http\Controllers\ReportController::class, 'report'])->name('pdf');

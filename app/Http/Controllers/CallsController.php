@@ -12,7 +12,14 @@ class CallsController extends Controller
     {
         $start_date = Date('y-m-d', strtotime('-30 days'));
         $end_date = Date('y-m-d', strtotime('+1 days'));
-        $calls =   DB::table('cdr')->where('calltype', '=', '3')->Where('billsec', '>=', '1' )->whereBetween('calldate', [$start_date, $end_date])->orderBY('calldate', 'DESC')->get();
+        $calls =   DB::table('cdr as call')
+        ->leftJoin('phonebooks as s_name', 'call.source', '=', 's_name.number')
+        ->leftJoin('phonebooks as d_name', 'call.destination', '=', 'd_name.number')
+        ->where('calltype', '=', '3')->Where('billsec', '>=', '1' )
+        ->whereBetween('calldate', [$start_date, $end_date])
+        ->orderBY('calldate', 'DESC')
+        ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number')
+        ->get();
         $rates =   DB::table('pricings')->get();
         return view("calls",  [
             'calls' => $calls,
@@ -47,7 +54,10 @@ class CallsController extends Controller
 
   
 
-  $calls = DB::table('cdr')->where(function ($query) use ($filters) {
+  $calls =    DB::table('cdr as call')
+  ->leftJoin('phonebooks as s_name', 'call.source', '=', 's_name.number')
+  ->leftJoin('phonebooks as d_name', 'call.destination', '=', 'd_name.number')
+  ->where(function ($query) use ($filters) {
     if((!empty($request->fromdate) && is_null($request->todate)) || (!empty($request->todate) && is_null($request->fromdate))){
         $this->validate($request, [
             'todate' => 'required',
@@ -76,7 +86,9 @@ if ($filters['from']) {
         if ($filters['duration']) {
             $query->where('billsec', '>=', $filters['duration']);
         }
-    })->Where('billsec', '>=', '1' )->orderby('calldate' , 'DESC')->get();
+    })
+    ->Where('billsec', '>=', '1' )->orderby('calldate' , 'DESC')  ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number')
+    ->get();
 
         $rates =   DB::table('pricings')->get();
 
@@ -85,6 +97,7 @@ if ($filters['from']) {
             'rates' => $rates
            
         ]);
+
     }
 }
    

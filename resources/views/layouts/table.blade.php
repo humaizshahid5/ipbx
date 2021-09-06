@@ -26,8 +26,23 @@
                   <tr>
                     <td style="display:none;">@php $number_count=$number_count+1; @endphp</td>
                     <td>{{ date('M j,Y H:i', strtotime('-1 hours', strtotime($call->calldate))) }} </td>
-                    <td>{{ $call->source }}</td>
-                    <td>{{ $call->destination }}</td>
+                   
+                    <td>
+                      @if($call->source == $call->s_number)
+                      {{ $call->s_name }}
+                      @else
+                      {{ $call->source }}
+
+                      @endif
+                    </td>
+                    <td>
+                      @if($call->destination == $call->d_number)
+                       {{ $call->d_name }}
+                      @else
+                      {{ $call->destination }}
+
+                      @endif
+                    </td>
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->billsec }}</td>
                     <td>
@@ -122,8 +137,6 @@
                       <td></td>
                         <td> &nbsp;Total Calls</td>
                         <td>@php echo $number_count; @endphp</td>
-
-
                         <td>Total Duration</td>
                         <td>@php echo $t_duration; @endphp</td>
                         <td></td>

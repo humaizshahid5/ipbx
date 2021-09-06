@@ -121,7 +121,10 @@ class ReportController extends Controller
 
             ];
          
-            $calls = DB::table('cdr')->where(function ($query) use ($filters) {
+            $calls =DB::table('cdr as call')
+            ->leftJoin('phonebooks as s_name', 'call.source', '=', 's_name.number')
+            ->leftJoin('phonebooks as d_name', 'call.destination', '=', 'd_name.number') 
+            ->where(function ($query) use ($filters) {
               if ($filters['source']) {
                 $query->where('source', '=', $filters['source']);
             }
@@ -136,7 +139,8 @@ class ReportController extends Controller
                 $query->whereIN('calltype' , unserialize($filters['type']));
             
  
-            })->Where('billsec', '>=', '1' )->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();;
+            })
+            ->Where('billsec', '>=', '1' )->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number')->get();;
 
         $rates =   DB::table('pricings')->get();
         return view("generate",  [
