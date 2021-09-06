@@ -62,11 +62,26 @@
                     
                         <div class="col-lg-12 col-sm-12">
                             <br>
-                            <button type="submit" class="btn btn-primary btn-block">Add Price</button>
+                            <button type="submit" class="btn btn-primary btn-block">Add Number</button>
                         </div>
+                       
                     </div>
                 </form>
             </div>
+            <!-- /.row -->
+          </div>
+          <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">Import From Calls</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body"> 
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                            <a href="/number_import" class="btn btn-info btn-block">Import</a>
+                            </div>
+                        </div>
+                </div>
             <!-- /.row -->
           </div>
           <!-- /.card-body -->

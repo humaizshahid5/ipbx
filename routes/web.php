@@ -29,6 +29,7 @@ Route::get('/pricing', [App\Http\Controllers\PricingController::class, 'index'])
 Route::get('/del_user/{user_id}/del', [App\Http\Controllers\UsermanegmentController::class, 'del']);
 Route::get('/del_api/{api_id}/del', [App\Http\Controllers\ApiController::class, 'del']);
 Route::get('/del_phonebook/{phonebook_id}/del', [App\Http\Controllers\PhonebookController::class, 'del']);
+Route::get('/number_import', [App\Http\Controllers\PhonebookController::class, 'import']);
 Route::post('/create_user', [App\Http\Controllers\UsermanegmentController::class, 'create'])->name('create_user');
 Route::post('/create_api', [App\Http\Controllers\ApiController::class, 'create'])->name('create_api');
 Route::post('/add_pricing', [App\Http\Controllers\PricingController::class, 'store'])->name('add_pricing');
