@@ -146,7 +146,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>@php echo money_format('R$ %!n', number_format(floatval($t_cost), 2, '.', '')); @endphp </h3>
+                        <h3>@php echo number_format(floatval($t_cost), 2, ',', '') @endphp </h3>
 
                         <p>Total Cost</p>
                     </div>

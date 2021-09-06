@@ -15,7 +15,7 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
-setlocale(LC_MONETARY, 'de_DE');
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

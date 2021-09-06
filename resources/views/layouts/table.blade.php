@@ -126,7 +126,7 @@
                         echo "Free";
                       }
                       else{
-                         echo money_format('%!n', number_format(floatval($c_cost), 2, '.', ''));
+                         echo number_format(floatval($c_cost), 2, ',', '');
                       }
                       @endphp</td>
                   </tr>
@@ -141,7 +141,7 @@
                         <td>@php echo $t_duration; @endphp</td>
                         <td></td>
                         <td>Totals Cost</td>
-                        <td>@php echo money_format('R$ %!n', number_format(floatval($t_cost), 2, '.', '')); @endphp</td>
+                        <td>@php echo number_format(floatval($t_cost), 2, ',', ''); @endphp</td>
                       </tr>
                     </tfoot>             
                 </table>
