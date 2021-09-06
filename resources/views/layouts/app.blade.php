@@ -27,7 +27,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/choice.css') }}">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
     <script src="{{ asset('js/adminlte.js') }}"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
@@ -258,7 +259,7 @@ $(document).ready(function() {
         </main>
        
         <footer class="main-footer text-center">
-    <strong>Developed by HumAiz Shahid &nbsp;(Latest Build 1.5)</strong>
+    <strong>Developed by HumAiz Shahid &nbsp;(Latest Build 1.6)</strong>
 
   </footer>
     </div>

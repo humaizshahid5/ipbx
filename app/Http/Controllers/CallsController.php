@@ -87,7 +87,8 @@ if ($filters['from']) {
             $query->where('billsec', '>=', $filters['duration']);
         }
     })
-    ->Where('billsec', '>=', '1' )->orderby('calldate' , 'DESC')  ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number')
+    ->Where('billsec', '>=', '1' )->orderby('calldate' , 'DESC')
+    ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number')
     ->get();
 
         $rates =   DB::table('pricings')->get();

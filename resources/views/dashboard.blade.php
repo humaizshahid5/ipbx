@@ -159,13 +159,20 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 col-6">
+              
                     
                  
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title">Daily Calls </h3>
+                <a data-toggle="collapse" href="#collapse-example" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block">
+            
+           Daily Calls
+            <i class="fa fa-chevron-down float-right"></i>
+        </a>
                  </div>
+                 <div id="collapse-example" class="collapse show" aria-labelledby="heading-example">
                 <div class="card-body">
+               
                 <canvas id="myChart"></canvas>
                         <script>
                         var ctx = document.getElementById("myChart").getContext('2d');
@@ -186,6 +193,7 @@
                         });
                         </script>
                 </div>
+                    </div>
             </div>
                    
                 </div>
@@ -194,8 +202,12 @@
                      
             <div class="card card-default">
                 <div class="card-header">
+                <a data-toggle="collapse" href="#collapse2" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block">
                     <h3 class="card-title">Last 30 Days Calls </h3>
+                    <i class="fa fa-chevron-down float-right"></i>
+        </a>
                  </div>
+                 <div id="collapse2" class="collapse show" aria-labelledby="heading-example">
                 <div class="card-body">
                 <canvas id="myChart1"></canvas>
                         <script>
@@ -220,6 +232,7 @@
             </div>
                    
                 </div>
+                    </div>
            
                
             </div>
@@ -238,4 +251,5 @@
 </div>
   <!-- /.content-wrapper -->
   @endsection
+
 
