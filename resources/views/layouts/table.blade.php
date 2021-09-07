@@ -28,8 +28,11 @@
                     <td>{{ date('M j,Y H:i', strtotime('-1 hours', strtotime($call->calldate))) }} </td>
                    
                     <td>
+                      
                       @if($call->source == $call->s_number)
+                      <a href="#" data-toggle="tooltip{{ $call->cdr_id }}" title="{{ $call->source }}">
                       {{ $call->s_name }}
+                      </a>
                       @else
                       {{ $call->source }}
 
@@ -37,12 +40,22 @@
                     </td>
                     <td>
                       @if($call->destination == $call->d_number)
+                      <a href="#" data-toggle="tooltip{{ $call->cdr_id }}" title="{{ $call->destination }}">
                        {{ $call->d_name }}
+                      </a>
                       @else
                       {{ $call->destination }}
 
                       @endif
                     </td>
+                    <script>
+                    $(document).ready(function(){
+                      $('[data-toggle="tooltip{{ $call->cdr_id }}"]').tooltip();   
+                    });
+                    $(document).ready(function(){
+                      $('[data-toggle="tooltip2{{ $call->cdr_id }}"]').tooltip();   
+                    });
+                    </script>
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->billsec }}</td>
                     <td>
@@ -58,6 +71,8 @@
                             $call_data = $call->destination;
                             
                           }
+                          
+                           
                            
                             $p_values = array();
                             $c_values = array();
@@ -118,7 +133,20 @@
                           }
                           @endphp
                       @endforeach
-                    @php echo $p_name; @endphp
+                    @php
+                    if($p_name == "" ){
+                      if($call->calltype == '1'){
+                           echo "Recebida";
+                      }
+                      elseif($call->calltype == '3'){
+                             echo "Sem Tarifa";
+                        }
+                    } 
+                    else{
+                      echo $p_name;
+                    }
+                    
+                   @endphp
                     </td>
                     <td>@php echo $c_rate; @endphp</td>
                     <td>@php  
@@ -145,5 +173,6 @@
                       </tr>
                     </tfoot>             
                 </table>
-               
+
+
              

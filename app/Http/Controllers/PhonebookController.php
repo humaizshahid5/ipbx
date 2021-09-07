@@ -45,7 +45,7 @@ class PhonebookController extends Controller
     public function import(){
       $calls =   DB::table('cdr')->get();
         foreach($calls as $call){
-            $name = preg_replace("/[^a-zA-Z]+/", "", $call->clid);
+            $name = preg_replace("/[^a-zA-Z ]+/", "", $call->clid);
             $number =(int) filter_var($call->clid, FILTER_SANITIZE_NUMBER_INT);  
             if($name != null)
             {

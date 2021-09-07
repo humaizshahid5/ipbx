@@ -1,7 +1,6 @@
 
 @extends('layouts.app')
 
-
 @section('content')
 @php $c_rate =0;  $p_name = ""; $t_duration = 0; $t_cost=0; @endphp
 @foreach($calls_total as $call)
@@ -56,8 +55,8 @@
                            {
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
-                            $t_duration = $call->billsec/60;
-                            $t_cost = $t_cost+($t_duration*$rate->rate);
+                            $t_duration = $t_duration+$call->billsec;
+                            $t_cost = $t_cost + round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
                             $p_name = $rate->name;
                             
                            
@@ -116,9 +115,9 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>@php echo date("h:i:s A"); @endphp</h3>
+                        <h3>@php echo $t_duration; @endphp</h3>
 
-                        <p>Current Time</p>
+                        <p>Total Billsec</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-clock"></i>
@@ -202,10 +201,10 @@
                      
             <div class="card card-default">
                 <div class="card-header">
-                <a data-toggle="collapse" href="#collapse2" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="d-block">
+                <a data-toggle="collapse" href="#collapse2" aria-expanded="true" aria-controls="collapse2" id="heading-example" class="d-block">
                     <h3 class="card-title">Last 30 Days Calls </h3>
                     <i class="fa fa-chevron-down float-right"></i>
-        </a>
+                    </a>
                  </div>
                  <div id="collapse2" class="collapse show" aria-labelledby="heading-example">
                 <div class="card-body">
@@ -249,6 +248,23 @@
     </section>
     <!-- /.content -->
 </div>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
   <!-- /.content-wrapper -->
   @endsection
 

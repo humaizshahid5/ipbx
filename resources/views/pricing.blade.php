@@ -64,6 +64,7 @@
                             <label>Type</label>
                             <select class="form-control" name="type" required>
                                 <option value="">Select One</option>
+                                <option value="1">Local</option>
                                 <option value="2">Incoming</option>
                                 <option value="3">Outgoing</option>
                             </select>
@@ -118,7 +119,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $price->name }}</td>
                     <td>{{ $price->sdn }}</td>
-                    <td>{{ $price->rate }}</td>
+                    <td>{{ number_format(floatval($price->price), 2, ',', ''); }}</td>
                     <td>@if($price->type == '1') Local @elseif($price->type == '2') Incoming @elseif($price->type == '3') Outgoing @endif </td>
                     <td>{{ $price->grace }}</td>
                     <td>{{ $price->minimal }}</td>

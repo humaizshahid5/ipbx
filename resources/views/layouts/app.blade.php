@@ -27,17 +27,18 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/choice.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
-    <script src="{{ asset('js/adminlte.js') }}"></script>
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/chart.js') }}"></script>
-    <script src="{{ asset('js/mutiple_select.js') }}"></script>
+
+   
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+  
+    <script src="{{ asset('js/chart.js') }}"></script>
  
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
@@ -270,6 +271,11 @@ $(document).ready(function() {
 
 
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
+
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+   
+   
+    <script src="{{ asset('js/mutiple_select.js') }}"></script>
     
   
     <script>
@@ -292,6 +298,7 @@ renderChoiceLimit:5
 
 
     </script>
+    
 
 </body>
 </html>
