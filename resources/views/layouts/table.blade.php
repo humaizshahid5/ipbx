@@ -16,7 +16,7 @@
                    <tbody>
                     @php $number_count=0; $t_duration = 0; $t_cost=0; $sec = 0; @endphp
                     @foreach($calls as $call)
-                    
+                    @if($call->destination != "" || $call->source != "")
                     @php
                     $c_cost = 0;
                     $free = false;
@@ -50,7 +50,7 @@
                       @endif
                     </td>
                     <script>
-                   $('#example tbody').on('mouseover', 'tr', function () {
+                   $('#example').on('mouseover', 'tr', function () {
                     $('[data-toggle="tooltip_source{{ $call->cdr_id }}"]').tooltip({
                         trigger: 'hover',
                         html: true
@@ -167,7 +167,7 @@
                       }
                       @endphp</td>
                   </tr>
-                 
+                   @endif
                     @endforeach                  
                   </tbody>  
                   <tfoot>
