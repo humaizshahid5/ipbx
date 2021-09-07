@@ -119,7 +119,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $price->name }}</td>
                     <td>{{ $price->sdn }}</td>
-                    <td>{{ number_format(floatval($price->price), 2, ',', ''); }}</td>
+                    <td>{{ number_format(floatval($price->rate), 2, ',', ''); }}</td>
                     <td>@if($price->type == '1') Local @elseif($price->type == '2') Incoming @elseif($price->type == '3') Outgoing @endif </td>
                     <td>{{ $price->grace }}</td>
                     <td>{{ $price->minimal }}</td>
