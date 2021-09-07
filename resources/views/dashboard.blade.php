@@ -55,7 +55,7 @@
                            {
                             $c_count = $m_count;
                             $c_rate = $rate->rate;
-                            $t_duration = $t_duration+$call->billsec;
+                            $t_duration = $t_duration+$call->billsec/60;
                             $t_cost = $t_cost + round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
                             $p_name = $rate->name;
                             
@@ -115,7 +115,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>@php echo $t_duration; @endphp</h3>
+                        <h3>@php echo number_format((float)$t_duration, 2, '.', ''); @endphp</h3>
 
                         <p>Total Billsec</p>
                     </div>

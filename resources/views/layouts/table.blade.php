@@ -135,7 +135,7 @@
                       @endforeach
                     @php
                     if($p_name == "" ){
-                      if($call->calltype == '1'){
+                      if($call->calltype == '2'){
                            echo "Recebida";
                       }
                       elseif($call->calltype == '3'){

@@ -46,9 +46,14 @@ class PhonebookController extends Controller
       $calls =   DB::table('cdr')->get();
         foreach($calls as $call){
             $name = preg_replace("/[^a-zA-Z ]+/", "", $call->clid);
+            if($name != " "){
+           
+           
+            
             $number =(int) filter_var($call->clid, FILTER_SANITIZE_NUMBER_INT);  
             if($name != null)
             {
+
                 $phonebook = DB::table('phonebooks')->where('number', '=', $number)->count();
                     if($phonebook == 0)
                     {
@@ -60,6 +65,7 @@ class PhonebookController extends Controller
                 
                 }
             }   
+        }
             return back();
     }
 }
