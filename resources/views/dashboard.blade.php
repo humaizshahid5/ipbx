@@ -49,21 +49,30 @@
                           }
 
                           }
-                         if($status == 1){
+                          if($status == 1){
+                              if($m_count > $c_count)
+                              {
+                                if($call->billsec <=	$rate->grace)
+                                {
+                                  $c_rate = $rate->rate;
+                                  $p_name = $rate->name;
+                                  $free = true;
+                                }
+                              else{
+                                if($rate->rate == 0){
+                                  $c_cost = 0;
+                                $t_duration = $t_duration+$call->billsec/60;
+
+                                }
+                                else{
+                                    $t_duration = $t_duration+$call->billsec/60;
+                                    $t_cost =$t_cost+round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+                                }
+                            }
+                        }
                          
-                           if($m_count > $c_count)
-                           {
-                            $c_count = $m_count;
-                            $c_rate = $rate->rate;
-                            $t_duration = $t_duration+$call->billsec/60;
-                            $t_cost = $t_cost + round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
-                            $p_name = $rate->name;
-                            
-                           
-                           }
-                         
-                           
-                         }
+                    }
+                        
                       
                         }
                       @endphp
