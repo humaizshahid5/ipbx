@@ -16,6 +16,7 @@
                    <tbody>
                     @php $number_count=0; $t_duration = 0; $t_cost=0; $sec = 0; @endphp
                     @foreach($calls as $call)
+                    
                     @php
                     $c_cost = 0;
                     $free = false;
@@ -30,7 +31,7 @@
                     <td>
                       
                       @if($call->source == $call->s_number)
-                      <a href="#" data-toggle="tooltip{{ $call->cdr_id }}" title="{{ $call->source }}">
+                      <a href="#{{ $call->cdr_id }}" data-toggle="tooltip_source{{ $call->cdr_id }}" title="{{ $call->source }}">
                       {{ $call->s_name }}
                       </a>
                       @else
@@ -40,7 +41,7 @@
                     </td>
                     <td>
                       @if($call->destination == $call->d_number)
-                      <a href="#" data-toggle="tooltip{{ $call->cdr_id }}" title="{{ $call->destination }}">
+                      <a href="#{{ $call->cdr_id }}" data-toggle="tooltip_destination{{ $call->cdr_id }}" title="{{ $call->destination }}">
                        {{ $call->d_name }}
                       </a>
                       @else
@@ -49,13 +50,21 @@
                       @endif
                     </td>
                     <script>
-                    $(document).ready(function(){
-                      $('[data-toggle="tooltip{{ $call->cdr_id }}"]').tooltip();   
+                   $('#example tbody').on('mouseover', 'tr', function () {
+                    $('[data-toggle="tooltip_source{{ $call->cdr_id }}"]').tooltip({
+                        trigger: 'hover',
+                        html: true
                     });
-                    $(document).ready(function(){
-                      $('[data-toggle="tooltip2{{ $call->cdr_id }}"]').tooltip();   
+                });
+                $('#example').on('mouseover', 'tr', function () {
+                    $('[data-toggle="tooltip_destination{{ $call->cdr_id }}"]').tooltip({
+                        trigger: 'hover',
+                        html: true
                     });
+                });
+                   
                     </script>
+                  
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->billsec }}</td>
                     <td>
@@ -158,6 +167,7 @@
                       }
                       @endphp</td>
                   </tr>
+                 
                     @endforeach                  
                   </tbody>  
                   <tfoot>
@@ -173,6 +183,4 @@
                       </tr>
                     </tfoot>             
                 </table>
-
-
-             
+            

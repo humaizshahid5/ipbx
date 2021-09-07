@@ -18,7 +18,7 @@ class CallsController extends Controller
         ->where('calltype', '=', '3')->Where('billsec', '>=', '1' )
         ->whereBetween('calldate', [$start_date, $end_date])
         ->orderBY('calldate', 'DESC')
-        ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number')
+        ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number','s_name.id as s_id','d_name.id as d_id')
         ->get();
         $rates =   DB::table('pricings')->get();
         return view("calls",  [
@@ -88,7 +88,7 @@ if ($filters['from']) {
         }
     })
     ->Where('billsec', '>=', '1' )->orderby('calldate' , 'DESC')
-    ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number')
+    ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number','s_name.id as s_id','d_name.id as d_id')
     ->get();
 
         $rates =   DB::table('pricings')->get();

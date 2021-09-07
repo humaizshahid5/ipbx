@@ -41,7 +41,7 @@ class DashboardController extends Controller
         ->leftJoin('phonebooks as d_name', 'call.destination', '=', 'd_name.number')
         ->where('calltype', '=', '3')->Where('billsec', '>=', '1' )
         ->wherebetween('calldate', [$start_date,$end_date])->orderBY('calldate', 'DESC')
-        ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number')
+        ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number','s_name.id as s_id','d_name.id as d_id')
         ->get();
         $calls_total =   DB::table('cdr')->where('calltype', '=', '3')->Where('billsec', '>=', '1' )->whereDate('calldate', '>=', $start_date)->whereDate('calldate', '<=', $end_date)->orderBY('calldate', 'DESC')->get();
 

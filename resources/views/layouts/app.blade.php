@@ -29,7 +29,6 @@
     <link rel="stylesheet" href="{{ asset('css/choice.css') }}">
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
 
