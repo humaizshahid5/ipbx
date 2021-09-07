@@ -33,8 +33,7 @@ class DashboardController extends Controller
         $m_outgoing_count =  DB::table('cdr')->where('calltype', '=', '3')->Where('billsec', '>=', '1' )->wherebetween('calldate', [$start_date,$end_date])->count();
         $m_incoming_count =  DB::table('cdr')->where('calltype', '=', '2')->Where('billsec', '>=', '1' )->wherebetween('calldate', [$start_date,$end_date])->count();
         $m_local_count =  DB::table('cdr')->where('calltype', '=', '1')->Where('billsec', '>=', '1' )->wherebetween('calldate', [$start_date,$end_date])->count();
-        $calls_count =   DB::table('cdr')->where('calltype', '=', '3')->Where('billsec', '>=', '1' )->wherebetween('calldate', [$start_date,$end_date])->count();
-        $calls_today =   DB::table('cdr')->where('calltype', '=', '3')->Where('billsec', '>=', '1' )->where('calldate', 'like', date("Y-m-d")."%")->count();
+        $calls_count =   DB::table('cdr')->Where('billsec', '>=', '1' )->wherebetween('calldate', [$start_date,$end_date])->count();
         $users_count =   DB::table('users')->count();
         $calls =   DB::table('cdr as call')
         ->leftJoin('phonebooks as s_name', 'call.source', '=', 's_name.number')
@@ -53,7 +52,6 @@ class DashboardController extends Controller
        
         return view('dashboard', [
             'calls_count' => $calls_count,
-            'calls_today' => $calls_today,
             'users_count' => $users_count,
             'calls' => $calls,
             'calls_total' => $calls_total,
