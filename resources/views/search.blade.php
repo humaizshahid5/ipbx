@@ -75,26 +75,21 @@
                     </div>
                   <div class="col-lg-12 col-sm-12">
                               <br>
-                              <button name="submit" type="submit" class="btn btn-primary btn-block">Search</button>
+                              <button type="submit" class="btn btn-primary btn-block">Search</button>
                           </div>
                   </div>
               </form>
               </div>
               </div>
-              @if(app('request')->input())
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Calls</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-              
+              <div class="card-body">  
                 @include("layouts.table")
-                
-              
               <!-- /.card-body -->
             </div>
-            @endif
             <!-- /.card -->
           </div>
           <!-- /.col -->

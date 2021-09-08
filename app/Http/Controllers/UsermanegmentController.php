@@ -13,17 +13,14 @@ class UsermanegmentController extends Controller
     public function index()
     {
        
-        $role = auth()->user()->role;
-        if($role == '0'){
-        return redirect()->route('dashboard');
-        }
-        else{
+        
+       
         $users = User::get();
         return view("users",  [
             'users' => $users
            
         ]);
-    }
+    
     }
     public function create(Request $request){
         $this->validate($request, [

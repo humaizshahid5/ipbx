@@ -10,22 +10,8 @@ class CallsController extends Controller
 {
     public function index()
     {
-        $start_date = Date('y-m-d', strtotime('-30 days'));
-        $end_date = Date('y-m-d', strtotime('+1 days'));
-        $calls =   DB::table('cdr as call')
-        ->leftJoin('phonebooks as s_name', 'call.source', '=', 's_name.number')
-        ->leftJoin('phonebooks as d_name', 'call.destination', '=', 'd_name.number')
-        ->where('calltype', '=', '3')->Where('billsec', '>=', '1' )
-        ->whereBetween('calldate', [$start_date, $end_date])
-        ->orderBY('calldate', 'DESC')
-        ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number','s_name.id as s_id','d_name.id as d_id')
-        ->get();
-        $rates =   DB::table('pricings')->get();
-        return view("calls",  [
-            'calls' => $calls,
-            'rates' => $rates
-           
-        ]);
+       
+        return view("calls");
 
         
     }

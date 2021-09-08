@@ -21,11 +21,11 @@ Route::get('activation', [App\Http\Controllers\ActivationController::class, 'ind
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 Route::get('/calls', [App\Http\Controllers\CallsController::class, 'index'])->middleware(['auth', 'authentication'])->name('calls');
-Route::get('/users', [App\Http\Controllers\UsermanegmentController::class, 'index'])->middleware(['auth', 'authentication'])->name('users');
-Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->middleware(['auth', 'authentication'])->name('api');
-Route::get('/report', [App\Http\Controllers\ReportController::class, 'index'])->middleware(['auth', 'authentication'])->name('report');
-Route::get('/phonebook', [App\Http\Controllers\PhonebookController::class, 'index'])->middleware(['auth', 'authentication'])->name('phonebook');
-Route::get('/pricing', [App\Http\Controllers\PricingController::class, 'index'])->middleware(['auth' ,'authentication'])->name('pricing');
+Route::get('/users', [App\Http\Controllers\UsermanegmentController::class, 'index'])->middleware(['auth', 'authentication', 'access'])->name('users');
+Route::get('/api', [App\Http\Controllers\ApiController::class, 'index'])->middleware(['auth', 'authentication' , 'access'])->name('api');
+Route::get('/report', [App\Http\Controllers\ReportController::class, 'index'])->middleware(['auth', 'authentication' , 'access'])->name('report');
+Route::get('/phonebook', [App\Http\Controllers\PhonebookController::class, 'index'])->middleware(['auth', 'authentication' , 'access'])->name('phonebook');
+Route::get('/pricing', [App\Http\Controllers\PricingController::class, 'index'])->middleware(['auth' ,'authentication', 'access'])->name('pricing');
 Route::get('/del_user/{user_id}/del', [App\Http\Controllers\UsermanegmentController::class, 'del']);
 Route::get('/del_api/{api_id}/del', [App\Http\Controllers\ApiController::class, 'del']);
 Route::get('/del_phonebook/{phonebook_id}/del', [App\Http\Controllers\PhonebookController::class, 'del']);

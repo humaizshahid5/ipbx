@@ -179,6 +179,7 @@ $(document).ready(function() {
               </p>
             </a>
           </li>
+          @if(auth()->user()->role == '1')
           <li class="nav-item">
             <a href="{{ route('pricing') }}" class="nav-link {{ (request()->is('pricing')) ? 'active' : '' }}">
               <i class="nav-icon fas fa-dollar-sign"></i>
@@ -188,6 +189,7 @@ $(document).ready(function() {
               </p>
             </a>
           </li>
+          @endif
           @if(auth()->user()->role == '1')
           <li class="nav-item">
             <a href="{{ route('users') }}" class="nav-link {{ (request()->is('users')) ? 'active' : '' }}">
@@ -219,7 +221,7 @@ $(document).ready(function() {
             </a>
           </li>
           @endif
-          
+          @if(auth()->user()->role == '1')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
@@ -242,6 +244,7 @@ $(document).ready(function() {
            
             </ul>
           </li>
+          @endif
 
        
 
