@@ -157,7 +157,7 @@
                     
                    @endphp
                     </td>
-                    <td>@php echo $c_rate; @endphp</td>
+                    <td>@php echo number_format(floatval($c_rate), 2, ',', '');  @endphp</td>
                     <td>@php  
                       if($free == true){
                         echo "Free";
