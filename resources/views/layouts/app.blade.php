@@ -105,7 +105,11 @@ body {
                      </a>
                   </li>
                   @endif
-                 
+                  <li class="nav-item" style="max-width:20px;">
+                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                     <i class="fas fa-expand-arrows-alt"></i>
+                     </a>
+                  </li>
                   <li class="dropdown">
                      <a class="nav-link " href="#" id="navbarDropdownMenuLink78" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i> Language </a>
                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink78"> 
