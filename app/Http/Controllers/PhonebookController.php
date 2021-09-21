@@ -35,16 +35,34 @@ class PhonebookController extends Controller
 
         ]);
 
-        return back();
+        if($phonebook){
+            toastr()->success('A new phonenumber has been added');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to add a new phonenumber');
+            return back();
+        }
+
     }
     public function del($del, Request $request)
     {
-        DB::table('phonebooks')->where('id', $del)->delete();
-        return back();
+        $query = DB::table('phonebooks')->where('id', $del)->delete();
+        if($query){
+            toastr()->info('A phonenumber has been deleted');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to delete a phonenumber');
+            return back();
+        }
+
     }
     public function import(){
+        $status = 0;
       $calls =   DB::table('cdr')->get();
         foreach($calls as $call){
+
             $name = preg_replace("/[^a-zA-Z ]+/", "", $call->clid);
             if($name != " "){
            
@@ -57,6 +75,7 @@ class PhonebookController extends Controller
                 $phonebook = DB::table('phonebooks')->where('number', '=', $number)->count();
                     if($phonebook == 0)
                     {
+                        $status = 1;
                         Phonebook::create([
                                 'name' => $name,
                                 'number' => $number,
@@ -66,6 +85,15 @@ class PhonebookController extends Controller
                 }
             }   
         }
+
+        if($status == '1'){
+            toastr()->success('Phonebook has been updated');
             return back();
+        }
+        else{
+            toastr()->error('Nothing to update');
+            return back();
+        }
+
     }
 }

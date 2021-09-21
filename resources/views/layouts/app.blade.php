@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,6 +31,7 @@ body {
       <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
       <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
       <link rel="stylesheet" href="{{ asset('css/choice.css') }}">
+      @toastr_css
       <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -43,12 +44,14 @@ body {
       <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
       <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
       <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+     
+	
       <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
       <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
       <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
       <script type="text/javascript" class="init">
          $(document).ready(function() {
-         	var table = $('#example').DataTable( {
+         	var table = $('#datatable').DataTable( {
          		lengthChange: true,
              "pageLength": 100,
              buttons: [
@@ -56,7 +59,8 @@ body {
                          extend: 'pdfHtml5',
                          orientation: 'horizental',
                          pageSize: 'Letter',
-                         footer : true,          
+                         footer : true,   
+                         responsive: true,       
                          exportOptions: {
                              columns: [ 1,2,3,4,5,6,7,8 ]
                          }
@@ -71,7 +75,7 @@ body {
              
          	} );
          	table.buttons().container()
-         		.appendTo( '#example_wrapper .col-md-6:eq(0)' );
+         		.appendTo( '#example_wrapper .col-md-12:eq(0)' );
          } );
          	
       </script>
@@ -101,11 +105,7 @@ body {
                      </a>
                   </li>
                   @endif
-                  <li class="nav-item">
-                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                     <i class="fas fa-expand-arrows-alt"></i>
-                     </a>
-                  </li>
+                 
                   <li class="dropdown">
                      <a class="nav-link " href="#" id="navbarDropdownMenuLink78" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i> Language </a>
                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink78"> 
@@ -279,5 +279,7 @@ body {
          });
       </script>
       <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+      @toastr_js
+    @toastr_render
    </body>
 </html>

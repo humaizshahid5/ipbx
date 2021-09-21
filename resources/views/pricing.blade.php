@@ -98,6 +98,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
+          <div class="table-responsive" >
           <table id="usertable" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -135,6 +136,7 @@
                   </tbody>
                   
                 </table>
+  </div>
           </div>
         </div>
        

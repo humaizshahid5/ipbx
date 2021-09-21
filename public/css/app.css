@@ -10009,3 +10009,7 @@ h3 {
 #choices-multiple-remove-button{
   padding: 20px;
 }
+.table-responsive{
+  background-color: red !important;
+  padding:5px !important;
+}

@@ -64,6 +64,14 @@ class PricingController extends Controller
 
 
         ]);
+        if($pricing){
+            toastr()->success('A new pricing has been added');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to add a new pricing');
+            return back();
+        }
 
         return back();
     }
@@ -105,7 +113,14 @@ class PricingController extends Controller
   
     public function destroy($del, Request $request)
     {
-        DB::table('pricings')->where('id', $del)->delete();
-        return back();
+        $query = DB::table('pricings')->where('id', $del)->delete();
+        if($query){
+            toastr()->info('A Pricing has been delted');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to delete a  pricing');
+            return back();
+        }
     }
 }

@@ -1,5 +1,6 @@
+<div class="table-responsive" >
 
-<table id="example" class="table table-bordered compact table-striped" style="width:100%;">
+<table id="datatable" class="table table-bordered compact table-striped " >
                   <thead>
                   <tr>
                     <th style="display:none;">#</th>
@@ -183,4 +184,5 @@
                       </tr>
                     </tfoot>             
                 </table>
-            
+                    </div>
+                 

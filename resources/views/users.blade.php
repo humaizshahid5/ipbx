@@ -99,6 +99,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
+          <div class="table-responsive" >
                 <table id="usertable" class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -124,6 +125,7 @@
                         @endif
                     </tbody>
                 </table>
+</div>
             </div>
         </div>
        

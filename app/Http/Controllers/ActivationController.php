@@ -34,8 +34,18 @@ class ActivationController extends Controller
             ]
            
         );
-        session(['activation_status' => true]);
-       return redirect("dashboard");
+        if($activate){
+            session(['activation_status' => true]);
+            toastr()->success('System has been successfully activated');
+            return redirect("dashboard");
+        }
+        else{
+            toastr()->error('Failed to activate the system');
+            return back();
+        }
+       
+       
+
       
    
     }

@@ -24,18 +24,33 @@ class ApiController extends Controller
 
         ]);
 
-        Api::create([
+       $query=  Api::create([
             'url' => $request->url,
             'key' => $request->key,
           
 
         ]);
-
-        return back();
+        if($query){
+            toastr()->success('A new API has been created');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to create a new API');
+            return back();
+        }
+        
     }
     public function del($del, Request $request)
     {
-        DB::table('apis')->where('id', $del)->delete();
-        return back();
+        $query = DB::table('apis')->where('id', $del)->delete();
+        if($query){
+            toastr()->info('An API  has been deleted');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to delete an API');
+            return back();
+        }
+       
     }
 }

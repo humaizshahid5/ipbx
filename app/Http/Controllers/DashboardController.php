@@ -48,7 +48,7 @@ class DashboardController extends Controller
         $rates =   DB::table('pricings')->get();
 
        
-       
+     
        
         return view('dashboard', [
             'calls_count' => $calls_count,

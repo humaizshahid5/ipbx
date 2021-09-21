@@ -8,6 +8,7 @@ use App\Models\Report;
 use  Illuminate\Validation;
 use Illuminate\Support\Facades\DB;
 use  Illuminate\Database\Query;
+use App\Exceptions\InvalidOrderException;
 use Mail;
 
 
@@ -49,13 +50,30 @@ class ReportController extends Controller
             'destination' => $request->destination,
             'duration' => $request->duration
         ]);
+        if($reports){
+            toastr()->success('A new report has been added');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to add a new report');
+            return back();
+        }
 
-        return back();
+        
     }
     public function destroy($del, Request $request)
     {
-        DB::table('reports')->where('id', $del)->delete();
-        return back();
+       $query = DB::table('reports')->where('id', $del)->delete();
+        if($query){
+            toastr()->info('A report has been deleted');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to delete a  report');
+            return back();
+        }
+
+        
     }
     public function auto_report(){
        
@@ -77,8 +95,8 @@ class ReportController extends Controller
                 "body"  => 'Hello'
             ];
     
-            \Mail::to($user_data->email)->send(new \App\Mail\Mail($details));
-    
+          $check =  \Mail::to($user_data->email)->send(new \App\Mail\Mail($details));
+    dd($check);
             if (Mail::failures()) {
                 dd("Failure");
 
@@ -175,12 +193,18 @@ class ReportController extends Controller
             "body"  => 'Hello'
         ];
 
+       
+       try {
         \Mail::to($user_data->email)->send(new \App\Mail\Mail($details));
-
-        if (Mail::failures()) {
-            dd("Email was not send");
-        }
+       
+       }
+       catch(\Exception $e){
+        toastr()->error('There was an error while sending the email');
         return back();
+       }
+       toastr()->success('And email report has been sent');
+       return back();
+       
     }
 
     }
