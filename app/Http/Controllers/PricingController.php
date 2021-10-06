@@ -93,10 +93,7 @@ class PricingController extends Controller
      * @param  \App\Models\Pricing  $pricing
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pricing $pricing)
-    {
-        //
-    }
+  
 
     /**
      * Update the specified resource in storage.
@@ -122,5 +119,57 @@ class PricingController extends Controller
             toastr()->error('Failed to delete a  pricing');
             return back();
         }
+    }
+    public function edit_price($edit, Request $request)
+    {
+        $query = DB::table('pricings')->where('id', $edit)->count();
+        if($query > 0)
+        {
+            $get = DB::table('pricings')->where('id', $edit)->get();
+            return view("edit_price", [
+                'data' => $get
+            ]);
+        }
+        else{
+            toastr()->error('Invalid ID');
+            return redirect('phonebook');
+        }
+        
+    }
+    public function edit($edit, Request $request){
+
+        $this->validate($request, [
+            'name' => ['required'],
+            'sdn' => ['required'],
+            'rate' => ['required'],
+            'type' => ['required'],
+            'grace' => ['required'],
+            'minimal' => ['required'],
+            'fraction' => ['required'],
+
+
+        ]);
+   
+
+        $pricing = Pricing::where('id', '=' , $edit)->update([
+            'name' => $request->name,
+            'sdn' => $request->sdn,
+            'rate' => $request->rate,
+            'type' => $request->type,
+            'grace' => $request->grace,
+            'minimal' => $request->minimal,
+            'fraction' => $request->fraction,
+
+
+        ]);
+        if($pricing){
+            toastr()->success('Record has been updated');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to update');
+            return back();
+        }
+      
     }
 }

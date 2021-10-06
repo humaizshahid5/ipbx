@@ -76,6 +76,11 @@
                             <option value="2">Incoming</option>
                             <option value="3">Outgoing</option>               
                         </select>
+                        @error('type')
+                              
+                                    <p class="input-error" >{{ $message }}</p>
+                               
+                            @enderror
                         </div>
                         <div class="col-lg-6 col-xs-12">
                             <label>Source</label>
@@ -121,7 +126,9 @@
                     <th>Destination</th>
                     <th>Duration</th>
                     <th>Send Now</th>
+                    <th>Edit</th>
                     <th>Delete</th>
+
                   </tr>
                   </thead>
                   <tbody>
@@ -141,7 +148,9 @@
                     <td> {{ $report->source }}</td> 
                     <td>{{ $report->destination }}</td> 
                     <td>{{ $report->duration }}</td> 
-                    <td><a href="/sendnow/{{$report->id}}/send"><button class="btn btn-info btn-block"><i class="fas fa-envelope"></i></button></a></td>
+                    <td><a href="/sendnow/{{$report->id}}/send"><button class="btn btn-success btn-block"><i class="fas fa-envelope"></i></button></a></td>
+                    <td><a href="/report_edit/{{$report->id}}/edit"><button class="btn btn-info btn-block"><i class="fas fa-edit"></i></button></a></td>
+
                     <td><a href="/del_report/{{$report->id}}/del"><button class="btn btn-danger btn-block"><i class="fas fa-trash"></i></button></a></td>
 
                   </tr>

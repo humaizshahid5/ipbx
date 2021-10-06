@@ -208,4 +208,60 @@ class ReportController extends Controller
     }
 
     }
+    public function report_edit($edit, Request $request)
+    {
+        $query = DB::table('reports')->where('id', $edit)->count();
+        if($query > 0)
+        {
+            $get = DB::table('reports')->where('id', $edit)->get();
+            return view("edit_report", [
+                'data' => $get
+            ]);
+        }
+        else{
+            toastr()->error('Invalid ID');
+            return redirect('phonebook');
+        }
+        
+    }
+    public function edit($edit,Request $request){
+
+        $this->validate($request, [
+            'email' => ['required'],
+            'period' => ['required'],
+            'range' => ['required'],
+            'type' => ['required'],
+          
+
+        ]);
+    
+       if($request->period >= 1 && $request->period <= 9)
+       {
+           $period = "0".$request->period;
+       }
+       else{
+           $period = $request->period;
+       }
+      
+        $reports = Report::where('id', '=' , $edit)->update([
+            'email' => $request->email,
+            'period' => $period,
+            'range' => $request->range,
+            'type' => serialize($request->type),
+            'source' => $request->source,
+            'destination' => $request->destination,
+            'duration' => $request->duration
+        ]);
+        if($reports){
+            toastr()->success('Record Updated');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to Update');
+            return back();
+        }
+
+        
+    }
+
 }

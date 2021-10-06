@@ -98,8 +98,7 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Number</th>
-                   
-                 
+                    <th>Edit</th>
                     <th>Delete</th>
                   </tr>
                   </thead>
@@ -111,9 +110,7 @@
                     <td>{{ $phonebook->name }}</td>
                     <td>{{ $phonebook->number }}</td>
                    
-
-                  
-            
+                    <td><a href="/edit_phonebook/{{$phonebook->id}}/edit"><button class="btn btn-info btn-block"><i class="fas fa-edit"></i></button></a></td>
                     <td><a href="/del_phonebook/{{$phonebook->id}}/del"><button class="btn btn-danger btn-block"><i class="fas fa-trash"></i></button></a></td>
 
                     

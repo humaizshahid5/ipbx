@@ -53,4 +53,44 @@ class ApiController extends Controller
         }
        
     }
+    public function api_edit($edit, Request $request)
+    {
+        $query = DB::table('apis')->where('id', $edit)->count();
+        if($query > 0)
+        {
+            $get = DB::table('apis')->where('id', $edit)->get();
+            return view("edit_api", [
+                'data' => $get
+            ]);
+        }
+        else{
+            toastr()->error('Invalid ID');
+            return redirect('phonebook');
+        }
+        
+    }
+    public function edit($edit, Request $request){
+        $this->validate($request, [
+            'url' => ['required'],
+            'key' => ['required'],
+          
+
+        ]);
+
+       $query=  Api::where('id', '=', $edit)->update([
+            'url' => $request->url,
+            'key' => $request->key,
+          
+
+        ]);
+        if($query){
+            toastr()->success('Record Updated');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to Update');
+            return back();
+        }
+        
+    }
 }

@@ -58,6 +58,22 @@ class PhonebookController extends Controller
         }
 
     }
+    public function get_edit($edit, Request $request)
+    {
+        $query = DB::table('phonebooks')->where('id', $edit)->count();
+        if($query > 0)
+        {
+            $get = DB::table('phonebooks')->where('id', $edit)->get();
+            return view("edit_phonebook", [
+                'data' => $get
+            ]);
+        }
+        else{
+            toastr()->error('Invalid ID');
+            return redirect('phonebook');
+        }
+        
+    }
     public function import(){
         $status = 0;
       $calls =   DB::table('cdr')->get();
@@ -92,6 +108,31 @@ class PhonebookController extends Controller
         }
         else{
             toastr()->error('Nothing to update');
+            return back();
+        }
+
+    }
+    public function edit($edit, Request $request){
+
+        $this->validate($request, [
+            'name' => ['required'],
+            'number' => ['required'],
+            
+           
+         
+
+
+        ]);
+   
+
+        $phonebook = Phonebook::Where('id', $edit)->update(['name' => $request->name, 'number' => $request->number]);
+
+        if($phonebook){
+            toastr()->success('Record has been updated successfully');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to update');
             return back();
         }
 

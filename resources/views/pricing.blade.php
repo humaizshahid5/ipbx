@@ -110,6 +110,8 @@
                     <th>Grace</th>
                     <th>Minimal</th>
                     <th>Fraction</th>
+                    <th>Edit</th>
+
                     <th>Delete</th>
                   </tr>
                   </thead>
@@ -125,7 +127,9 @@
                     <td>{{ $price->grace }}</td>
                     <td>{{ $price->minimal }}</td>
                     <td>{{ $price->fraction }}</td>
+                    <td><a href="/price_edit/{{$price->id}}/edit"><button class="btn btn-info btn-block"><i class="fas fa-edit"></i></button></a></td>
                     <td><a href="/del_price/{{$price->id}}/del"><button class="btn btn-danger btn-block"><i class="fas fa-trash"></i></button></a></td>
+
 
                     
 

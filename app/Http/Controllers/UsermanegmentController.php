@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User; 
 use Illuminate\Support\Facades\Hash;
+use DB;
 class UsermanegmentController extends Controller
 {
     
@@ -61,4 +62,54 @@ class UsermanegmentController extends Controller
     }
     }
     
+    public function user_edit($edit, Request $request)
+    {
+        $query = DB::table('users')->where('id', $edit)->count();
+        if($query > 0)
+        {
+            $get = DB::table('users')->where('id', $edit)->get();
+            return view("edit_user", [
+                'data' => $get
+            ]);
+        }
+        else{
+            toastr()->error('Invalid ID');
+            return redirect('phonebook');
+        }
+        
+    }
+    public function edit($edit, Request $request){
+
+
+
+        $get = User::where('id' ,'=' , $edit)->first();
+        
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,'.$get->id],
+            'password' => ['nullable', 'string', 'min:8'],
+            'role' => ['required'],
+
+        ]);
+      
+        if ($request->get('password') == '') {
+            $query =  User::where('id' , '=' , $edit)->update($request->except('password', '_token'));
+        } else {
+            $request->merge([
+                'password' => Hash::make($request->password)
+            ]);
+            $query =  User::where('id' , '=' , $edit)->update($request->except('_token'));
+        }
+        
+      
+        if($query){
+            toastr()->success('User has been updated');
+            return back();
+        }
+        else{
+            toastr()->error('Failed to update');
+            return back();
+        }
+
+    }
 }
