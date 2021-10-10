@@ -214,6 +214,12 @@ body {
                                     <p>API</p>
                                  </a>
                               </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('mail')}}" class="nav-link">
+                                    <i class="fas fa-envelope nav-icon"></i>
+                                    <p>Mail Client</p>
+                                 </a>
+                              </li>
                               @endif
                            </ul>
                         </li>
@@ -228,7 +234,7 @@ body {
                @yield('content')
             </main>
             <footer class="main-footer text-center">
-               <strong>Developed by HumAiz Shahid &nbsp;(Latest Build 1.6)</strong>
+               <strong>Developed by HumAiz Shahid &nbsp;(Latest Build 1.7)</strong>
             </footer>
          </div>
       </div>
