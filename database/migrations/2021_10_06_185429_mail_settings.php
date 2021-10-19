@@ -20,7 +20,11 @@ class MailSettings extends Migration
             $table->string('driver');
             $table->string('host');
             $table->string('encryption');
-            $table->string('from');
+            $table->string('port');
+            $table->string('mail_from');
+            $table->string('mail_subject');
+            $table->string('mail_from_address');
+            
             
 
            

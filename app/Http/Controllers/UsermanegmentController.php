@@ -44,7 +44,7 @@ class UsermanegmentController extends Controller
             return back();
         }
         else{
-            toastr()->error('Failed to create a new user');
+            toastr()->warning('Failed to create a new user');
             return back();
         }
 
@@ -53,11 +53,11 @@ class UsermanegmentController extends Controller
     public function del($del, Request $request){
        $query = $request->user()->where('id', $del)->delete();      
        if($query){
-        toastr()->info('A user been deleted');
+        toastr()->error('A user been deleted');
         return back();
     }
     else{
-        toastr()->error('Failed to delete a user');
+        toastr()->warning('Failed to delete a user');
         return back();
     }
     }
@@ -73,7 +73,7 @@ class UsermanegmentController extends Controller
             ]);
         }
         else{
-            toastr()->error('Invalid ID');
+            toastr()->warning('Invalid ID');
             return redirect('phonebook');
         }
         
@@ -103,11 +103,11 @@ class UsermanegmentController extends Controller
         
       
         if($query){
-            toastr()->success('User has been updated');
+            toastr()->info('User has been updated');
             return back();
         }
         else{
-            toastr()->error('Failed to update');
+            toastr()->warning('Failed to update');
             return back();
         }
 

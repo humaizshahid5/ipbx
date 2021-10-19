@@ -40,7 +40,7 @@ class PhonebookController extends Controller
             return back();
         }
         else{
-            toastr()->error('Failed to add a new phonenumber');
+            toastr()->warning('Failed to add a new phonenumber');
             return back();
         }
 
@@ -49,11 +49,11 @@ class PhonebookController extends Controller
     {
         $query = DB::table('phonebooks')->where('id', $del)->delete();
         if($query){
-            toastr()->info('A phonenumber has been deleted');
+            toastr()->error('A phonenumber has been deleted');
             return back();
         }
         else{
-            toastr()->error('Failed to delete a phonenumber');
+            toastr()->warning('Failed to delete a phonenumber');
             return back();
         }
 
@@ -107,7 +107,7 @@ class PhonebookController extends Controller
             return back();
         }
         else{
-            toastr()->error('Nothing to update');
+            toastr()->warning('Nothing to update');
             return back();
         }
 
@@ -128,11 +128,11 @@ class PhonebookController extends Controller
         $phonebook = Phonebook::Where('id', $edit)->update(['name' => $request->name, 'number' => $request->number]);
 
         if($phonebook){
-            toastr()->success('Record has been updated successfully');
+            toastr()->info('Record has been updated successfully');
             return back();
         }
         else{
-            toastr()->error('Failed to update');
+            toastr()->warning('Failed to update');
             return back();
         }
 

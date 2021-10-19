@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
+use Mail;
 
 class mailController extends Controller
 {
@@ -15,28 +16,52 @@ class mailController extends Controller
         }
        
         public function update(Request $request){
-
+            
             $this->validate($request, [
                 'username' => ['required'],
                 'password' => ['required'],
                 'driver' => ['required'],
                 'host' => ['required'],
                 'encryption' => ['required'],
-                'from' => ['required'],
+                'port' => ['required'],
+                'mail_from' => ['required'], 
+                'mail_subject' => ['required'],
+                'mail_from_address' => ['required']
+                
+
     
             ]);
        
-    
-            $mail_update = DB::table('mail_settings')->update($request->except('_token'));
-    
-            if($mail_update){
-                toastr()->success('Email Client settings has been updated');
+  
+            
+            try {
+                $mail_update = DB::table('mail_settings')->update($request->except('_token'));
+                toastr()->info('Mail settings has been updated');
                 return back();
-            }
-            else{
-                toastr()->error('Failed to update');
+               
+               }
+               catch(\Exception $e){
+                toastr()->warning($e);
                 return back();
-            }
+               }
+            
     
+            
+        }
+        public function test_mail(){
+
+           
+            $details = "Test Email";
+            try {
+              
+                \Mail::to("humaiz.sh90@gmail.com")->send(new \App\Mail\testmail());
+                toastr()->info('And email report has been sent');
+                return back();
+               
+               }
+               catch(\Exception $e){
+                dd($e);
+               }
+            
         }
 }

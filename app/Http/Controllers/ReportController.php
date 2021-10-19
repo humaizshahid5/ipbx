@@ -55,7 +55,7 @@ class ReportController extends Controller
             return back();
         }
         else{
-            toastr()->error('Failed to add a new report');
+            toastr()->warning('Failed to add a new report');
             return back();
         }
 
@@ -65,11 +65,11 @@ class ReportController extends Controller
     {
        $query = DB::table('reports')->where('id', $del)->delete();
         if($query){
-            toastr()->info('A report has been deleted');
+            toastr()->error('A report has been deleted');
             return back();
         }
         else{
-            toastr()->error('Failed to delete a  report');
+            toastr()->warning('Failed to delete a  report');
             return back();
         }
 
@@ -96,7 +96,7 @@ class ReportController extends Controller
             ];
     
           $check =  \Mail::to($user_data->email)->send(new \App\Mail\Mail($details));
-    dd($check);
+         dd($check);
             if (Mail::failures()) {
                 dd("Failure");
 
@@ -196,14 +196,15 @@ class ReportController extends Controller
        
        try {
         \Mail::to($user_data->email)->send(new \App\Mail\Mail($details));
+        toastr()->info('And email report has been sent');
+        return back();
        
        }
        catch(\Exception $e){
-        toastr()->error('There was an error while sending the email');
+        toastr()->warning('There was an error while sending the email');
         return back();
        }
-       toastr()->success('And email report has been sent');
-       return back();
+
        
     }
 
@@ -219,7 +220,7 @@ class ReportController extends Controller
             ]);
         }
         else{
-            toastr()->error('Invalid ID');
+            toastr()->warning('Invalid ID');
             return redirect('phonebook');
         }
         
@@ -253,11 +254,11 @@ class ReportController extends Controller
             'duration' => $request->duration
         ]);
         if($reports){
-            toastr()->success('Record Updated');
+            toastr()->info('Record Updated');
             return back();
         }
         else{
-            toastr()->error('Failed to Update');
+            toastr()->warning('Failed to Update');
             return back();
         }
 

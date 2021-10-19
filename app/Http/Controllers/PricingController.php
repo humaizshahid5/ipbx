@@ -69,7 +69,7 @@ class PricingController extends Controller
             return back();
         }
         else{
-            toastr()->error('Failed to add a new pricing');
+            toastr()->warning('Failed to add a new pricing');
             return back();
         }
 
@@ -112,11 +112,11 @@ class PricingController extends Controller
     {
         $query = DB::table('pricings')->where('id', $del)->delete();
         if($query){
-            toastr()->info('A Pricing has been delted');
+            toastr()->error('A Pricing has been delted');
             return back();
         }
         else{
-            toastr()->error('Failed to delete a  pricing');
+            toastr()->warning('Failed to delete a  pricing');
             return back();
         }
     }
@@ -131,7 +131,7 @@ class PricingController extends Controller
             ]);
         }
         else{
-            toastr()->error('Invalid ID');
+            toastr()->warning('Invalid ID');
             return redirect('phonebook');
         }
         
@@ -163,11 +163,11 @@ class PricingController extends Controller
 
         ]);
         if($pricing){
-            toastr()->success('Record has been updated');
+            toastr()->info('Record has been updated');
             return back();
         }
         else{
-            toastr()->error('Failed to update');
+            toastr()->warning('Failed to update');
             return back();
         }
       

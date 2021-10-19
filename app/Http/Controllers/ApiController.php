@@ -35,7 +35,7 @@ class ApiController extends Controller
             return back();
         }
         else{
-            toastr()->error('Failed to create a new API');
+            toastr()->warning('Failed to create a new API');
             return back();
         }
         
@@ -44,11 +44,11 @@ class ApiController extends Controller
     {
         $query = DB::table('apis')->where('id', $del)->delete();
         if($query){
-            toastr()->info('An API  has been deleted');
+            toastr()->error('An API  has been deleted');
             return back();
         }
         else{
-            toastr()->error('Failed to delete an API');
+            toastr()->warning('Failed to delete an API');
             return back();
         }
        
@@ -64,7 +64,7 @@ class ApiController extends Controller
             ]);
         }
         else{
-            toastr()->error('Invalid ID');
+            toastr()->warning('Invalid ID');
             return redirect('phonebook');
         }
         
@@ -84,11 +84,11 @@ class ApiController extends Controller
 
         ]);
         if($query){
-            toastr()->success('Record Updated');
+            toastr()->info('Record Updated');
             return back();
         }
         else{
-            toastr()->error('Failed to Update');
+            toastr()->warning('Failed to Update');
             return back();
         }
         

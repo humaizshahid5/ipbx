@@ -8,13 +8,11 @@
       <title>Abratel Tecnologia</title>
       <style>
         .goog-te-banner-frame.skiptranslate {
-    display: none !important;
-    } 
-body {
-    top: 0px !important; 
-    }
-    
-
+         display: none !important;
+         } 
+      body {
+         top: 0px !important; 
+         }
         </style>
       <!-- Fonts -->
       <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -51,6 +49,18 @@ body {
       <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
       <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
       <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+      <script type="text/javascript">
+
+
+  
+
+        toastr.options.positionClass = 'toast-bottom-right';
+      
+
+   
+
+
+         </script>
       <script type="text/javascript" class="init">
          $(document).ready(function() {
          	var table = $('#datatable').DataTable( {
@@ -81,6 +91,7 @@ body {
          } );
          	
       </script>
+      
    </head>
    <body class="hold-transition sidebar-mini">
       <div class="preloader flex-column justify-content-center align-items-center">

@@ -10013,3 +10013,9 @@ h3 {
   background-color: red !important;
   padding:5px !important;
 }
+#toast-container{
+  left: 50% !important;
+  position: fixed  !important;
+  transform: translate(-50%, 0px);
+  z-index: 9999;
+}
