@@ -35,7 +35,7 @@ Route::get('/phonebook/{phonebook_id}/edit', [App\Http\Controllers\PhonebookCont
 Route::get('/users/{user_id}/edit', [App\Http\Controllers\UsermanegmentController::class, 'user_edit']);
 Route::get('/pricing/{price_id}/edit', [App\Http\Controllers\PricingController::class, 'edit_price']);
 Route::get('/report/{report_eit}/edit', [App\Http\Controllers\ReportController::class, 'report_edit']);
-Route::get('/api_edit/{api_edit}/edit', [App\Http\Controllers\ApiController::class, 'api_edit']);
+Route::get('/api/{api_edit}/edit', [App\Http\Controllers\ApiController::class, 'api_edit']);
 Route::get('/search_calls', [App\Http\Controllers\CallsController::class, 'search'])->name('search_calls');
 Route::get('/number_import', [App\Http\Controllers\PhonebookController::class, 'import']);
 Route::get('/del_price/{user_id}/del', [App\Http\Controllers\PricingController::class, 'destroy']);

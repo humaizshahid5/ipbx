@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+    public function all_record(){
+        $apis = Api::get();
+        return $apis;
+    }
     public function index()
     {
         
         $apis = Api::get();
         return view("api",  [
-            'apis' => $apis
+            'apis' => Self::all_record()
            
         ]);
     }
@@ -59,8 +63,9 @@ class ApiController extends Controller
         if($query > 0)
         {
             $get = DB::table('apis')->where('id', $edit)->get();
-            return view("edit_api", [
-                'data' => $get
+            return view("api", [
+                'data' => $get,
+                'apis' => Self::all_record()
             ]);
         }
         else{
