@@ -36,8 +36,17 @@
          <!-- SELECT2 EXAMPLE -->
          @isset($data)
          <div class="card card-default">
-            <div class="card-header">
-               <h3 class="card-title">Edit Email Reports</h3>
+         <div class="card-header">
+               <div class="row">
+                  <div class="col-6 my-auto">
+                     <h3 class="card-title">Edit Report</h3>
+                  </div>
+                  <div class="col-6 my-auto">
+                     <div class="float-right">
+                        <a href="{{ route('report') }}"<button class="btn btn-primary btn-md"><i class="fas fa-plus"></i> Add New Report</button></a>
+                     </div>
+                  </div>
+               </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -95,7 +104,7 @@
                      </div>
                      <div class="col-lg-12 col-sm-12">
                         <br>
-                        <button type="submit" class="btn btn-primary btn-block">Edit Reporting</button>
+                        <button type="submit" class="btn btn-info btn-block">Edit Reporting</button>
                      </div>
                   </div>
                </form>
