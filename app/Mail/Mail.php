@@ -5,6 +5,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Service\MailConfigServiceProvider;
+
 
 class Mail extends Mailable
 {
@@ -29,8 +31,8 @@ class Mail extends Mailable
     public function build()
     {
      return $this
-    ->from($address = env("MAIL_USERNAME"), $name = env("MAIL_FROM_NAME"))
-    ->subject(env("MAIL_FROM_Subject"))
+    ->from($address = env("username"), $name = env("from"))
+    ->subject(env("subject"))
     ->view('email');
 
       

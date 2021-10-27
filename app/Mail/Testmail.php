@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Mail;
-
+use Illuminate\Support\ServiceProvider;
+use App\Providers;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+
 
 class Testmail extends Mailable
 {
@@ -28,10 +30,12 @@ class Testmail extends Mailable
      */
     public function build()
     {
+        print_r(Config::get('mail'));
      return $this
-    ->from($address = env("MAIL_USERNAME"), $name = env("MAIL_FROM_NAME"))
-    ->subject(env("MAIL_FROM_Subject"))
-    ->view('testmail');
+     ->from($address = $mailConfigs->username, $name = $mailConfigs->from)
+     ->subject($mailConfigs->subject)
+     ->view('email');
+ 
 
       
         

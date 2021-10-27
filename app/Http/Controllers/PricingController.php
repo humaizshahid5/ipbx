@@ -13,11 +13,15 @@ class PricingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function all_record(){
+        $pricing = Pricing::get();
+        return $pricing;
+    }
     public function index()
     {
         $pricing = Pricing::get();
         return view("pricing",  [
-            'pricing' => $pricing
+            'pricing' => Self::all_record()
            
         ]);
     }
@@ -126,13 +130,14 @@ class PricingController extends Controller
         if($query > 0)
         {
             $get = DB::table('pricings')->where('id', $edit)->get();
-            return view("edit_price", [
-                'data' => $get
+            return view("pricing", [
+                'data' => $get,
+                'pricing' => Self::all_record()
             ]);
         }
         else{
             toastr()->warning('Invalid ID');
-            return redirect('phonebook');
+            return redirect('pricing');
         }
         
     }

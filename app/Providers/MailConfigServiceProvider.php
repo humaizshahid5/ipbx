@@ -4,10 +4,11 @@ namespace App\Providers;
 
 
 use Config;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\DB;
 
-class MailServiceProvider extends ServiceProvider
+
+class MailConfigServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -16,11 +17,21 @@ class MailServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
         if (\Schema::hasTable('mail_settings')) {
             $mail = DB::table('mail_settings')->first();
             if ($mail) //checking if table is not empty
             {
-                $config = array(
+                $mailConfigs = array(
                     'driver'     => $mail->driver,
                     'host'       => $mail->host,
                     'port'       => $mail->port,
@@ -33,17 +44,9 @@ class MailServiceProvider extends ServiceProvider
                     'sendmail'   => '/usr/sbin/sendmail -bs',
                     'pretend'    => false,
                 );
-                Config::set('mail', $config);
+                Config::set('mail', $mailConfigs);
             }
+             
         }
-    }
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
     }
 }

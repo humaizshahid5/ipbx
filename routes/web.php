@@ -31,10 +31,10 @@ Route::get('/mail', [App\Http\Controllers\mailController::class, 'index'])->midd
 Route::get('/del_user/{user_id}/del', [App\Http\Controllers\UsermanegmentController::class, 'del']);
 Route::get('/del_api/{api_id}/del', [App\Http\Controllers\ApiController::class, 'del']);
 Route::get('/del_phonebook/{phonebook_id}/del', [App\Http\Controllers\PhonebookController::class, 'del']);
-Route::get('/edit_phonebook/{phonebook_id}/edit', [App\Http\Controllers\PhonebookController::class, 'get_edit']);
+Route::get('/phonebook/{phonebook_id}/edit', [App\Http\Controllers\PhonebookController::class, 'get_edit']);
 Route::get('/edit_user/{user_id}/edit', [App\Http\Controllers\UsermanegmentController::class, 'user_edit']);
-Route::get('/price_edit/{price_id}/edit', [App\Http\Controllers\PricingController::class, 'edit_price']);
-Route::get('/report_edit/{report_eit}/edit', [App\Http\Controllers\ReportController::class, 'report_edit']);
+Route::get('/pricing/{price_id}/edit', [App\Http\Controllers\PricingController::class, 'edit_price']);
+Route::get('/report/{report_eit}/edit', [App\Http\Controllers\ReportController::class, 'report_edit']);
 Route::get('/api_edit/{api_edit}/edit', [App\Http\Controllers\ApiController::class, 'api_edit']);
 Route::get('/search_calls', [App\Http\Controllers\CallsController::class, 'search'])->name('search_calls');
 Route::get('/number_import', [App\Http\Controllers\PhonebookController::class, 'import']);

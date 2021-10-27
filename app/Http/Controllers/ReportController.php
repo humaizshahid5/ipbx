@@ -14,11 +14,15 @@ use Mail;
 
 class ReportController extends Controller
 {
+    public function all_record(){
+        $reports = Report::get();
+        return $reports;
+    }
     public function index()
     {
         $reports = Report::get();
         return view("report",  [
-            'reports' => $reports
+            'reports' => Self::all_record()
            
     
         ]);
@@ -201,8 +205,7 @@ class ReportController extends Controller
        
        }
        catch(\Exception $e){
-        toastr()->warning('There was an error while sending the email');
-        return back();
+       dd($e);
        }
 
        
@@ -215,13 +218,14 @@ class ReportController extends Controller
         if($query > 0)
         {
             $get = DB::table('reports')->where('id', $edit)->get();
-            return view("edit_report", [
-                'data' => $get
+            return view("report", [
+                'data' => $get,
+                'reports' => Self::all_record()
             ]);
         }
         else{
             toastr()->warning('Invalid ID');
-            return redirect('phonebook');
+            return redirect('report');
         }
         
     }

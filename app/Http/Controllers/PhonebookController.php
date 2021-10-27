@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use DB;
 class PhonebookController extends Controller
 {
+    public function all_record(){
+        $phonebooks = Phonebook::get();
+        return $phonebooks;
+    }
     public function index(){
         $phonebooks = Phonebook::get();
         return view("phonebook",  [
-            'phonebooks' => $phonebooks
-           
+            'phonebooks' => Self::all_record()           
         ]);
     }
+   
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -64,7 +68,8 @@ class PhonebookController extends Controller
         if($query > 0)
         {
             $get = DB::table('phonebooks')->where('id', $edit)->get();
-            return view("edit_phonebook", [
+            return view("phonebook", [
+                'phonebooks' => Self::all_record(),
                 'data' => $get
             ]);
         }
