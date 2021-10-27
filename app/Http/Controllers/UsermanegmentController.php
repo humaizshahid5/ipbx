@@ -10,7 +10,10 @@ class UsermanegmentController extends Controller
 {
     
    
-
+    public function all_record(){
+        $users = User::get();
+        return $users;
+    }
     public function index()
     {
        
@@ -18,7 +21,7 @@ class UsermanegmentController extends Controller
        
         $users = User::get();
         return view("users",  [
-            'users' => $users
+            'users' => Self::all_record()
            
         ]);
     
@@ -68,8 +71,9 @@ class UsermanegmentController extends Controller
         if($query > 0)
         {
             $get = DB::table('users')->where('id', $edit)->get();
-            return view("edit_user", [
-                'data' => $get
+            return view("users", [
+                'data' => $get,
+                'users' => Self::all_record()
             ]);
         }
         else{
