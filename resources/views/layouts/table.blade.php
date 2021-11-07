@@ -81,7 +81,9 @@
                             $call_data = $call->destination;
                             
                           }
-                          
+                          if(preg_match(\[.*?\],$call_data))(
+                            echo "Fuck Yeah";
+                          )
                            
                            
                             $p_values = array();
