@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Mail;
+use Illuminate\Support\ServiceProvider;
+use App\Providers;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Service\MailConfigServiceProvider;
 
 
 class Mail extends Mailable

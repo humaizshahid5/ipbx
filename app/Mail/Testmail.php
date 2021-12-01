@@ -30,11 +30,8 @@ class Testmail extends Mailable
      */
     public function build()
     {
-        print_r(Config::get('mail'));
-     return $this
-     ->from($address = $mailConfigs->username, $name = $mailConfigs->from)
-     ->subject($mailConfigs->subject)
-     ->view('email');
+        
+        return $this->view('testmail');
  
 
       

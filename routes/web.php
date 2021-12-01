@@ -43,7 +43,7 @@ Route::get('/del_report/{user_id}/del', [App\Http\Controllers\ReportController::
 Route::get('/pdf/{user_id}/id', [App\Http\Controllers\ReportController::class, 'report'])->name('pdf');
 Route::get('/auto_report', [App\Http\Controllers\ReportController::class, 'auto_report'])->name('auto_report');
 Route::get('/sendnow/{user_id}/send', [App\Http\Controllers\ReportController::class, 'sendnow']);
-Route::get('/test_mail', [App\Http\Controllers\mailController::class, 'test_mail'])->name('test_mail');
+
 
 
 
@@ -63,6 +63,7 @@ Route::post('/edit_price/{edit_id}/edit', [App\Http\Controllers\PricingControlle
 Route::post('/edit_report/{edit_id}/edit', [App\Http\Controllers\ReportController::class, 'edit']);
 Route::post('/edit_api/{edit_id}/edit', [App\Http\Controllers\ApiController::class, 'edit']);
 Route::post('/mail_update', [App\Http\Controllers\mailController::class, 'update'])->name('mail_update');
+Route::post('/test_mail', [App\Http\Controllers\mailController::class, 'test_mail'])->name('test_mail');
 
 
 
