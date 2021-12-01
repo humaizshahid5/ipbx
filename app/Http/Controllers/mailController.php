@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 use DB;
+use Artisan;
 use Illuminate\Http\Request;
 use Mail;
+use Database\Seeds\MailSeeder;
 
 class mailController extends Controller
 {
     public function index(){
       
-            $get = DB::table('mail_settings')->get();
+            $count = DB::table('mail_settings')->count();
+            if($count == "0"){
+                Artisan::call("db:seed", ['--class' => "MailSeeder"]);
+                $get = DB::table('mail_settings')->get();
+            }
+            else{
+                $get = DB::table('mail_settings')->get();
+            }
+
             return view("mail", [
                 'data' => $get
             ]);
@@ -48,13 +58,13 @@ class mailController extends Controller
     
             
         }
-        public function test_mail(){
-
-           
-            $details = "Test Email";
+        public function test_mail(Request $request){
+            $this->validate($request, [
+                'email' => ['required','email']
+            ]);
             try {
               
-                \Mail::to("humaiz.sh90@gmail.com")->send(new \App\Mail\testmail());
+                \Mail::to($request->email)->send(new \App\Mail\testmail());
                 toastr()->info('And email report has been sent');
                 return back();
                
