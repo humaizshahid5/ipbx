@@ -1,1 +1,1 @@
-Hiiii
+Hello, This is a test email. Send to check email settings
