@@ -1,1 +1,1 @@
-Hello, This is a test email. Send to check email settings
+Hello, This is a test email. Send from {{ env("APP_NAME") }}.

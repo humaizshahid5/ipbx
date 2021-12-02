@@ -65,7 +65,7 @@ class mailController extends Controller
             try {
               
                 \Mail::to($request->email)->send(new \App\Mail\Testmail);
-                toastr()->info('And email report has been sent');
+                toastr()->info('Test email has been send');
                 return back();
                
                }

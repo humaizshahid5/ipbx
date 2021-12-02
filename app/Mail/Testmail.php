@@ -31,7 +31,11 @@ class Testmail extends Mailable
     public function build()
     {
         
-        return $this->view('testmail');
+        return $this
+        ->from($address = config('mail.username'), $name = config('mail.name'))
+        ->subject("Test Email")
+        ->view('testmail');
+        
  
 
       
