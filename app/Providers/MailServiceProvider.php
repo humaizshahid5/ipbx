@@ -29,7 +29,6 @@ class MailServiceProvider extends ServiceProvider
                     'username'   => $mail->username,
                     'password'   => $mail->password,
                     'subject'   => $mail->mail_subject,
-
                     'sendmail'   => '/usr/sbin/sendmail -bs',
                     'pretend'    => false,
                 );
