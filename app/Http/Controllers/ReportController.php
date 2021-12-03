@@ -200,7 +200,7 @@ class ReportController extends Controller
        
        try {
         \Mail::to($user_data->email)->send(new \App\Mail\Mail($details));
-        toastr()->info('And email report has been sent');
+        toastr()->info('Email report has been sent');
         return back();
        
        }

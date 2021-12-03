@@ -24,6 +24,7 @@ class MailServiceProvider extends ServiceProvider
                     'driver'     => $mail->driver,
                     'host'       => $mail->host,
                     'port'       => $mail->port,
+                    'from_name'  => $mail->mail_from,
                     'from'       => array('address' => $mail->mail_from_address, 'name' => $mail->mail_from),
                     'encryption' => $mail->encryption,
                     'username'   => $mail->username,

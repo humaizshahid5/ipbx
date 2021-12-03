@@ -32,7 +32,7 @@ class Testmail extends Mailable
     {
         
         return $this
-        ->from($address = config('mail.username'), $name = config('mail.name'))
+        ->from($address = config('mail.username'), $name = config('mail.from_name'))
         ->subject("Test Email")
         ->view('testmail');
         
