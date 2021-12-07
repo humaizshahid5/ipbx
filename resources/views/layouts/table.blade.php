@@ -69,9 +69,10 @@
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->billsec }}</td>
                     <td>
-                      @php $c_rate =0;  $p_name = ""; $c_count =0; @endphp
+                      @x $c_rate =0;  $p_name = ""; $c_count =0; @endphp
                         @foreach($rates as $rate)
                           @php
+                          
                           if($rate->type == '2'){
                             $price_data = $rate->sdn;
                             $call_data = $call->source;
@@ -81,6 +82,15 @@
                             $call_data = $call->destination;
                             
                           }
+
+                          if (preg_match('/[\[\]\']/', $string))
+
+                                {
+                                   
+                                }
+                                else{
+                                 echo "Not mached";
+                                }
                         
                            
                             $p_values = array();
@@ -154,6 +164,10 @@
                     else{
                       echo $p_name;
                     }
+                    
+                         
+                          
+
                     
                    @endphp
                     </td>
