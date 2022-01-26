@@ -1,5 +1,75 @@
 <div class="table-responsive" >
+@php
+  function add_some_extra($first,$second,&$third,&$fourth,$fifth,$sixth)
+  {
+      
+      $price_data = $first; 
+      $call_data = $second;
+      $call = $third;
+      $rate = $fourth;
+      $c_count = $fifth;
+      $t_cost = $sixth;
+      $p_values = array();
+      $c_values = array();
+      $p_num = array();
+      $status = 0;
+     
+      for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
+          if(is_numeric($price_data[$i])){
+                  $p_values[] =$i." | ".$price_data[$i]."<br>";
+                  $p_num[] = $i;
+          }
+        }
+        for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
+            $c_values[] = $i." | ".$call_data[$i]. "<br>";
+        }
+        $num = count($p_num);
+        $m_count= 0;
+        for($i = 0; $i < $num; $i++)
+        {
+          $p_val = $p_num[$i];
+          if($p_values[$i] == $c_values[$p_val])
+          {
+            $m_count = $m_count+1;
+            $status = 1;
+          }
+          else
+          {
+            $status = 0;
+          }
+        }
+      if($status == 1)
+      {
+        if($m_count > $c_count)
+        {
+          if($call->billsec <=	$rate->grace)
+          {
+            $c_rate = $rate->rate;
+            $p_name = $rate->name;
+            $free = true;
+          }
+          else
+          {
+            if($rate->rate == 0)
+            {
+              $c_cost = 0;
+              $p_name = $rate->name;
+            }
+            else
+            {
+              $c_count = $m_count;
+              $c_rate = $rate->rate;
+              $p_name = $rate->name;
+              $c_cost =round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+              $t_cost = $t_cost+$c_cost;
+            }
+          }
+        }
+      }
+      return $p_name.$t_cost.$c_cost;
+  }
 
+@endphp
 <table id="datatable" class="table table-bordered compact table-striped " >
                   <thead>
                   <tr>
@@ -69,7 +139,12 @@
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->billsec }}</td>
                     <td>
-                      @x $c_rate =0;  $p_name = ""; $c_count =0; @endphp
+                        @php 
+                          $c_rate =0;
+                          $p_name = "";
+                          $c_count =0;
+                         
+                        @endphp
                         @foreach($rates as $rate)
                           @php
                           
@@ -82,74 +157,160 @@
                             $call_data = $call->destination;
                             
                           }
-
-                          if (preg_match('/[\[\]\']/', $string))
+                          if (preg_match('/[\[\]\']/', $price_data))
 
                                 {
-                                   
-                                }
-                                else{
-                                 echo "Not mached";
-                                }
-                        
-                           
-                            $p_values = array();
-                            $c_values = array();
-                            $p_num = array();
-                            $status = 0;
-                            if(preg_match("/[a-z]/i", $call_data)){
-                              break;
-                            }
-                            if(strlen($price_data) == strlen($call_data) && $call->calltype == $rate->type){
-                            for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
-                                if(is_numeric($price_data[$i])){
-                                        $p_values[] =$i." | ".$price_data[$i]."<br>";
-                                        $p_num[] = $i;
-                                }
-                              }
-                              for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
-                                  $c_values[] = $i." | ".$call_data[$i]. "<br>";
-                              }
-                              $num = count($p_num);
-                              $m_count= 0;
-                              for($i = 0; $i < $num; $i++){
-                              $p_val = $p_num[$i];
-                              if($p_values[$i] == $c_values[$p_val]){
-                                $m_count = $m_count+1;
-                              $status = 1;
-                              }
-                              else{
-                              $status = 0;
-                              break;
-                              }
-                              }
-                            if($status == 1){
-                              if($m_count > $c_count)
-                              {
-                                if($call->billsec <=	$rate->grace)
-                                {
-                                  $c_rate = $rate->rate;
-                                  $p_name = $rate->name;
-                                  $free = true;
-                                }
-                              else{
-                                if($rate->rate == 0){
-                                  $c_cost = 0;
-                                  $p_name = $rate->name;
-                                }
-                                else{
-                                  $c_count = $m_count;
-                                  $c_rate = $rate->rate;
-                                  $p_name = $rate->name;
-                                 
-                                  $c_cost =round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
-                                  $t_cost = $t_cost+$c_cost;
-                                }
-                              }
+                                  
+
+                                $postition =strpos($price_data, "[");
+                                $first_position= $postition+1;
+                                $second_position = $postition+3;
                               
-                            }
-                            }
-                          }
+                              for($x= $price_data[$first_position]; $x <= $price_data[$second_position]; $x++)
+                              
+                               {
+
+                                $new_data =  str_replace("[".$price_data[$first_position]."-".$price_data[$second_position]."]", $x, $price_data);
+                                if(strlen($new_data) == strlen($call_data) && $call->calltype == $rate->type){
+                                  $price_data = $new_data; 
+      
+      $p_values = array();
+      $c_values = array();
+      $p_num = array();
+      $status = 0;
+     
+      for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
+          if(is_numeric($price_data[$i])){
+                  $p_values[] =$i." | ".$price_data[$i]."<br>";
+                  $p_num[] = $i;
+          }
+        }
+        for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
+            $c_values[] = $i." | ".$call_data[$i]. "<br>";
+        }
+        $num = count($p_num);
+        $m_count= 0;
+        for($i = 0; $i < $num; $i++)
+        {
+          $p_val = $p_num[$i];
+          if($p_values[$i] == $c_values[$p_val])
+          {
+            $m_count = $m_count+1;
+            $status = 1;
+          }
+          else
+          {
+            $status = 0;
+          }
+        }
+      if($status == 1)
+      {
+        if($m_count > $c_count)
+        {
+          if($call->billsec <=	$rate->grace)
+          {
+            $c_rate = $rate->rate;
+            $p_name = $rate->name;
+            $free = true;
+          }
+          else
+          {
+            if($rate->rate == 0)
+            {
+              $c_cost = 0;
+              $p_name = $rate->name;
+            }
+            else
+            {
+              $c_count = $m_count;
+              $c_rate = $rate->rate;
+              $p_name = $rate->name;
+              $c_cost =round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+              $t_cost = $t_cost+$c_cost;
+            }
+          }
+        }
+      }
+
+                                  
+                               
+                               
+                                }
+                                else{
+                                  break;
+                                }
+                                
+                                }
+                                
+
+                                }
+                                else{
+                                  if(strlen($price_data) == strlen($call_data) && $call->calltype == $rate->type){
+                              
+      $p_values = array();
+      $c_values = array();
+      $p_num = array();
+      $status = 0;
+     
+      for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
+          if(is_numeric($price_data[$i])){
+                  $p_values[] =$i." | ".$price_data[$i]."<br>";
+                  $p_num[] = $i;
+          }
+        }
+        for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
+            $c_values[] = $i." | ".$call_data[$i]. "<br>";
+        }
+        $num = count($p_num);
+        $m_count= 0;
+        for($i = 0; $i < $num; $i++)
+        {
+          $p_val = $p_num[$i];
+          if($p_values[$i] == $c_values[$p_val])
+          {
+            $m_count = $m_count+1;
+            $status = 1;
+          }
+          else
+          {
+            $status = 0;
+          }
+        }
+      if($status == 1)
+      {
+        if($m_count > $c_count)
+        {
+          if($call->billsec <=	$rate->grace)
+          {
+            $c_rate = $rate->rate;
+            $p_name = $rate->name;
+            $free = true;
+          }
+          else
+          {
+            if($rate->rate == 0)
+            {
+              $c_cost = 0;
+              $p_name = $rate->name;
+            }
+            else
+            {
+              $c_count = $m_count;
+              $c_rate = $rate->rate;
+              $p_name = $rate->name;
+              $c_cost =round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+              $t_cost = $t_cost+$c_cost;
+            }
+          }
+        }
+      }
+                                  }
+                                  else{
+                                    break;
+                                  }
+                                }
+                                                          
+                            
                           @endphp
                       @endforeach
                     @php
@@ -166,8 +327,7 @@
                     }
                     
                          
-                          
-
+                      
                     
                    @endphp
                     </td>

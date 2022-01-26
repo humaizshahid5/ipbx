@@ -55,18 +55,39 @@
                   @csrf
                   <div class="row">
                      <div class="col-lg-12 col-xs-12">
+                     @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         <label>Name</label>
                         <input type="text" class="form-control" name="name" value="{{ $edit->name }}" required />
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                     @error('sdn')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         <label>Source/Destination</label>
                         <input type="text" class="form-control" value="{{ $edit->sdn }}" name="sdn" required />
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                     @error('rate')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         <label>Rate</label>
                         <input type="number" class="form-control" value="{{ $edit->rate }}" name="rate" step="0.01" required />
                      </div>
+
                      <div class="col-lg-6 col-xs-12" >
+                     @error('type')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         <label>Type</label>
                         <select class="form-control" name="type" required>
                         <option {{ $edit->type == '1' ? 'selected' : '' }} value="1">Local</option>
@@ -75,14 +96,29 @@
                         </select>
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                     @error('grace')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         <label>Grace Time</label>
                         <input type="number" class="form-control" value="{{ $edit->grace }}" name="grace" step="0.01" required />
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                     @error('minimal')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         <label>Minimal Seconds</label>
                         <input type="number" class="form-control" value="{{ $edit->minimal }}" name="minimal" step="0.01" required />
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                     @error('fraction')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         <label>Time Fraction</label>
                         <input type="number" class="form-control" value="{{ $edit->fraction }}" name="fraction" step="0.01" required />
                      </div>
@@ -103,41 +139,84 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+           
                <form action="{{ route('add_pricing') }}" method="post">
                   @csrf
                   <div class="row">
                      <div class="col-lg-12 col-xs-12">
+                   
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name" required />
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required />
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                     
                         <label>Source/Destination</label>
-                        <input type="text" class="form-control" name="sdn" required />
+                        <input type="text" class="form-control @error('sdn') is-invalid @enderror" name="sdn" value="{{ old('sdn') }}" required />
+                        @error('sdn')
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                    
                         <label>Rate</label>
-                        <input type="number" class="form-control" name="rate" step="0.01" required />
+                        <input type="number" class="form-control @error('rate') is-invalid @enderror" name="rate" value="{{ old('rate') }}" step="0.01" required />
+                        @error('rate')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
                      </div>
                      <div class="col-lg-6 col-xs-12" >
+                    
                         <label>Type</label>
-                        <select class="form-control" name="type" required>
+                        <select class="form-control @error('type') is-invalid @enderror" name="type" required>
                            <option value="">Select One</option>
                            <option value="1">Local</option>
                            <option value="2">Incoming</option>
                            <option value="3">Outgoing</option>
                         </select>
+                        @error('type')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                         @enderror
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                    
                         <label>Grace Time</label>
-                        <input type="number" class="form-control" name="grace" step="0.01" required />
+                        <input type="number" class="form-control @error('grace') is-invalid @enderror" value="{{ old('grace') }}" name="grace" step="0.01" required />
+                        @error('grace')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                    
                         <label>Minimal Seconds</label>
-                        <input type="number" class="form-control" name="minimal" step="0.01" required />
+                        <input type="number" class="form-control @error('minimal') is-invalid @enderror" name="minimal" value="{{ old('minimal') }}" step="0.01" required />
+                        @error('minimal')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
                      </div>
                      <div class="col-lg-6 col-xs-12">
+                   
                         <label>Time Fraction</label>
-                        <input type="number" class="form-control" name="fraction" step="0.01" required />
+                        <input type="number" class="form-control" name="fraction @error('fraction') is-invalid @enderror" value="{{ old('fraction') }}" step="0.01" required />
+                        @error('fraction')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                      </div>
                      <div class="col-lg-12 col-sm-12">
                         <br>
