@@ -1,14 +1,19 @@
 <div class="table-responsive" >
+                   
+
 @php
-  function add_some_extra($first,$second,&$third,&$fourth,$fifth,$sixth)
+class MyXYZ{
+                        
+                        public $c_count,$c_rate,$p_name,$c_cost,$t_cost;
+                       
+
+    }
+  function add_some_extra($price_data,$call_data,&$call,&$rate)
   {
+
       
-      $price_data = $first; 
-      $call_data = $second;
-      $call = $third;
-      $rate = $fourth;
-      $c_count = $fifth;
-      $t_cost = $sixth;
+    
+      $out = new MyXYZ();
       $p_values = array();
       $c_values = array();
       $p_num = array();
@@ -40,33 +45,34 @@
         }
       if($status == 1)
       {
-        if($m_count > $c_count)
+        if($m_count > $out->c_count)
         {
           if($call->billsec <=	$rate->grace)
           {
-            $c_rate = $rate->rate;
-            $p_name = $rate->name;
-            $free = true;
+            $out->c_rate = $rate->rate;
+            $out->p_name = $rate->name;
+            $out->free = true;
           }
           else
           {
             if($rate->rate == 0)
             {
-              $c_cost = 0;
-              $p_name = $rate->name;
+              $out->c_cost = 0;
+              $out->p_name = $rate->name;
             }
             else
             {
               $c_count = $m_count;
               $c_rate = $rate->rate;
-              $p_name = $rate->name;
-              $c_cost =round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
-              $t_cost = $t_cost+$c_cost;
+              $out->p_name = $rate->name;
+              $out->c_cost =round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
+              $out->t_cost = $out->t_cost+$out->c_cost;
             }
           }
         }
       }
-      return $p_name.$t_cost.$c_cost;
+     return $out;
+     
   }
 
 @endphp
@@ -89,7 +95,13 @@
                     @foreach($calls as $call)
                     @if($call->destination != "" || $call->source != "")
                     @php
-                    $c_cost = 0;
+                    
+                       
+                        
+                    $xyz = new MyXYZ();
+                         
+                       
+                    
                     $free = false;
                     
                      $t_duration = $t_duration+$call->billsec;
@@ -139,12 +151,7 @@
                     <td>@if($call->calltype == '1') Local @elseif($call->calltype == '2') Incoming @elseif($call->calltype == '3') Outgoing @endif</td>
                     <td>{{ $call->billsec }}</td>
                     <td>
-                        @php 
-                          $c_rate =0;
-                          $p_name = "";
-                          $c_count =0;
-                         
-                        @endphp
+                       
                         @foreach($rates as $rate)
                           @php
                           
@@ -172,71 +179,14 @@
 
                                 $new_data =  str_replace("[".$price_data[$first_position]."-".$price_data[$second_position]."]", $x, $price_data);
                                 if(strlen($new_data) == strlen($call_data) && $call->calltype == $rate->type){
-                                  $price_data = $new_data; 
-      
-      $p_values = array();
-      $c_values = array();
-      $p_num = array();
-      $status = 0;
-     
-      for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
-          if(is_numeric($price_data[$i])){
-                  $p_values[] =$i." | ".$price_data[$i]."<br>";
-                  $p_num[] = $i;
-          }
-        }
-        for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
-            $c_values[] = $i." | ".$call_data[$i]. "<br>";
-        }
-        $num = count($p_num);
-        $m_count= 0;
-        for($i = 0; $i < $num; $i++)
-        {
-          $p_val = $p_num[$i];
-          if($p_values[$i] == $c_values[$p_val])
-          {
-            $m_count = $m_count+1;
-            $status = 1;
-          }
-          else
-          {
-            $status = 0;
-          }
-        }
-      if($status == 1)
-      {
-        if($m_count > $c_count)
-        {
-          if($call->billsec <=	$rate->grace)
-          {
-            $c_rate = $rate->rate;
-            $p_name = $rate->name;
-            $free = true;
-          }
-          else
-          {
-            if($rate->rate == 0)
-            {
-              $c_cost = 0;
-              $p_name = $rate->name;
-            }
-            else
-            {
-              $c_count = $m_count;
-              $c_rate = $rate->rate;
-              $p_name = $rate->name;
-              $c_cost =round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
-              $t_cost = $t_cost+$c_cost;
-            }
-          }
-        }
-      }
 
-                                  
+                                  $xyz = add_some_extra($new_data,$call_data,$call,$rate);
+                                    
                                
                                
                                 }
                                 else{
+                                 
                                   break;
                                 }
                                 
@@ -246,66 +196,10 @@
                                 }
                                 else{
                                   if(strlen($price_data) == strlen($call_data) && $call->calltype == $rate->type){
-                              
-      $p_values = array();
-      $c_values = array();
-      $p_num = array();
-      $status = 0;
-     
-      for($i = 0, $length = strlen($price_data); $i < $length; $i++) {
-          if(is_numeric($price_data[$i])){
-                  $p_values[] =$i." | ".$price_data[$i]."<br>";
-                  $p_num[] = $i;
-          }
-        }
-        for($i = 0, $length = strlen($call_data); $i < $length; $i++) {
-            $c_values[] = $i." | ".$call_data[$i]. "<br>";
-        }
-        $num = count($p_num);
-        $m_count= 0;
-        for($i = 0; $i < $num; $i++)
-        {
-          $p_val = $p_num[$i];
-          if($p_values[$i] == $c_values[$p_val])
-          {
-            $m_count = $m_count+1;
-            $status = 1;
-          }
-          else
-          {
-            $status = 0;
-          }
-        }
-      if($status == 1)
-      {
-        if($m_count > $c_count)
-        {
-          if($call->billsec <=	$rate->grace)
-          {
-            $c_rate = $rate->rate;
-            $p_name = $rate->name;
-            $free = true;
-          }
-          else
-          {
-            if($rate->rate == 0)
-            {
-              $c_cost = 0;
-              $p_name = $rate->name;
-            }
-            else
-            {
-              $c_count = $m_count;
-              $c_rate = $rate->rate;
-              $p_name = $rate->name;
-              $c_cost =round ( $rate->rate / 60 * ( $call->billsec <= $rate->minimal ? $rate->minimal : ceil ( $call->billsec / $rate->fraction) * $rate->fraction), 2);
-              $t_cost = $t_cost+$c_cost;
-            }
-          }
-        }
-      }
+                                    $xyz =  add_some_extra($price_data,$call_data,$call,$rate);
                                   }
                                   else{
+                                    echo $out->p_name;
                                     break;
                                   }
                                 }
@@ -314,7 +208,7 @@
                           @endphp
                       @endforeach
                     @php
-                    if($p_name == "" ){
+                    if($xyz->p_name == "" ){
                       if($call->calltype == '2'){
                            echo "Recebida";
                       }
@@ -323,7 +217,7 @@
                         }
                     } 
                     else{
-                      echo $p_name;
+                      echo $xyz->p_name;
                     }
                     
                          
@@ -331,13 +225,13 @@
                     
                    @endphp
                     </td>
-                    <td>@php echo number_format(floatval($c_rate), 2, ',', '');  @endphp</td>
+                    <td>@php echo number_format(floatval($xyz->c_rate), 2, ',', '');  @endphp</td>
                     <td>@php  
                       if($free == true){
                         echo "Free";
                       }
                       else{
-                         echo number_format(floatval($c_cost), 2, ',', '');
+                         echo number_format(floatval($xyz->c_cost), 2, ',', '');
                       }
                       @endphp</td>
                   </tr>
@@ -353,7 +247,7 @@
                         <td>@php echo $t_duration; @endphp</td>
                         <td></td>
                         <td>Totals Cost</td>
-                        <td>@php echo number_format(floatval($t_cost), 2, ',', ''); @endphp</td>
+                        <td>@php echo number_format(floatval($xyz->t_cost), 2, ',', ''); @endphp</td>
                       </tr>
                     </tfoot>             
                 </table>
