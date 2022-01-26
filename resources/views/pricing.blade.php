@@ -211,7 +211,7 @@
                      <div class="col-lg-6 col-xs-12">
                    
                         <label>Time Fraction</label>
-                        <input type="number" class="form-control" name="fraction @error('fraction') is-invalid @enderror" value="{{ old('fraction') }}" step="0.01" required />
+                        <input type="number" class="form-control @error('fraction') is-invalid @enderror" name="fraction" value="{{ old('fraction') }}" step="0.01" required />
                         @error('fraction')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

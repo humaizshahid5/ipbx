@@ -54,6 +54,7 @@ class PricingController extends Controller
             'fraction' => ['required','numeric'],
 
 
+
         ]);
    
 
