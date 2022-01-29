@@ -10013,10 +10013,12 @@ h3 {
   background-color: red !important;
   padding:5px !important;
 }
-
+#toast-container>div {
+  position: fixed !important;
+  }
 .toast {
   left: 50%  !important;
-  position: fixed !important;;
-  transform: translate(-50%, 0px) !important;;
-  z-index: 9999 !important;;
+  position: fixed !important;
+  transform: translate(-50%, 0px) !important;
+  z-index: 9999 !important;
 }

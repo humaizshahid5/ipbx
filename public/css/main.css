@@ -1,4 +1,7 @@
 .input-error{
     color:red;margin-top:-20px;margin-bottom:0px;padding:0px;
   }
-  
+  #toast-container>div {
+    position: fixed !important;
+    left:45% !important;
+}
