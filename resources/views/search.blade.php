@@ -20,14 +20,14 @@
                       <label>
                         From
                       </label>
-                      <input type="date" class="form-control @error('fromdate') is-invalid @enderror" name="fromdate"  value="{{ app('request')->input('fromdate') }}" />
+                      <input type="date" class="form-control @error('fromdate') is-invalid @enderror" name="fromdate"  value="{{ app('request')->input('fromdate') }}" required />
                     </div>
                     <div class="col-md-6">
                       
                       <label>
                         To
                       </label>
-                      <input type="date" class="form-control @error('todate') is-invalid @enderror" name="todate" value="{{ app('request')->input('todate') }}" />
+                      <input type="date" class="form-control @error('todate') is-invalid @enderror" name="todate" value="{{ app('request')->input('todate') }}" required />
                     </div>
                     <div class="col-md-6">
                       <label>
