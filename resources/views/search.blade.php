@@ -21,6 +21,11 @@
                         From
                       </label>
                       <input type="date" class="form-control @error('fromdate') is-invalid @enderror" name="fromdate"  value="{{ app('request')->input('fromdate') }}" required />
+                      @error('fromdate')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                       
@@ -28,6 +33,11 @@
                         To
                       </label>
                       <input type="date" class="form-control @error('todate') is-invalid @enderror" name="todate" value="{{ app('request')->input('todate') }}" required />
+                      @error('todate')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                       <label>

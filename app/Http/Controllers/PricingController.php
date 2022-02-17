@@ -46,7 +46,7 @@ class PricingController extends Controller
     {
         $this->validate($request, [
             'name' => ['required'],
-            'sdn' => ['required','regex:/^[A-Za-z0-9\[\]\-]*$/'],
+            'sdn' => ['required','regex:/^[A-Za-z0-9\[\]\-\,]*$/'],
             'rate' => ['required','numeric'],
             'type' => ['required','numeric'],
             'grace' => ['required','numeric'],

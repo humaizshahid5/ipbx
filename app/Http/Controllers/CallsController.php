@@ -17,7 +17,11 @@ class CallsController extends Controller
     }
     public function search(Request $request)
     {
-      
+        $this->validate($request, [
+            'fromdate' => ['required'],
+            'todate' => ['required']
+
+        ]);
 
        
         
@@ -75,12 +79,12 @@ if ($filters['from']) {
     })
     ->Where('billsec', '>=', '1' )->orderby('calldate' , 'DESC')
     ->select('call.*', 'd_name.number as d_number', 'd_name.name as d_name','s_name.name as s_name','s_name.number as s_number','s_name.id as s_id','d_name.id as d_id')
-    ->get();
+    ->paginate(25);
 
         $rates =   DB::table('pricings')->get();
 
-        return view("calls",  [
-            'calls' => $calls,
+        return view("calls", compact('calls') , [
+           
             'rates' => $rates
            
         ]);
