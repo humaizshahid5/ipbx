@@ -9,6 +9,7 @@
   $GLOBALS['t_cost'] = 0;
   function add_some_extra($price_data,$call_data,&$call,&$rate)
   {
+    $GLOBALS['free'] = false;
     $p_values = array();
     $c_values = array();
     $p_num = array();
@@ -75,7 +76,7 @@
   }
 
 @endphp
-   <table id="datatable" class="table table-bordered compact table-striped " >
+   <table class="table table-bordered compact table-striped " >
       <thead>
         <tr>
           <th style="display:none;">#</th>
@@ -161,13 +162,45 @@
                 }
                 if (preg_match('/[\[\]\']/', $price_data))
                 {
-                    $postition =strpos($price_data, "[");
-                    $first_position= $postition+1;
-                    $second_position = $postition+3;
-                    for($x= $price_data[$first_position]; $x <= $price_data[$second_position]; $x++)
+                    $postition1 =strpos($price_data, "[");
+                    $postition2 =strpos($price_data, "]");
+                    $stn_length = strlen($price_data);
+                   
+
+                   
+                    for($x=$postition1+1 ; $x <= $postition2-1; $x++)
                     {
-                      $new_data =  str_replace("[".$price_data[$first_position]."-".$price_data[$second_position]."]", $x, $price_data);
-                      if(strlen($new_data) == strlen($call_data) && $call->calltype == $rate->type)
+                  
+
+                      if($price_data[$x+1] == "-"){
+                       
+                        for($i=$price_data[$x]; $i <= $price_data[$x+2]; $i++)
+                        {
+                         
+                          
+                        $new_data= preg_replace('/[\[{\(].*?[\]}\)]/' , $i, $price_data);
+                                                  
+                        
+                         if(strlen($new_data) == strlen($call_data) && $call->calltype == $rate->type)
+                         {
+                            add_some_extra($new_data,$call_data,$call,$rate);
+                            if($GLOBALS['loop_end'] == true)
+                            {
+                              break;
+                            }
+                         }
+                         else{                        
+                           break;
+                         }
+                        
+                        }
+                       $x = $x+2;
+                      }
+                      else{
+                     
+                        $new_data = preg_replace('/[\[{\(].*?[\]}\)]/' , $price_data[$x], $price_data);
+                       
+                        if(strlen($new_data) == strlen($call_data) && $call->calltype == $rate->type)
                       {
                         add_some_extra($new_data,$call_data,$call,$rate);
                         if($GLOBALS['loop_end'] == true)
@@ -175,12 +208,16 @@
                           break;
                         }
                       }
-                      else
-                      {
+                      else{
+                       
                         break;
-                      }                                
+                      }
+                        $x = $x+1;
+                      }
+                                          
                     }
-                }
+                  }
+                
                 else
                 {
                   if(strlen($price_data) == strlen($call_data) && $call->calltype == $rate->type)
@@ -230,5 +267,9 @@
             </tr>
         </tfoot>             
     </table>
+    <div class="d-flex justify-content-center">
+            {!! $calls->links() !!}
+        </div>
+
 </div>
                  
